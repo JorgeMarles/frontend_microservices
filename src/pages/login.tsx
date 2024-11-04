@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import Header from '../components/Header';
 
 interface LoginProps {
   title ?: string;
@@ -15,6 +16,7 @@ const Login: FC<LoginProps> = ({ title }) => {
 
   return (
     <>
+      <Header></Header>
       <h1>{title}</h1>
       <h1>{contador}</h1>
       <button onClick={handleAdd}></button>
