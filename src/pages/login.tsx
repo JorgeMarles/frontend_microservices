@@ -26,6 +26,7 @@ const Login: FC = () => {
         title='Login'
         fields={fields_login}
         onSubmit={handleLogin}
+        textSubmit='Submit'
         redirect={true}
         onRedirectCreateAccount={handleRedirectCreateAccount}
         onRedirectPassword={handleRedirectPassword}

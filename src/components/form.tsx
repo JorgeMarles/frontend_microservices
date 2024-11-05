@@ -5,6 +5,7 @@ interface FormProps<T> {
     title: string;
     fields: Fields;
     onSubmit: (data: T) => void;
+    textSubmit: string;
     redirect: boolean;
     onRedirectCreateAccount?: () => void;
     onRedirectPassword?: () => void;
@@ -14,6 +15,7 @@ const Form = <T extends object>({
     title,
     fields,
     onSubmit,
+    textSubmit,
     redirect,
     onRedirectCreateAccount,
     onRedirectPassword
@@ -37,7 +39,7 @@ const Form = <T extends object>({
     };
 
     return (
-        <div className='bg-red-500 pb-5 pl-5 pr-5 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md border-2 border-black'>
+        <div className='bg-red-500 pb-5 px-8 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md border-2 border-black'>
             <h1 className='text-8xl text-stroke font-Jomhuria'>{title}</h1>
             <form onSubmit={handleSubmit} className='flex flex-col items-center m-0'>
                 {Object.keys(fields).map(key => (
@@ -56,7 +58,7 @@ const Form = <T extends object>({
                     </div>
                 ))}
                 <button type="submit" className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
-                    Submit
+                    {textSubmit}
                 </button>
                 <div className='flex items-center'>
                     <a href="#" className="text-center w-full mr-5 ">
