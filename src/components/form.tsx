@@ -8,7 +8,6 @@ interface FormProps<T> {
     onRedirect?: () => void;
 }
 
-
 const Form = <T extends object>({
     title,
     fields,
@@ -36,11 +35,11 @@ const Form = <T extends object>({
 
 
     return (
-        <div className='bg-red-500 p-10 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md'>
-            <h1 className='text-5xl font-serif font-bold mb-5'>Login</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='bg-red-600 pb-5 pl-5 pr-5 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md border-2 border-black'>
+            <h1 className='text-8xl text-stroke font-Jomhuria'>{title}</h1>
+            <form onSubmit={handleSubmit} className='flex flex-col items-center'>
                 {Object.keys(fields).map(key => (
-                    <div key={key} className="flex items-stretch border border-black bg-white  w-64 m-3">
+                    <div key={key} className="flex items-stretch border border-black bg-white  w-64 m-2">
                         <div className='flex items-center justify-center p-2 border-r border-black'>
                         {fields[key].icon}
                         </div>
@@ -53,17 +52,9 @@ const Form = <T extends object>({
                             required
                         />
                     </div>
-                    // <div className="flex items-center border border-black bg-red-600 rounded-md p-2 w-64">
-                    //     <AtSymbolIcon className="h-5 w-5 text-black mr-2" />
-                    //     <input
-                    //         type="email"
-                    //         placeholder="Email"
-                    //         className="bg-transparent border-none outline-none placeholder-gray-300 text-black flex-grow"
-                    //     />
-                    // </div>
                 ))}
-                <button type="submit" className='rounded-full bg-blue-800 m-5 px-5 py-2 text-gray-200 hover:text-gray-700 bg-blue-800 hover:bg-blue-100 '>
-                    Enviar
+                <button type="submit" className='rounded-full bg-white m-5 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
+                    Submit
                 </button>
             </form>
         </div>
