@@ -9,6 +9,8 @@ interface FormProps<T> {
     redirect: boolean;
     onRedirectCreateAccount?: () => void;
     onRedirectPassword?: () => void;
+    onSend?: () => void;
+    sendCode: boolean;
 }
 
 const Form = <T extends object>({
@@ -18,7 +20,9 @@ const Form = <T extends object>({
     textSubmit,
     redirect,
     onRedirectCreateAccount,
-    onRedirectPassword
+    onRedirectPassword,
+    onSend,
+    sendCode
 }: FormProps<T>) => {
 
     const [formData, setFormData] = useState({});
@@ -37,6 +41,7 @@ const Form = <T extends object>({
         onSubmit(formData as T);
         setFormData({});
     };
+
 
     return (
         <div className='bg-red-500 pb-5 px-8 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md border-2 border-black'>
@@ -57,9 +62,16 @@ const Form = <T extends object>({
                         />
                     </div>
                 ))}
-                <button type="submit" className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
-                    {textSubmit}
-                </button>
+                <div className='flex items-center justify-center'>
+                    <button type="submit" className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
+                        {textSubmit}
+                    </button>
+                    {sendCode && (
+                        <button type="button" onClick={onSend} className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
+                            Send code
+                        </button>
+                    )}
+                </div>
                 <div className='flex items-center'>
                     <a href="#" className="text-center w-full mr-5 ">
                         {

@@ -30,6 +30,7 @@ const Login: FC = () => {
         redirect={true}
         onRedirectCreateAccount={handleRedirectCreateAccount}
         onRedirectPassword={handleRedirectPassword}
+        sendCode={false}
       />
     </div>
   );
