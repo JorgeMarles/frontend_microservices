@@ -17,7 +17,7 @@ const UpdatePassword: FC = () => {
   return (
     <div className='flex items-center justify-center fullscreen-background'  style={{ backgroundImage: `url(${backgroundURL})` }}>
       <Form<User_update_password>
-        title='Register'
+        title='Update'
         fields={fields_update_password}
         onSubmit={handleUpdatePassword}
         onSend={handleSendCode}
