@@ -4,12 +4,18 @@ import { fields_login } from '../utils/field';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { backgroundURL } from '../assets/Images';
+import { LoginSession } from '../hooks/LoginFetch';
 
 const Login: FC = () => {
   const navigate = useNavigate();
+  const { loginUser, success } = LoginSession();
 
   const handleLogin = (user: User_login) => {
     console.log(user);
+    loginUser(user);
+    if (success) {
+      navigate('/home');
+    }
   }
 
   const handleRedirectCreateAccount = () => {
@@ -21,7 +27,7 @@ const Login: FC = () => {
   }
 
   return (
-    <div className='flex items-center justify-center fullscreen-background'  style={{ backgroundImage: `url(${backgroundURL})` }}>
+    <div className='flex items-center justify-center fullscreen-background' style={{ backgroundImage: `url(${backgroundURL})` }}>
       <Form<User_login>
         title='Login'
         fields={fields_login}

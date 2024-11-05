@@ -2,7 +2,7 @@ import axios from 'axios';
 import { User_register } from '../utils/user_structure';
 import { URL_BACKEND } from '../configs/config';
 
-export const create = () => {
+export const Create = () => {
     const createUser = async (userData : User_register) => {
         try {
             await axios.post(`${URL_BACKEND}/user`, userData);

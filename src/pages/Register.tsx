@@ -4,11 +4,11 @@ import { fields_register } from '../utils/field';
 import Form from '../components/Form';
 import { backgroundURL } from '../assets/Images';
 import { useNavigate } from 'react-router-dom';
-import { create } from '../hooks/UserFetch';
+import { Create } from '../hooks/UserFetch';
 
 const Register: FC = () => {
   const navigate = useNavigate();
-  const { createUser } = create();
+  const { createUser } = Create();
 
   const handleRegister = (user: User_register) => {
     createUser(user);
