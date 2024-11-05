@@ -3,7 +3,7 @@ import { User_login } from '../utils/user_structure';
 import { fields_login } from '../utils/field';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
-import { backgroundUrl } from '../assets/Images';
+import { backgroundURL } from '../assets/Images';
 
 const Login: FC = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Login: FC = () => {
   }
 
   return (
-    <div className='flex flex-grow items-center justify-center fullscreen-background'  style={{ backgroundImage: `url(${backgroundUrl})` }}>
+    <div className='flex items-center justify-center fullscreen-background'  style={{ backgroundImage: `url(${backgroundURL})` }}>
       <Form<User_login>
         title='Login'
         fields={fields_login}
