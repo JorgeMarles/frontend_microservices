@@ -1,14 +1,19 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
+import Login from './pages/login'
+
+import Header from './components/Header';
 
 const App: React.FC = () => {
+
+  
   return (
-    <>
+    <div className='h-screen w-screen flex flex-col'>
+      <Header></Header>
       <Routes>
-        <Route path="/" element={<Login title='hola' />} />
+        <Route path="/" element={<Login />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
