@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { User_login } from '../utils/user_structure';
 import Form from '../components/Form';
 import { fields_login } from '../utils/field';
+
+import Header from '../components/Header';
 
 interface LoginProps {
   title?: string;
@@ -16,6 +18,8 @@ const Login: FC<LoginProps> = ({ title }) => {
   }
 
   return (
+    <>
+    <Header></Header>
     <div className='w-screen h-screen flex bg-cover items-center justify-center'
       style={{
         backgroundImage: 'url(/background.jpg)', // assuming the image is in /public/images/your-image.jpg
@@ -30,6 +34,7 @@ const Login: FC<LoginProps> = ({ title }) => {
         onSubmit={handleLogin}
       />
     </div>
+    </>
   );
 };
 
