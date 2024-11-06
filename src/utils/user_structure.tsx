@@ -3,7 +3,7 @@ export interface User_login {
     password: string;
 }
 
-export interface User_registrer {
+export interface User_register {
     email: string;
     nickname: string;
     name: string;

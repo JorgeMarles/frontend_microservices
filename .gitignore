@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 #Test
-public/background.jpg
 images
+
+.env
