@@ -5,3 +5,10 @@ export interface Problem_structure {
     example_output : string;
     topic : string;    
 }
+
+export interface Problem {
+    id: number;
+    name: string;
+    topic: string;
+    difficulty: string;
+}

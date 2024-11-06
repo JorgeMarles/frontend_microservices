@@ -19,7 +19,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot_password" element={<UpdatePassword />} />
-          <Route path="/problems" element={<ProblemList></ProblemList>} />
+          <Route path="/home" element={<ProblemList></ProblemList>} />
           <Route path="/create_problem" element={<CreateProblem />} />
         </Routes>
       </div>

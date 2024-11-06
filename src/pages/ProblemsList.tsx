@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { FC, useEffect, useState } from 'react';
+import { Problem } from '../utils/problem_structure';
+import Table from '../components/Table';
 
-interface Problem {
-    id: number;
-    name: string;
-    topic: string;
-}
+import data_problems from '../data/problems.json';
 
 const ProblemList : FC = () => {
-    const [problems, setProblems] = useState<Problem[]>([])
+    const [problems, setProblems] = useState<Problem[]>(data_problems)
     
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +24,10 @@ const ProblemList : FC = () => {
 
     return (
         <>
-            <h1>Hola mundo</h1>
+            <Table
+                title='Problems'
+                data={problems}
+            />
         </>
     );
 };
