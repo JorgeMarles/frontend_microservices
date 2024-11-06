@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 const Table : FC = () => {
     return (
-        
+        <></>
     );
 };
 

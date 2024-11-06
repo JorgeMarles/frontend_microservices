@@ -1,13 +1,14 @@
 import React from 'react';
 import { AtSymbolIcon } from '@heroicons/react/24/solid';
-import { LockClosedIcon, CommandLineIcon, LightBulbIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { LockClosedIcon, CommandLineIcon, LightBulbIcon, UserCircleIcon, EyeIcon } from '@heroicons/react/24/outline';
 
 const icons = {
     email: <AtSymbolIcon className="h-5 w-5 text-black " />,
     password: <LockClosedIcon className="h-5 w-5 text-black " />,
     nickname: <UserCircleIcon className="h-5 w-5 text-black " />,
     name: <LightBulbIcon className="h-5 w-5 text-black " />,
-    verification_code: <CommandLineIcon className="h-5 w-5 text-black " />
+    verification_code: <CommandLineIcon className="h-5 w-5 text-black " />,
+    view: <EyeIcon className="h-5 w-5 text-black " />
   };
 
 interface FieldConfig {
@@ -82,5 +83,33 @@ export const fields_update_password: Fields = {
         name: "Repeat password",
         type: "password",
         icon: icons.password
+    }
+}
+
+export const field_problem: Fields = {
+    statement: {
+        name: "statement",
+        type: "text",
+        icon: icons.view
+    },
+    input: {
+        name: "input",
+        type: "text",
+        icon: icons.view
+    },
+    output: {
+        name: "output",
+        type: "text",
+        icon: icons.view
+    },
+    example_input: {
+        name: "example_input",
+        type: "text",
+        icon: icons.view
+    },
+    example_output: {
+        name: "example_output",
+        type: "text",
+        icon: icons.view
     }
 }
