@@ -27,12 +27,14 @@ const Problem = <T extends object>({
     };
 
     const handleChangeTopic = (value: string | undefined) => {
+        let x = 1;
         for (const topic of topics) {
             if (topic.name == value) {
-                setSelectedTopic(topic.id);
+                x = topic.id;
                 break;
             }
         }
+        setSelectedTopic(x);
     }
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -43,7 +45,7 @@ const Problem = <T extends object>({
         }
         setFormData({
             ...formData,
-            ["topic"]: selectedTopic,
+            ["topic_id"]: selectedTopic,
         });
         onSubmit(formData as T);
     };

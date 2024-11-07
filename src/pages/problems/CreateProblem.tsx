@@ -15,6 +15,10 @@ const CreateProblem: FC = () => {
 
   const handleCreateProblem = async (problem: Problem_structure) => {
     console.log(problem);
+    problem.url_input = "";
+    problem.url_output = "";
+    problem.url_solution = "";
+    problem.difficulty = "easy";
     create(problem); 
   }
 
@@ -23,7 +27,7 @@ const CreateProblem: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchTopics : Topic[] = await getTopics();
-      const topicsArray : {id: number, name: string}[] = fetchTopics.map(({ statement, ...rest }) => rest);
+      const topicsArray : {id: number, name: string}[] = fetchTopics.topics.map(({ statement, ...rest }) => rest);
       setTopics(topicsArray);
     }
     fetchData();

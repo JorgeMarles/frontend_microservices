@@ -88,17 +88,17 @@ export const fields_update_password: Fields = {
 
 export const field_problem: Fields = {
     statement: {
-        name: "Statement",
+        name: "statement",
         type: "text",
         icon: icons.view
     },
     input: {
-        name: "Input",
+        name: "input",
         type: "text",
         icon: icons.view
     },
     output: {
-        name: "Output",
+        name: "output",
         type: "text",
         icon: icons.view
     },
