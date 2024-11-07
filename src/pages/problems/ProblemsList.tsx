@@ -22,6 +22,10 @@ const difficulty = [
         id: 3,
         name: "hard"
     },
+    {
+        id: 4,
+        name: "none"
+    }
 ]
 
 const ProblemList: FC = () => {
@@ -42,15 +46,18 @@ const ProblemList: FC = () => {
     }, []);
 
 
+    const handleFilter = (value : string | undefined) => {
+        console.log(value);
+    }
+
     return (
         <div className='bg-gray-300 w-full grid grid-cols-2 gap-4'>
-
-
             <div className='p-8'>
                 <div className='flex justify-between'>
                     <h1 className='text-8xl text-stroke font-Jomhuria'>Problem list</h1>
                     <ComboboxDifficulty
                         data={ difficulty }
+                        onFilter={handleFilter}
                     />
                 </div>
                 <Table
