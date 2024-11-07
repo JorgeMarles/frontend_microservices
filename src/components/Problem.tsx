@@ -15,7 +15,7 @@ const Problem = <T extends object>({
 }: ProblemProps<T>) => {
 
     const [formData, setFormData] = useState({});
-    const [selectedTopic, setSelectedTopic] = useState<string | undefined>('');
+    const [selectedTopic, setSelectedTopic] = useState<number | undefined>(-1);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,12 @@ const Problem = <T extends object>({
     };
 
     const handleChangeTopic = (value: string | undefined) => {
-        setSelectedTopic(value);
+        for (const topic of topics) {
+            if (topic.name == value) {
+                setSelectedTopic(topic.id);
+                break;
+            }
+        }
     }
 
     const handleSubmit = (e: React.FormEvent) => {

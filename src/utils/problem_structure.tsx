@@ -5,7 +5,7 @@ export interface Problem_structure {
     output : string;
     example_input : string;
     example_output : string;
-    topic : string;    
+    topic_id : number;    
 }
 
 export interface Problem {

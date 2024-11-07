@@ -4,7 +4,7 @@ import { fields_login } from '../utils/field';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { backgroundURL } from '../assets/Images';
-import { LoginSession } from '../hooks/LoginFetch';
+import { LoginSession } from '../fetch/LoginFetch';
 
 const Login: FC = () => {
   const navigate = useNavigate();
