@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Problem_structure } from '../../utils/problem_structure';
 import Problem from '../../components/Problem';
 import { field_problem } from '../../utils/field';
+import topics from '../../data/topics.json';
 import axios from 'axios';
 
 const CreateProblem: FC = () => {
@@ -22,6 +23,7 @@ const CreateProblem: FC = () => {
       <Problem<Problem_structure>
         fields={field_problem}
         onSubmit={handleCreateProblem}
+        topics={topics}
       />
     </div>
   );

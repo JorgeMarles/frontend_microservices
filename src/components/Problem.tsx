@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Fields } from '../utils/field';
+import Combobox from './Combobox';
 
 interface ProblemProps<T> {
     fields: Fields;
     onSubmit: (data: T) => void;
+    topics: { id: number; name: string }[];
 }
 
 const Problem = <T extends object>({
     fields,
-    onSubmit
+    onSubmit,
+    topics
 }: ProblemProps<T>) => {
 
     const [formData, setFormData] = useState({});
+    const [selectedTopic, setSelectedTopic] = useState<string | undefined>('');
+
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -21,8 +26,20 @@ const Problem = <T extends object>({
         });
     };
 
+    const handleChangeTopic = (value: string | undefined) => {
+        setSelectedTopic(value);
+    }
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!selectedTopic) {
+            alert("Please select a topic");
+            return;
+        }
+        setFormData({
+            ...formData,
+            ["topic"]: selectedTopic,
+        });
         onSubmit(formData as T);
     };
 
@@ -41,19 +58,11 @@ const Problem = <T extends object>({
                             required
                         />
                     </div>
-                    <div key={"topic"} className="flex items-center">
-                        <div className='px-5'>
-                            Topic
-                        </div>
-                        <input
-                            className='p-2'
-                            type={"text"}
-                            name={"topic"}
-                            onChange={handleChange}
-                            placeholder={"Topic of the problem"}
-                            required
-                        />
-                    </div>
+                    <Combobox
+                        data={topics}
+                        onFilter={handleChangeTopic}
+                        title='topic'
+                    />
                 </div>
                 {Object.keys(fields).map(key => (
 
