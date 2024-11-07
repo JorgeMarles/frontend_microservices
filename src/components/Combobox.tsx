@@ -4,9 +4,10 @@ import { FC, useState } from 'react';
 interface ComboProps {
   data: { id: number; name: string }[];
   onFilter: (value: string | undefined) => void;
+  title: string;
 }
 
-const Combobox: FC<ComboProps> = ({ data, onFilter }) => {
+const Combobox: FC<ComboProps> = ({ data, onFilter, title }) => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>('');
 
   const handleSelect = (value: string | undefined) => {
@@ -14,10 +15,12 @@ const Combobox: FC<ComboProps> = ({ data, onFilter }) => {
     onFilter(value);
   }
 
+  title = "Select " + title;
+
   return (
     <div className="w-72">
       <Select
-        label={"Select difficulty"}
+        label={ title }
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}

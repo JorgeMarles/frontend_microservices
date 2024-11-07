@@ -5,7 +5,7 @@ import Table from '../../components/Table';
 
 import data_problems from '../../data/problems.json';
 import Card from '../../components/Card';
-import ComboboxDifficulty from '../../components/ComboboxDifficulty';
+import Combobox from '../../components/Combobox';
 
 // const topics = [ "string", "graphs", "Flow"];
 
@@ -46,7 +46,7 @@ const ProblemList: FC = () => {
     }, []);
 
 
-    const handleFilter = (value : string | undefined) => {
+    const handleFilter = (value: string | undefined) => {
         console.log(value);
     }
 
@@ -55,9 +55,10 @@ const ProblemList: FC = () => {
             <div className='p-8'>
                 <div className='flex justify-between'>
                     <h1 className='text-8xl text-stroke font-Jomhuria'>Problem list</h1>
-                    <ComboboxDifficulty
-                        data={ difficulty }
+                    <Combobox
+                        data={difficulty}
                         onFilter={handleFilter}
+                        title={'difficulty'}
                     />
                 </div>
                 <Table
