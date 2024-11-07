@@ -12,7 +12,7 @@ const CreateProblem: FC = () => {
 
 
   return (
-    <div className='flex flex-grow  bg-gray-300'>
+    <div className='bg-gray-300 w-screen'>
       <Problem<Problem_structure>
         fields={field_problem}
         onSubmit={handleCreateProblem}

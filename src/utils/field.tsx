@@ -8,7 +8,7 @@ const icons = {
     nickname: <UserCircleIcon className="h-5 w-5 text-black " />,
     name: <LightBulbIcon className="h-5 w-5 text-black " />,
     verification_code: <CommandLineIcon className="h-5 w-5 text-black " />,
-    view: <EyeIcon className="h-5 w-5 text-black " />
+    view: <EyeIcon className="h-7 w-7 text-blue-800 " />
   };
 
 interface FieldConfig {
@@ -88,17 +88,17 @@ export const fields_update_password: Fields = {
 
 export const field_problem: Fields = {
     statement: {
-        name: "statement",
+        name: "Statement",
         type: "text",
         icon: icons.view
     },
     input: {
-        name: "input",
+        name: "Input",
         type: "text",
         icon: icons.view
     },
     output: {
-        name: "output",
+        name: "Output",
         type: "text",
         icon: icons.view
     },

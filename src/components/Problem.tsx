@@ -28,12 +28,12 @@ const Problem = <T extends object>({
 
 
     return (
-        <div className='w-screen flex justify-between'>
-            <form onSubmit={handleSubmit} className='flex flex-col items-center w-full m-5 px-5'>
-                <div className='flex'>
-                    <div key={"name"} className="">
+        <div className='grid grid-cols-3 gap-4'>
+            <form onSubmit={handleSubmit} className='col-span-2 flex flex-col items-center m-5 p-5'>
+                <div className='grid grid-cols-3 gap-4 pb-5'>
+                    <div key={"name"} className="col-span-2">
                         <input
-                            className='p-2 w-full outline-none'
+                            className='p-2 outline-none w-full'
                             type={"text"}
                             name={"name"}
                             onChange={handleChange}
@@ -41,12 +41,12 @@ const Problem = <T extends object>({
                             required
                         />
                     </div>
-                    <div key={"topic"} className="flex">
-                        <div className=''>
-                            topic
+                    <div key={"topic"} className="flex items-center">
+                        <div className='px-5'>
+                            Topic
                         </div>
                         <input
-                            className='p-2 w-full '
+                            className='p-2'
                             type={"text"}
                             name={"topic"}
                             onChange={handleChange}
@@ -57,14 +57,14 @@ const Problem = <T extends object>({
                 </div>
                 {Object.keys(fields).map(key => (
 
-                    <div key={key} className="w-full px-10">
+                    <div key={key} className="w-full">
                         {key === "example_input" && (
-                            <h1>
+                            <h1 className='font-Jomhuria text-7xl'>
                                 Example
                             </h1>
                         )}
-                        <div className='flex'>
-                            <div className=''>
+                        <div className='flex items-center justify-between'>
+                            <div className='font-Jomhuria text-5xl'>
                                 {key === "example_input" ? "input" : key === "example_output" ? "output" : fields[key].name}
                             </div>
                             <div className=''>
@@ -73,7 +73,7 @@ const Problem = <T extends object>({
                         </div>
                         <textarea
                             className='p-2 w-full outline-none'
-                            rows={4}
+                            rows={5}
                             id={key}
                             name={fields[key].name}
                             onChange={handleChange}
@@ -87,8 +87,22 @@ const Problem = <T extends object>({
                     </button>
                 </div>
             </form>
-            <div className='mx-5'>
-                Problem's files
+            <div className='mx-5 flex'>
+                <div className="h-full w-1 bg-gray-500 mt-5"></div>
+                <div className='pl-5 ml-5 w-full'>
+                    <h1 className='font-Jomhuria text-7xl text-center'>
+                        Problem's files
+                    </h1>
+                    <div className='bg-white pb-5 px-8 m-5 rounded-2xl  border-2 border-black flex flex-col justify-center h-48'>
+                        <h1 className='text-center'>Solution.cpp</h1>
+                        <button className='rounded-full bg-gray-300 m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black '>
+                            Select file
+                        </button>
+                        <button className='rounded-full bg-gray-300 m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black '>
+                            Submit
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     );

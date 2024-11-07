@@ -3,19 +3,23 @@ import { Problem } from '../utils/problem_structure';
 
 interface TableProps {
     data: Problem[];
-    title: string;
+    columns: string[];
 }
 
 
-const Table: FC<TableProps> = ({ data, title }) => {
+const Table: FC<TableProps> = ({ data, columns }) => {
 
     return (
-        <div className='p-2'>
-            <div>
-                <h1 className='text-8xl text-stroke font-Jomhuria'>{title}</h1>
+        <div className=''>
+            <div className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
+                {columns.map(columna => (
+                    <div className='font-bold text-lg'>
+                        {columna}
+                    </div>
+                ))}
             </div>
             {data.map(data => (
-                <div className='flex'>
+                <div className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
                     <div>
                         {data.name}
                     </div>
@@ -27,6 +31,7 @@ const Table: FC<TableProps> = ({ data, title }) => {
                     </div>
                 </div>
             ))}
+            <div className='border-t-2 border-black p-4'></div>
         </div>
     );
 };

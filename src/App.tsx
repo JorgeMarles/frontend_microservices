@@ -5,14 +5,14 @@ import Footer from './components/Footer';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import UpdatePassword from './pages/UpdatePassword';
-import ProblemList from './pages/ProblemsList';
+import ProblemList from './pages/problems/ProblemsList';
 import CreateProblem from './pages/problems/CreateProblem';
 
 const App: React.FC = () => {
 
 
   return (
-    <div className='h-screen w-screen flex flex-col'>
+    <div className='h-screen flex flex-col'>
       <Header></Header>
       <div className='flex flex-grow'>
         <Routes>
