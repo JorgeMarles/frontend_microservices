@@ -17,7 +17,10 @@ const Combobox: FC<ComboProps> = ({ data, onFilter }) => {
   return (
     <div className="w-72">
       <Select
-        label="Select difficulty"
+        label={"Select difficulty"}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         value={selectedValue} 
         animate={{
           mount: { y: 0 },
