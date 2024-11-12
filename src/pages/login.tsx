@@ -24,7 +24,7 @@ const Login: FC = () => {
 
   const handleRedirectPassword = () => {
     navigate('/forgot_password');
-  }
+  } 
 
   return (
     <div className='flex items-center justify-center fullscreen-background' style={{ backgroundImage: `url(${backgroundURL})` }}>
