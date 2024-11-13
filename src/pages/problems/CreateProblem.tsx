@@ -1,15 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Problem } from '../../data/interfaces';
+import { FC, useEffect, useState } from 'react';
+import { Problem, Topic } from '../../data/interfaces';
 import ProblemForm from '../../components/Problem';
 import { field_problem } from '../../utils/field';
 import { create } from '../../fetch/ProblemFetch'
 import { getTopics } from '../../fetch/TopicFetch';
-
-interface Topic {
-  id: number; 
-  name: string;
-  statement: string;
-}
 
 const CreateProblem: FC = () => {
 
@@ -26,7 +20,7 @@ const CreateProblem: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchTopics : Topic[] = await getTopics();
+      const fetchTopics : Topic[] = await getTopics().topics;
       const topicsArray : {id: number, name: string}[] = fetchTopics.topics.map(({ statement, ...rest }) => rest);
       setTopics(topicsArray);
     }

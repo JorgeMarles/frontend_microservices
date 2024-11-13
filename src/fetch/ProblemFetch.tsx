@@ -1,11 +1,17 @@
 import axios, { AxiosResponse } from 'axios';
 import { URL_BACKEND } from '../configs/config';
-import { Problem_structure } from '../data/problem_structure';
-import {Problem } from '../data/Interfaces'
+import { Problem } from '../data/interfaces'
 
-export const getProblems = async () => {
+export const getProblems = async (topicName?: string, difficulty?: string) => {
     try {
-        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`);
+        console.log(topicName);
+        console.log(difficulty);
+        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`, {
+            params: {
+                difficulty: difficulty,
+                topic_name: topicName
+            }
+        });
         return response.data;
     } catch (error) {
         if (error instanceof Error) {
@@ -17,7 +23,7 @@ export const getProblems = async () => {
     }
 }
 
-export const create = async (problemData : Problem_structure) => {
+export const create = async (problemData : Problem) => {
     try {
         await axios.post(`${URL_BACKEND}/problem`, problemData);
     } catch (error) {

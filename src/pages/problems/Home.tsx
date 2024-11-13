@@ -5,6 +5,7 @@ import Card from '../../components/Card';
 import Combobox from '../../components/Combobox';
 import { Topic } from '../../data/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
+import { getProblems } from '../../fetch/ProblemFetch';
 
 const difficulty = [
     {
@@ -36,7 +37,6 @@ const Home: FC = () => {
             try {
                 const response = await getTopics();
                 const values: Topic[] = Object.values(response.topics); 
-                console.log(values);
                 const size = values.length;
                 for (let i = 1; i < size; ++i) {
                     if (values[i].name == topicSelected) {
@@ -54,18 +54,19 @@ const Home: FC = () => {
     }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProblems = async () => {
             try {
-                // const response = await axios.get();
-                // setProblems(response.data);
+                const response = await getProblems(topicSelected);
+                const values: Problem[] = Object.values(response.problems);
+                setProblems(values);
             }
             catch (error) {
                 console.error('Error fetching data: ', error);
             }
         }
 
-        fetchData();
-    }, [problems, setProblems, topicSelected]);
+        fetchProblems();
+    }, [topicSelected]);
 
 
     const handleFilter = (value: string | undefined) => {
