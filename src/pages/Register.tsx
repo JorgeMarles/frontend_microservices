@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { User_register } from '../data/interfaces';
+import { User_register } from '../utils/interfaces';
 import { fields_register } from '../utils/field';
 import Form from '../components/Form';
 import { backgroundURL } from '../assets/Images';

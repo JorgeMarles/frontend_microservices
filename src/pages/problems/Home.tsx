@@ -1,34 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { Problem } from '../../data/interfaces';
+import { Problem } from '../../utils/interfaces';
 import Table from '../../components/Table';
 import Card from '../../components/Card';
 import Combobox from '../../components/Combobox';
-import { Topic } from '../../data/interfaces';
+import { Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
 import { getProblems } from '../../fetch/ProblemFetch';
+import difficulties from '../../data/difficulties.json'
 
-const difficulty = [
-    {
-        id: 1,
-        name: "easy"
-    },
-    {
-        id: 2,
-        name: "medium"
-    },
-    {
-        id: 3,
-        name: "hard"
-    },
-    {
-        id: 4,
-        name: "none"
-    }
-]
 
 const Home: FC = () => {
     const [problems, setProblems] = useState<Problem[]>([]);
     const [topicSelected, setTopicSelected] = useState("Introductory problems");
+    const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
     const columns = ["Problem's name", "difficulty", "topic"];
     const [topics, setTopics] = useState<Topic[]>([]);
 
@@ -36,7 +20,7 @@ const Home: FC = () => {
         const fetchTopics = async () => {
             try {
                 const response = await getTopics();
-                const values: Topic[] = Object.values(response.topics); 
+                const values: Topic[] = Object.values(response.topics);
                 const size = values.length;
                 for (let i = 1; i < size; ++i) {
                     if (values[i].name == topicSelected) {
@@ -56,7 +40,7 @@ const Home: FC = () => {
     useEffect(() => {
         const fetchProblems = async () => {
             try {
-                const response = await getProblems(topicSelected);
+                const response = await getProblems(topicSelected, difficultySelected);
                 const values: Problem[] = Object.values(response.problems);
                 setProblems(values);
             }
@@ -66,27 +50,28 @@ const Home: FC = () => {
         }
 
         fetchProblems();
-    }, [topicSelected]);
+    }, [topicSelected, difficultySelected]);
 
 
-    const handleFilter = (value: string | undefined) => {
-        console.log(value);
+    const handleChangeTopic = (value: string) => {
+        setTopicSelected(value);
     }
 
-    const handleChooseTopic = (value: string) => {
-        setTopicSelected(value);
+    const handleChangeDifficulty = (value : string | undefined) => {
+        setDifficultySelected(value);
     }
 
     return (
         <div className='bg-gray-300 w-full grid grid-cols-2 gap-4'>
             <div className='p-8'>
-                <div className='flex justify-between'>
+                <div className='md:flex md:items-center md:justify-between sm:pb-3'>
                     <h1 className='text-8xl text-stroke font-Jomhuria'>Problem list</h1>
-                    {/* <Combobox
-                        data={difficulty}
-                        onFilter={handleFilter}
-                        title={'difficulty'}
-                    /> */}
+                    <div className='flex justify-center'>
+                        <Combobox
+                            data={difficulties}
+                            onChange={handleChangeDifficulty}
+                        />
+                    </div>
                 </div>
                 <Table
                     data={problems}
@@ -101,7 +86,7 @@ const Home: FC = () => {
                     </h1>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                         {topics.map((topic, index) => (
-                            <Card name={topic.name} onClick={handleChooseTopic} isSelected={topic.name == topicSelected}/>
+                            <Card key={index} name={topic.name} onClick={handleChangeTopic} isSelected={topic.name == topicSelected} />
                         ))}
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { URL_BACKEND } from '../configs/config';
-import { User_login } from '../data/user_structure';
+import { User_login } from '../utils/interfaces';
 import { useState } from 'react';
 
 export const LoginSession = () => {

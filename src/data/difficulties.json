@@ -1,18 +1,18 @@
 [
     {
         "id": 1,
-        "name": "strings"
+        "name": "none"
     },
     {
         "id": 2,
-        "name": "flow"
+        "name": "easy"
     },
     {
         "id": 3,
-        "name": "greedy"
+        "name": "medium"
     },
     {
         "id": 4,
-        "name": "graph"
+        "name": "hard"
     }
 ]

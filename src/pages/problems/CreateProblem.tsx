@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Problem, Topic } from '../../data/interfaces';
+import { Problem, Topic } from '../../utils/interfaces';
 import ProblemForm from '../../components/Problem';
 import { field_problem } from '../../utils/field';
 import { create } from '../../fetch/ProblemFetch'

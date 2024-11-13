@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { URL_BACKEND } from '../configs/config';
-import { Problem } from '../data/interfaces'
+import { Problem } from '../utils/interfaces'
 
 export const getProblems = async (topicName?: string, difficulty?: string) => {
     try {
