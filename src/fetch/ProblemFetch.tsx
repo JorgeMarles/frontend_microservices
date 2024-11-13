@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { URL_BACKEND } from '../configs/config';
-import { Problem_structure } from '../utils/problem_structure';
+import { Problem_structure } from '../data/problem_structure';
 import {Problem } from '../data/Interfaces'
 
 export const getProblems = async () => {

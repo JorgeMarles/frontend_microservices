@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { User_update_password } from '../utils/user_structure';
+import { User_update_password } from '../data/interfaces';
 import { fields_update_password } from '../utils/field';
 import Form from '../components/Form';
 import { backgroundURL } from '../assets/Images';

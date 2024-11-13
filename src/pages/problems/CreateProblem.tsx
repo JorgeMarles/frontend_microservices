@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Problem_structure } from '../../utils/problem_structure';
-import Problem from '../../components/Problem';
+import { Problem } from '../../data/interfaces';
+import ProblemForm from '../../components/Problem';
 import { field_problem } from '../../utils/field';
 import { create } from '../../fetch/ProblemFetch'
 import { getTopics } from '../../fetch/TopicFetch';
@@ -13,7 +13,7 @@ interface Topic {
 
 const CreateProblem: FC = () => {
 
-  const handleCreateProblem = async (problem: Problem_structure) => {
+  const handleCreateProblem = async (problem: Problem) => {
     console.log(problem);
     problem.url_input = "";
     problem.url_output = "";
@@ -35,7 +35,7 @@ const CreateProblem: FC = () => {
   
   return (
     <div className='bg-gray-300 w-screen'>
-      <Problem<Problem_structure>
+      <ProblemForm<Problem>
         fields={field_problem}
         onSubmit={handleCreateProblem}
         topics={ topics }

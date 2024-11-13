@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { User_login } from '../utils/user_structure';
+import { User_login } from '../data/interfaces';
 import { fields_login } from '../utils/field';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';

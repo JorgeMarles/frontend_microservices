@@ -1,25 +1,92 @@
-[{
-    "id": 1,
-    "name": "problem name 1",
-    "topic": "strings",
-    "difficulty": "easy"
-},
-{
-    "id": 2,
-    "name": "problem name 2",
-    "topic": "flow",
-    "difficulty": "hard"
-},
-{
-    "id": 3,
-    "name": "problem name 3",
-    "topic": "greedy",
-    "difficulty": "easy"
-},
-{
-    "id": 4,
-    "name": "problem name 4",
-    "topic": "graph",
-    "difficulty": "medium"
-}
+[
+    {
+        "id": 1,
+        "name": "problem name 1",
+        "statement": "enunciado",
+        "topic": {
+            "id": 1,
+            "name": "string",
+            "description": "string"
+        },
+        "difficulty": "easy",
+        "input": "string",
+        "output": "string",
+        "example_input": "string",
+        "example_output": "string",
+        "url_output": "string",
+        "url_solution": "string",
+        "url_input": "string"
+    },
+    {
+        "id": 11,
+        "name": "problem name 1",
+        "statement": "enunciado",
+        "topic": {
+            "id": 1,
+            "name": "string",
+            "description": "string"
+        },
+        "difficulty": "easy",
+        "input": "string",
+        "output": "string",
+        "example_input": "string",
+        "example_output": "string",
+        "url_output": "string",
+        "url_solution": "string",
+        "url_input": "string"
+    },
+    {
+        "id": 12,
+        "name": "problem name 1",
+        "statement": "enunciado",
+        "topic": {
+            "id": 1,
+            "name": "string",
+            "description": "string"
+        },
+        "difficulty": "easy",
+        "input": "string",
+        "output": "string",
+        "example_input": "string",
+        "example_output": "string",
+        "url_output": "string",
+        "url_solution": "string",
+        "url_input": "string"
+    },
+    {
+        "id": 13,
+        "name": "problem name 1",
+        "statement": "enunciado",
+        "topic": {
+            "id": 1,
+            "name": "string",
+            "description": "string"
+        },
+        "difficulty": "easy",
+        "input": "string",
+        "output": "string",
+        "example_input": "string",
+        "example_output": "string",
+        "url_output": "string",
+        "url_solution": "string",
+        "url_input": "string"
+    },
+    {
+        "id": 15,
+        "name": "problem name 1",
+        "statement": "enunciado",
+        "topic": {
+            "id": 1,
+            "name": "string",
+            "description": "string"
+        },
+        "difficulty": "easy",
+        "input": "string",
+        "output": "string",
+        "example_input": "string",
+        "example_output": "string",
+        "url_output": "string",
+        "url_solution": "string",
+        "url_input": "string"
+    }
 ]

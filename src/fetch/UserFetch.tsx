@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User_register } from '../utils/user_structure';
+import { User_register } from '../data/user_structure';
 import { URL_BACKEND } from '../configs/config';
 
 export const Create = () => {

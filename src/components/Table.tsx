@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Problem } from '../data/Interfaces';
+import { Problem } from '../data/interfaces';
 
 interface TableProps {
     data: Problem[];
