@@ -1,13 +1,11 @@
-import axios from 'axios';
 import { FC, useEffect, useState } from 'react';
 import { Problem } from '../../utils/problem_structure';
 import Table from '../../components/Table';
-
 import data_problems from '../../data/problems.json';
 import Card from '../../components/Card';
 import Combobox from '../../components/Combobox';
-
-// const topics = [ "string", "graphs", "Flow"];
+import { Topic } from '../../data/Interfaces';
+import { getTopics } from '../../fetch/TopicFetch';
 
 const difficulty = [
     {
@@ -28,9 +26,34 @@ const difficulty = [
     }
 ]
 
-const ProblemList: FC = () => {
+const Home: FC = () => {
     const [problems, setProblems] = useState<Problem[]>(data_problems);
+    const [topicSelected, setTopicSelected] = useState<String>("Introductory problems");
     const columns = ["Problem's name", "difficulty", "topic"];
+    const [topics, setTopics] = useState<Topic[]>([]);
+
+    useEffect(() => {
+        const fetchTopics = async () => {
+            try {
+                const response = await getTopics();
+                const values: Topic[] = Object.values(response.topics); 
+                console.log(values);
+                const size = values.length;
+                for (let i = 1; i < size; ++i) {
+                    if (values[i].name == topicSelected) {
+                        [values[0], values[i]] = [values[i], values[0]];
+                    }
+                }
+                setTopics(values);
+            }
+            catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        }
+
+        fetchTopics();
+    }, []);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,11 +66,15 @@ const ProblemList: FC = () => {
         }
 
         fetchData();
-    }, []);
+    }, [problems, setProblems, topicSelected]);
 
 
     const handleFilter = (value: string | undefined) => {
         console.log(value);
+    }
+
+    const handleChooseTopic = (value: string) => {
+        setTopicSelected(value);
     }
 
     return (
@@ -55,11 +82,11 @@ const ProblemList: FC = () => {
             <div className='p-8'>
                 <div className='flex justify-between'>
                     <h1 className='text-8xl text-stroke font-Jomhuria'>Problem list</h1>
-                    <Combobox
+                    {/* <Combobox
                         data={difficulty}
                         onFilter={handleFilter}
                         title={'difficulty'}
-                    />
+                    /> */}
                 </div>
                 <Table
                     data={problems}
@@ -72,9 +99,10 @@ const ProblemList: FC = () => {
                     <h1 className='font-Jomhuria text-7xl text-center'>
                         Topics
                     </h1>
-                    <div className='grid grid-cols-2 gap-4'>
-                        <Card name={"Strings"} />
-                        <Card name={"Graphs"} />
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                        {topics.map((topic, index) => (
+                            <Card name={topic.name} onClick={handleChooseTopic} isSelected={topic.name == topicSelected}/>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -82,4 +110,4 @@ const ProblemList: FC = () => {
     );
 };
 
-export default ProblemList;
+export default Home;

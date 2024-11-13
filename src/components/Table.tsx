@@ -12,14 +12,14 @@ const Table: FC<TableProps> = ({ data, columns }) => {
     return (
         <div className=''>
             <div className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
-                {columns.map(columna => (
-                    <div className='font-bold text-lg'>
+                {columns.map((columna, index) => (
+                    <div key={index} className='font-bold text-lg'>
                         {columna}
                     </div>
                 ))}
             </div>
-            {data.map(data => (
-                <div className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
+            {data.map((data, index) => (
+                <div key={index} className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
                     <div>
                         {data.name}
                     </div>

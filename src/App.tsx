@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import UpdatePassword from './pages/UpdatePassword';
-import ProblemList from './pages/problems/ProblemsList';
+import Home from './pages/problems/Home';
 import CreateProblem from './pages/problems/CreateProblem';
 
 const App: React.FC = () => {
@@ -19,7 +19,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot_password" element={<UpdatePassword />} />
-          <Route path="/home" element={<ProblemList></ProblemList>} />
+          <Route path="/home" element={<Home></Home>} />
           <Route path="/create_problem" element={<CreateProblem />} />
         </Routes>
       </div>
