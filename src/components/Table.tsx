@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Problem } from '../utils/problem_structure';
+import { Problem } from '../data/Interfaces';
 
 interface TableProps {
     data: Problem[];
@@ -27,7 +27,7 @@ const Table: FC<TableProps> = ({ data, columns }) => {
                         {data.difficulty}
                     </div>
                     <div>
-                        {data.topic}
+                        {data.topic.name}
                     </div>
                 </div>
             ))}

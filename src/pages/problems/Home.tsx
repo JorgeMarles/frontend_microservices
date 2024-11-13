@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { Problem } from '../../utils/problem_structure';
+import { Problem } from '../../data/Interfaces';
 import Table from '../../components/Table';
-import data_problems from '../../data/problems.json';
 import Card from '../../components/Card';
 import Combobox from '../../components/Combobox';
 import { Topic } from '../../data/Interfaces';
@@ -27,7 +26,7 @@ const difficulty = [
 ]
 
 const Home: FC = () => {
-    const [problems, setProblems] = useState<Problem[]>(data_problems);
+    const [problems, setProblems] = useState<Problem[]>([]);
     const [topicSelected, setTopicSelected] = useState<String>("Introductory problems");
     const columns = ["Problem's name", "difficulty", "topic"];
     const [topics, setTopics] = useState<Topic[]>([]);
