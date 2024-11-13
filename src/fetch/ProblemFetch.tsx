@@ -4,8 +4,6 @@ import { Problem } from '../utils/interfaces'
 
 export const getProblems = async (topicName?: string, difficulty?: string) => {
     try {
-        console.log(topicName);
-        console.log(difficulty);
         const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`, {
             params: {
                 difficulty: difficulty,

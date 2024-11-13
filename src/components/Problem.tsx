@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fields } from '../utils/field';
 import Combobox from './Combobox';
+import { Topic } from '../utils/interfaces';
+import { getTopics } from '../fetch/TopicFetch';
+import difficulties from '../data/difficulties.json';
+import { useNavigate } from 'react-router-dom';
 
 interface ProblemProps<T> {
     fields: Fields;
     onSubmit: (data: T) => void;
-    topics: { id: number; name: string }[];
 }
 
 const Problem = <T extends object>({
     fields,
-    onSubmit,
-    topics
+    onSubmit
 }: ProblemProps<T>) => {
-
     const [formData, setFormData] = useState({});
-    const [selectedTopic, setSelectedTopic] = useState<number | undefined>(-1);
+    const [topics, setTopics] = useState<Topic[]>([]);
+    const [selectedTopic, setSelectedTopic] = useState<string>("Introductory problems");
+    const [difficultySelected, setDifficultySelected] = useState<string>("easy");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchTopics = async () => {
+            try {
+                const response = await getTopics();
+                const values: Topic[] = Object.values(response.topics);
+                setTopics(values);
+                handleChangeDifficulty("easy");
+            }
+            catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        }
+        fetchTopics();
+    }, []);
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => {
@@ -26,36 +46,38 @@ const Problem = <T extends object>({
         });
     };
 
-    const handleChangeTopic = (value: string | undefined) => {
-        let x = 1;
+    const handleChangeTopic = (value: string) => {
         for (const topic of topics) {
-            if (topic.name == value) {
-                x = topic.id;
-                break;
+            if (topic.name === value) {
+                setFormData({
+                    ...formData,
+                    ["topic_id"]: topic.id
+                });
             }
         }
-        setSelectedTopic(x);
+        setSelectedTopic(value);
+    }
+
+    const handleChangeDifficulty = (value: string) => {
+        setFormData({
+            ...formData,
+            ["difficulty"]: value
+        });
+        setDifficultySelected(value);
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!selectedTopic) {
-            alert("Please select a topic");
-            return;
-        }
-        setFormData({
-            ...formData,
-            ["topic_id"]: selectedTopic,
-        });
         onSubmit(formData as T);
+        navigate('/home');
     };
 
 
     return (
         <div className='grid grid-cols-3 gap-4'>
             <form onSubmit={handleSubmit} className='col-span-2 flex flex-col items-center m-5 p-5'>
-                <div className='grid grid-cols-3 gap-4 pb-5'>
-                    <div key={"name"} className="col-span-2">
+                <div className='grid grid-cols-8 gap-4 pb-5 flex w-full'>
+                    <div key={"name"} className="flex-grow col-span-4">
                         <input
                             className='p-2 outline-none w-full'
                             type={"text"}
@@ -65,14 +87,22 @@ const Problem = <T extends object>({
                             required
                         />
                     </div>
-                    <Combobox
-                        data={topics}
-                        onFilter={handleChangeTopic}
-                        title='topic'
-                    />
+                    <div className='col-span-2'>
+                        <Combobox
+                            data={topics}
+                            onChange={handleChangeTopic}
+                            defaultName={"Introductory problems"}
+                        />
+                    </div>
+                    <div className='col-span-2'>
+                        <Combobox
+                            data={difficulties.slice(1)}
+                            onChange={handleChangeDifficulty}
+                            defaultName={difficulties[1].name}
+                        />
+                    </div>
                 </div>
                 {Object.keys(fields).map(key => (
-
                     <div key={key} className="w-full">
                         {key === "example_input" && (
                             <h1 className='font-Jomhuria text-7xl'>

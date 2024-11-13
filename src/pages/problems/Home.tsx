@@ -6,7 +6,7 @@ import Combobox from '../../components/Combobox';
 import { Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
 import { getProblems } from '../../fetch/ProblemFetch';
-import difficulties from '../../data/difficulties.json'
+import difficulties from '../../data/difficulties.json';
 
 
 const Home: FC = () => {
@@ -58,6 +58,8 @@ const Home: FC = () => {
     }
 
     const handleChangeDifficulty = (value : string | undefined) => {
+        if(value === "none") 
+            value = undefined;
         setDifficultySelected(value);
     }
 
@@ -70,6 +72,7 @@ const Home: FC = () => {
                         <Combobox
                             data={difficulties}
                             onChange={handleChangeDifficulty}
+                            defaultName={difficulties[0].name}
                         />
                     </div>
                 </div>

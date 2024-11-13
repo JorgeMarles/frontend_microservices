@@ -18,9 +18,9 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot_password" element={<UpdatePassword />} />
+          <Route path="/forgotPassword" element={<UpdatePassword />} />
           <Route path="/home" element={<Home></Home>} />
-          <Route path="/create_problem" element={<CreateProblem />} />
+          <Route path="/createProblem" element={<CreateProblem />} />
         </Routes>
       </div>
       <Footer></Footer>

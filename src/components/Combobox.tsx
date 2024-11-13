@@ -2,21 +2,18 @@ import { FC, useState } from 'react';
 
 interface ComboProps {
   data: { id: number, name: string }[];
-  onChange: (value ?: string) => void;
+  onChange: (value: string) => void;
+  defaultName: string;
 }
 
-const Combobox: FC<ComboProps> = ({ data, onChange }) => {
-  const [selectedOption, setSelectedOption] = useState(data[0].name);
-  const handleChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
+const Combobox: FC<ComboProps> = ({ data, onChange, defaultName }) => {
+  const [selectedOption, setSelectedOption] = useState<string>(defaultName);
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
-    if(event.target.value === "none")
-      onChange();
-    else
-      onChange(event.target.value);
+    onChange(event.target.value);
   }
-
   return (
-    <div className="relative inline-block ">
+    <div className="relative inline-block">
       <select
         value={selectedOption}
         onChange={handleChange}
