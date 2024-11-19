@@ -13,7 +13,11 @@ const Home: FC = () => {
     const [problems, setProblems] = useState<Problem[]>([]);
     const [topicSelected, setTopicSelected] = useState("Introductory problems");
     const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
-    const columns = ["Problem's name", "difficulty", "topic"];
+    const columns = [
+        { label: "Problem's name", key: "name" },
+        { label: "Difficulty", key: "difficulty" },
+        { label: "Topic", key: "topic.name" }
+    ];    
     const [topics, setTopics] = useState<Topic[]>([]);
 
     useEffect(() => {

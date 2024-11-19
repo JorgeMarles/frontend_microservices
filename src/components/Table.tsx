@@ -1,37 +1,48 @@
-import { FC } from 'react';
-import { Problem } from '../utils/interfaces';
-
-interface TableProps {
-    data: Problem[];
-    columns: string[];
+interface Column {
+    label: string;
+    key: string; // Usamos string para soportar claves simples y anidadas
 }
 
+interface TableProps<T> {
+    data: T[];
+    columns: Column[];
+}
 
-const Table: FC<TableProps> = ({ data, columns }) => {
+const Table = <T extends object>({
+    data,
+    columns
+}: TableProps<T>) => {
+
+    const getValueByKey = (obj: T, key: string): string | number | boolean | undefined => {
+        return key.split('.').reduce<unknown>((acc, curr) => {
+            if (acc && typeof acc === 'object' && curr in acc) {
+                return (acc as Record<string, unknown>)[curr];
+            }
+            return undefined;
+        }, obj) as string | number | boolean | undefined;
+    };
 
     return (
-        <div className=''>
-            <div className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
-                {columns.map((columna, index) => (
-                    <div key={index} className='font-bold text-lg'>
-                        {columna}
+        <div>
+            <div className="grid grid-cols-3 gap-4 border-t-2 border-black p-4">
+                {columns.map((column, index) => (
+                    <div key={index} className="font-bold text-lg">
+                        {column.label}
                     </div>
                 ))}
             </div>
-            {data.map((data, index) => (
-                <div key={index} className='grid grid-cols-3 gap-4 border-t-2 border-black p-4'>
-                    <div>
-                        {data.name}
-                    </div>
-                    <div>
-                        {data.difficulty}
-                    </div>
-                    <div>
-                        {data.topic.name}
-                    </div>
+
+            {data.map((item, rowIndex) => (
+                <div key={rowIndex} className="grid grid-cols-3 gap-4 border-t-2 border-black p-4">
+                    {columns.map((column, colIndex) => (
+                        <div key={colIndex}>
+                            {String(getValueByKey(item, column.key))}
+                        </div>
+                    ))}
                 </div>
             ))}
-            <div className='border-t-2 border-black p-4'></div>
+
+            <div className="border-t-2 border-black p-4"></div>
         </div>
     );
 };
