@@ -7,6 +7,7 @@ import { Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
 import { getProblems } from '../../fetch/ProblemFetch';
 import difficulties from '../../data/difficulties.json';
+import Menu from '../../components/Menu';
 
 
 const Home: FC = () => {
@@ -17,7 +18,7 @@ const Home: FC = () => {
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
         { label: "Topic", key: "topic.name" }
-    ];    
+    ];
     const [topics, setTopics] = useState<Topic[]>([]);
 
     useEffect(() => {
@@ -61,40 +62,43 @@ const Home: FC = () => {
         setTopicSelected(value);
     }
 
-    const handleChangeDifficulty = (value : string | undefined) => {
-        if(value === "none") 
+    const handleChangeDifficulty = (value: string | undefined) => {
+        if (value === "none")
             value = undefined;
         setDifficultySelected(value);
     }
 
     return (
-        <div className='bg-gray-300 w-full grid grid-cols-2 gap-4'>
-            <div className='p-8'>
-                <div className='md:flex md:items-center md:justify-between sm:pb-3'>
-                    <h1 className='text-8xl text-stroke font-Jomhuria'>Problem list</h1>
-                    <div className='flex justify-center'>
-                        <Combobox
-                            data={difficulties}
-                            onChange={handleChangeDifficulty}
-                            defaultName={difficulties[0].name}
-                        />
+        <div className='bg-gray-300'>
+            <Menu></Menu>
+            <div className='w-full grid grid-cols-2 gap-4 my-5'>
+                <div className='p-8'>
+                    <div className='lg:flex lg:items-center lg:justify-between pb-3'>
+                        <h1 className='text-8xl text-stroke font-Jomhuria'>{topicSelected}</h1>
+                        <div className='flex justify-center'>
+                            <Combobox
+                                data={difficulties}
+                                onChange={handleChangeDifficulty}
+                                defaultName={difficulties[0].name}
+                            />
+                        </div>
                     </div>
+                    <Table
+                        data={problems}
+                        columns={columns}
+                    />
                 </div>
-                <Table
-                    data={problems}
-                    columns={columns}
-                />
-            </div>
-            <div className='mx-5 flex'>
-                <div className="h-full w-1 bg-gray-500 "></div>
-                <div className='pl-5 ml-5 w-full'>
-                    <h1 className='font-Jomhuria text-7xl text-center'>
-                        Topics
-                    </h1>
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                        {topics.map((topic, index) => (
-                            <Card key={index} name={topic.name} onClick={handleChangeTopic} isSelected={topic.name == topicSelected} />
-                        ))}
+                <div className='mx-5 flex'>
+                    <div className="h-full w-1 bg-gray-500 "></div>
+                    <div className='pl-5 ml-5 w-full'>
+                        <h1 className='font-Jomhuria text-7xl text-center'>
+                            Topics
+                        </h1>
+                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                            {topics.map((topic, index) => (
+                                <Card key={index} name={topic.name} onClick={handleChangeTopic} isSelected={topic.name == topicSelected} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
