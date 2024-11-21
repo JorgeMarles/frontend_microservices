@@ -9,23 +9,23 @@ const Menu: FC = () => {
         { label: "Submissions", path: "/submissions" },
         { label: "Ranking", path: "/ranking" },
     ];
-    
+
     return (
         <nav className='m-5'>
             <ul className="flex flex-row items-center">
-            {menuItems.map((item) => ( 
-                <li className='px-8 border-r-4 border-gray-500 font-Jomhuria text-5xl'>
-                    <NavLink
-                        to={item.path}
-                        className={({ isActive }) =>
-                            isActive
-                                ? "border-b-4 border-red-800"
-                                : "hover:text-red-800"
-                        }
-                    >
-                        {item.label}
-                    </NavLink>
-                </li>
+                {menuItems.map((item, key) => (
+                    <li className='px-8 border-r-4 border-gray-500 font-Jomhuria text-5xl' key={key}>
+                        <NavLink
+                            to={item.path}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "border-b-4 border-red-800"
+                                    : "hover:text-red-800"
+                            }
+                        >
+                            {item.label}
+                        </NavLink>
+                    </li>
                 ))}
                 <li className='px-8 text-xl'>
                     <Search />

@@ -7,12 +7,14 @@ import Login from './pages/Login';
 import UpdatePassword from './pages/UpdatePassword';
 import Home from './pages/problems/Home';
 import CreateProblem from './pages/problems/CreateProblem';
+import Submission from './pages/problems/Submission';
+import Ranking from './pages/problems/Ranking';
 
 const App: React.FC = () => {
 
 
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='bg-gray-300 h-screen flex flex-col'>
       <Header></Header>
       <div className='flex flex-grow'>
         <Routes>
@@ -21,6 +23,8 @@ const App: React.FC = () => {
           <Route path="/forgotPassword" element={<UpdatePassword />} />
           <Route path="/home" element={<Home></Home>} />
           <Route path="/createProblem" element={<CreateProblem />} />
+          <Route path="/submissions" element={<Submission />} />
+          <Route path="/ranking" element={<Ranking />} />
         </Routes>
       </div>
       <Footer></Footer>

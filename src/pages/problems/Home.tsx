@@ -69,7 +69,7 @@ const Home: FC = () => {
     }
 
     return (
-        <div className='bg-gray-300'>
+        <div className=''>
             <Menu></Menu>
             <div className='w-full grid grid-cols-2 gap-4 my-5'>
                 <div className='p-8'>
