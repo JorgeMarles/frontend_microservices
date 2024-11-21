@@ -18,14 +18,6 @@ const Login: FC = () => {
     }
   }
 
-  const handleRedirectCreateAccount = () => {
-    navigate('/register');
-  }
-
-  const handleRedirectPassword = () => {
-    navigate('/forgot_password');
-  } 
-
   return (
     <div className='flex items-center justify-center fullscreen-background' style={{ backgroundImage: `url(${backgroundURL})` }}>
       <Form<User_login>
@@ -34,8 +26,8 @@ const Login: FC = () => {
         onSubmit={handleLogin}
         textSubmit='Submit'
         redirect={true}
-        onRedirectCreateAccount={handleRedirectCreateAccount}
-        onRedirectPassword={handleRedirectPassword}
+        redirectCreateAccount='/register'
+        redirectPassword='/forgotPassword'
         sendCode={false}
       />
     </div>

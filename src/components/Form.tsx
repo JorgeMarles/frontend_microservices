@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Fields } from '../utils/field';
+import { NavLink } from 'react-router-dom';
 
 interface FormProps<T> {
     title: string;
@@ -7,8 +8,8 @@ interface FormProps<T> {
     onSubmit: (data: T) => void;
     textSubmit: string;
     redirect: boolean;
-    onRedirectCreateAccount?: () => void;
-    onRedirectPassword?: () => void;
+    redirectCreateAccount: string;
+    redirectPassword: string;
     onSend?: () => void;
     sendCode: boolean;
 }
@@ -19,8 +20,8 @@ const Form = <T extends object>({
     onSubmit,
     textSubmit,
     redirect,
-    onRedirectCreateAccount,
-    onRedirectPassword,
+    redirectCreateAccount,
+    redirectPassword,
     onSend,
     sendCode
 }: FormProps<T>) => {
@@ -72,22 +73,26 @@ const Form = <T extends object>({
                         </button>
                     )}
                 </div>
-                <div className='flex items-center'>
-                    <a href="#" className="text-center w-full mr-5 ">
-                        {
-                            redirect && (
-                                <span className="text-black underline" onClick={onRedirectPassword}>Forgot your password?</span>
-                            )
-                        }
-                    </a>
-                    <a href="#" className="text-center w-full ml-5 ">
-                        {
-                            redirect && (
-                                <span className="text-black underline" onClick={onRedirectCreateAccount}>Create account</span>
-                            )
-                        }
-                    </a>
-                </div>
+                {redirect && (
+                    <div className='grid grid-cols-2 w-full text-center flex items-center'>
+                        <div className=''>
+                            <NavLink
+                                to={redirectPassword}
+                                className='text-black underline'
+                            >
+                                Forgot your  <br /> password?
+                            </NavLink>
+                        </div>
+                        <div>
+                            <NavLink
+                                to={redirectCreateAccount}
+                                className='text-black underline'
+                            >
+                                Create account
+                            </NavLink>
+                        </div>
+                    </div>
+                )}
             </form>
         </div>
     );
