@@ -24,7 +24,7 @@ const Table = <T extends object>({
 
     return (
         <div>
-            <div className="grid grid-cols-3 gap-4 border-t-2 border-black p-4">
+            <div className="grid grid-cols-3 gap-4 border-t-2 border-black p-4 bg-gray-400 text-center">
                 {columns.map((column, index) => (
                     <div key={index} className="font-bold text-lg">
                         {column.label}
@@ -33,7 +33,7 @@ const Table = <T extends object>({
             </div>
 
             {data.map((item, rowIndex) => (
-                <div key={rowIndex} className="grid grid-cols-3 gap-4 border-t-2 border-black p-4">
+                <div key={rowIndex} className="grid grid-cols-3 gap-4 border-t-2 border-black p-4 text-center">
                     {columns.map((column, colIndex) => (
                         <div key={colIndex}>
                             {String(getValueByKey(item, column.key))}

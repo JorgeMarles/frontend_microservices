@@ -11,7 +11,7 @@ const Card: FC<CardProps> = ({ name, onClick, isSelected }) => {
 
     const buttonProperties = "rounded-2xl border-2 border-black flex items-center h-28";
     const defaultColor = "bg-gray-400";
-    const selectedColor = "bg-red-200";
+    const selectedColor = "bg-red-400";
  
     const handleClick = () => {
         onClick(name);
