@@ -15,7 +15,11 @@ export interface Problem {
     url_output: string,
     url_solution: string;
     difficulty: string;
-    topic : Topic;
+    topic: Topic;
+    acceptedSubmissions: number;
+    totalSubmissions: number;
+    submissions: string;
+    typeSubmission: string;
 };
 
 export interface User_login {

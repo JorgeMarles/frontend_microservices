@@ -9,6 +9,13 @@ import { getProblems } from '../../fetch/ProblemFetch';
 import difficulties from '../../data/difficulties.json';
 import Menu from '../../components/Menu';
 
+const addFormatSubmissions = (values: Problem[]) => {
+    for(let i = 0; i < values.length; i++) {
+        values[i].acceptedSubmissions = 500;
+        values[i].totalSubmissions = 800;
+        values[i].submissions = values[i].acceptedSubmissions + "/" + values[i].totalSubmissions;
+    }
+}
 
 const Home: FC = () => {
     const [problems, setProblems] = useState<Problem[]>([]);
@@ -17,7 +24,7 @@ const Home: FC = () => {
     const columns = [
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
-        { label: "Topic", key: "topic.name" }
+        // { label: "Topic", key: "topic.name" }
     ];
     const [topics, setTopics] = useState<Topic[]>([]);
 
@@ -47,6 +54,7 @@ const Home: FC = () => {
             try {
                 const response = await getProblems(topicSelected, difficultySelected);
                 const values: Problem[] = Object.values(response.problems);
+                addFormatSubmissions(values);
                 setProblems(values);
             }
             catch (error) {
@@ -69,7 +77,7 @@ const Home: FC = () => {
     }
 
     return (
-        <div className=''>
+        <div className='bg-gray-300'>
             <Menu></Menu>
             <div className='w-full grid grid-cols-2 gap-4 my-5'>
                 <div className='p-8'>
@@ -86,6 +94,7 @@ const Home: FC = () => {
                     <Table
                         data={problems}
                         columns={columns}
+                        header={true}
                     />
                 </div>
                 <div className='mx-5 flex'>

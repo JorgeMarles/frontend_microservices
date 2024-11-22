@@ -1,16 +1,18 @@
 interface Column {
     label: string;
-    key: string; // Usamos string para soportar claves simples y anidadas
+    key: string;
 }
 
 interface TableProps<T> {
     data: T[];
     columns: Column[];
+    header: boolean;
 }
 
 const Table = <T extends object>({
     data,
-    columns
+    columns,
+    header
 }: TableProps<T>) => {
 
     const getValueByKey = (obj: T, key: string): string | number | boolean | undefined => {
@@ -24,16 +26,24 @@ const Table = <T extends object>({
 
     return (
         <div>
-            <div className="grid grid-cols-3 gap-4 border-t-2 border-black p-4 bg-gray-400 text-center">
-                {columns.map((column, index) => (
-                    <div key={index} className="font-bold text-lg">
-                        {column.label}
-                    </div>
-                ))}
-            </div>
-
+            {header && (
+                <div 
+                    className="grid gap-4 border-t-2 border-black p-4 bg-gray-400 text-center"
+                    style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}
+                >
+                    {columns.map((column, index) => (
+                        <div key={index} className="font-bold text-lg">
+                            {column.label}
+                        </div>
+                    ))}
+                </div>
+            )}
             {data.map((item, rowIndex) => (
-                <div key={rowIndex} className="grid grid-cols-3 gap-4 border-t-2 border-black p-4 text-center">
+                <div 
+                    key={rowIndex} 
+                    className="grid gap-4 border-t-2 border-black p-4 text-center"
+                    style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}
+                >
                     {columns.map((column, colIndex) => (
                         <div key={colIndex}>
                             {String(getValueByKey(item, column.key))}
@@ -41,7 +51,6 @@ const Table = <T extends object>({
                     ))}
                 </div>
             ))}
-
             <div className="border-t-2 border-black p-4"></div>
         </div>
     );
