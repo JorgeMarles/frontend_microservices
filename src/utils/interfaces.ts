@@ -5,6 +5,7 @@ export interface Topic {
 };
 
 export interface Problem {
+    id : number;
     name : string;
     statement : string;
     input : string;

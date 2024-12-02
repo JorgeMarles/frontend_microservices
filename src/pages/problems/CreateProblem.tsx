@@ -4,9 +4,11 @@ import ProblemForm from '../../components/ProblemForm';
 import { field_problem } from '../../utils/field';
 import { create } from '../../fetch/ProblemFetch'
 import Menu from '../../components/Menu';
+import ProblemView from '../../components/ProblemView';
+import { problem as defaultProblem } from '../../utils/emptyEntities';
 
 const CreateProblem: FC = () => {
-  const [data, setData] = useState<Problem>({} as Problem);
+  const [data, setData] = useState<Problem>(defaultProblem);
   const [preview, setPreview] = useState<boolean>(false);
 
   const handleCreateProblem = async (problem: Problem) => {
@@ -35,7 +37,9 @@ const CreateProblem: FC = () => {
             />
           )}
           {preview && (
-            <h1>preview</h1>
+            <ProblemView 
+              data={data}
+            />
           )}
         </div>
 
