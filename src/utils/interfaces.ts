@@ -16,6 +16,7 @@ export interface Problem {
     url_solution: string;
     difficulty: string;
     topic: Topic;
+    topic_id: number;
     acceptedSubmissions: number;
     totalSubmissions: number;
     submissions: string;

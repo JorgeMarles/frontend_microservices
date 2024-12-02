@@ -8,6 +8,7 @@ import { getTopics } from '../../fetch/TopicFetch';
 import { getProblems } from '../../fetch/ProblemFetch';
 import difficulties from '../../data/difficulties.json';
 import Menu from '../../components/Menu';
+// import { useNavigate } from 'react-router-dom';s
 
 const addFormatSubmissions = (values: Problem[]) => {
     for(let i = 0; i < values.length; i++) {
@@ -18,12 +19,14 @@ const addFormatSubmissions = (values: Problem[]) => {
 }
 
 const Home: FC = () => {
+    // const navigate = useNavigate();
     const [problems, setProblems] = useState<Problem[]>([]);
     const [topicSelected, setTopicSelected] = useState("Introductory problems");
     const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
     const columns = [
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
+        { label: "Submissions", key: "submissions" },
         // { label: "Topic", key: "topic.name" }
     ];
     const [topics, setTopics] = useState<Topic[]>([]);
@@ -76,6 +79,10 @@ const Home: FC = () => {
         setDifficultySelected(value);
     }
 
+    const handleChangeProblem = (index : number) => {
+        console.log(problems[index]);
+    }
+
     return (
         <div className='bg-gray-300'>
             <Menu></Menu>
@@ -95,6 +102,7 @@ const Home: FC = () => {
                         data={problems}
                         columns={columns}
                         header={true}
+                        onChange={handleChangeProblem}
                     />
                 </div>
                 <div className='mx-5 flex'>

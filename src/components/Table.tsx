@@ -7,21 +7,27 @@ interface TableProps<T> {
     data: T[];
     columns: Column[];
     header: boolean;
+    onChange: (index : number) => void;
 }
 
 const Table = <T extends object>({
     data,
     columns,
-    header
+    header,
+    onChange
 }: TableProps<T>) => {
 
-    const getValueByKey = (obj: T, key: string): string | number | boolean | undefined => {
+    const handleClick = (index : number) => {
+        onChange(index);
+    }
+
+    const getValueByKey = (value: T, key: string): string | number | boolean | undefined => {
         return key.split('.').reduce<unknown>((acc, curr) => {
             if (acc && typeof acc === 'object' && curr in acc) {
                 return (acc as Record<string, unknown>)[curr];
             }
             return undefined;
-        }, obj) as string | number | boolean | undefined;
+        }, value) as string | number | boolean | undefined;
     };
 
     return (
@@ -41,8 +47,9 @@ const Table = <T extends object>({
             {data.map((item, rowIndex) => (
                 <div 
                     key={rowIndex} 
-                    className="grid gap-4 border-t-2 border-black p-4 text-center"
+                    className="grid gap-4 border-t-2 border-black p-4 text-center hover:bg-gray-400"
                     style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}
+                    onClick={() => handleClick(rowIndex)}
                 >
                     {columns.map((column, colIndex) => (
                         <div key={colIndex}>

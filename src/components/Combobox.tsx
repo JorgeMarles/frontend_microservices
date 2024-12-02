@@ -13,7 +13,7 @@ const Combobox: FC<ComboProps> = ({ data, onChange, defaultName }) => {
     onChange(event.target.value);
   }
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block w-full">
       <select
         value={selectedOption}
         onChange={handleChange}
