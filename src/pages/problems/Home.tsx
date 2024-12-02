@@ -101,7 +101,7 @@ const Home: FC = () => {
                     <Table
                         data={problems}
                         columns={columns}
-                        header={true}
+                        header={false}
                         onChange={handleChangeProblem}
                     />
                 </div>

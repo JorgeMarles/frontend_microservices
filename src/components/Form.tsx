@@ -8,8 +8,8 @@ interface FormProps<T> {
     onSubmit: (data: T) => void;
     textSubmit: string;
     redirect: boolean;
-    redirectCreateAccount: string;
-    redirectPassword: string;
+    redirectCreateAccount?: string;
+    redirectPassword?: string;
     onSend?: () => void;
     sendCode: boolean;
 }
@@ -77,7 +77,7 @@ const Form = <T extends object>({
                     <div className='grid grid-cols-2 w-full text-center flex items-center'>
                         <div className=''>
                             <NavLink
-                                to={redirectPassword}
+                                to={redirectPassword || ''}
                                 className='text-black underline'
                             >
                                 Forgot your  <br /> password?
@@ -85,7 +85,7 @@ const Form = <T extends object>({
                         </div>
                         <div>
                             <NavLink
-                                to={redirectCreateAccount}
+                                to={redirectCreateAccount || ''}
                                 className='text-black underline'
                             >
                                 Create account

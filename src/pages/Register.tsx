@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { User_register } from '../utils/interfaces';
 import { fields_register } from '../utils/field';
 import Form from '../components/Form';

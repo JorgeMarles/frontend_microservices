@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { User_update_password } from '../utils/interfaces';
 import { fields_update_password } from '../utils/field';
 import Form from '../components/Form';
