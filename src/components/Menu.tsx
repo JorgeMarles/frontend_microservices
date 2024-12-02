@@ -8,6 +8,7 @@ const Menu: FC = () => {
         { label: "ProblemSet", path: "/home" },
         { label: "Submissions", path: "/submissions" },
         { label: "Ranking", path: "/ranking" },
+        { label: "Create Problem", path: "/createProblem" },
     ];
 
     return (

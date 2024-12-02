@@ -82,7 +82,7 @@ const ProblemForm: FC<ProblemProps> = ({ data, fields, onSubmit, onView }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className='col-span-2 flex flex-col items-center m-5 p-3'>
+        <form onSubmit={handleSubmit} className='flex flex-col items-center m-5 p-3'>
             <div className='grid grid-cols-10 gap-4 pb-5 flex w-full'>
                 <div key={"name"} className="flex-grow col-span-4">
                     <input
