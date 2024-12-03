@@ -103,6 +103,7 @@ const Home: FC = () => {
                         columns={columns}
                         header={false}
                         onChange={handleChangeProblem}
+                        pagination={5}
                     />
                 </div>
                 <div className='mx-5 flex'>
