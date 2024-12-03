@@ -12,6 +12,7 @@ interface TableProps<T> {
     columns: Column[];
     header: boolean;
     onChange: (index: number) => void;
+    enableNumberPagination:boolean;
     pagination: number;
 }
 
@@ -21,6 +22,7 @@ const Table = <T extends object>({
     columns,
     header,
     onChange,
+    enableNumberPagination,
     pagination
 }: TableProps<T>) => {
     const [indexes, setIndexes] = useState<number[]>(iota(0, pagination));
@@ -52,7 +54,7 @@ const Table = <T extends object>({
 
 
     return (
-        <div className="">
+        <div className="w-full">
             {header && (
                 <div
                     className="grid gap-4 border-t-2 border-black p-4 bg-gray-400 text-center"
@@ -85,7 +87,7 @@ const Table = <T extends object>({
                 page={page}
                 size={data.length}
                 pagination={pagination}
-                enableNumber={true}
+                enableNumber={enableNumberPagination}
             />
         </div>
     );

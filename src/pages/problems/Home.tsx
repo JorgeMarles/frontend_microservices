@@ -86,6 +86,7 @@ const Home: FC = () => {
     }
 
     const handleChangeProblem = (index: number) => {
+        alert("imagina que redireccione a la pagina del problema")
         console.log(problems[index]);
     }
 
@@ -110,12 +111,13 @@ const Home: FC = () => {
                             />
                         </div>
                     </div>
-                    <Table
+                    <Table<Problem>
                         data={problems}
                         columns={columns}
                         header={false}
                         onChange={handleChangeProblem}
                         pagination={5}
+                        enableNumberPagination={true}
                     />
                 </div>
                 <div className='mx-5 flex'>

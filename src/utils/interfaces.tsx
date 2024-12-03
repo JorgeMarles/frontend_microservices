@@ -24,6 +24,18 @@ export interface Problem {
     typeSubmission: string;
 };
 
+export interface Submission {
+    id: number;
+    time_judge: string;
+    time_running: string;
+    nickname: string;
+    problem: {
+        id: number;
+        name: string;
+    };
+    veredict: string;
+}
+
 export interface User_login {
     email: string;
     password: string;
