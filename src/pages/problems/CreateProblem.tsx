@@ -40,7 +40,6 @@ const CreateProblem: FC = () => {
             <ProblemView 
               data={data}
               fields={field_problem}
-              onSubmit={handleCreateProblem}
               onView={handleView}
             />
           )}

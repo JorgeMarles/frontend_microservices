@@ -124,12 +124,16 @@ const ProblemForm: FC<ProblemProps> = ({ data, fields, onSubmit, onView }) => {
                     )}
                     <div className='flex items-center justify-between'>
                         <div className='font-Jomhuria text-5xl'>
-                            {key === "example_input" ? "input" : key === "example_output" ? "output" : fields[key].name}
+                            {key === "example_input"
+                                ? "Input"
+                                : key === "example_output"
+                                    ? "Output"
+                                    : fields[key].name.charAt(0).toUpperCase() + fields[key].name.slice(1)}
                         </div>
                     </div>
                     <textarea
                         className='p-2 w-full outline-none'
-                        rows={5}
+                        rows={fields[key].name === "statement" ? 10 : 5}
                         id={key}
                         name={fields[key].name}
                         onChange={handleChange}
