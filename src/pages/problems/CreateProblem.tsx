@@ -20,14 +20,14 @@ const CreateProblem: FC = () => {
 
   const handleView = (problem: Problem) => {
     setData(problem);
-    setPreview(true);
+    setPreview(!preview);
   }
 
   return (
-    <div className='bg-gray-300 w-screen '>
+    <div className='bg-gray-300 w-screen'>
       <Menu></Menu>
       <div className='grid grid-cols-3 gap-4'>
-        <div className='col-span-2 '>
+        <div className='col-span-2'>
           {!preview && (
             <ProblemForm
               data={data}
@@ -39,6 +39,9 @@ const CreateProblem: FC = () => {
           {preview && (
             <ProblemView 
               data={data}
+              fields={field_problem}
+              onSubmit={handleCreateProblem}
+              onView={handleView}
             />
           )}
         </div>
