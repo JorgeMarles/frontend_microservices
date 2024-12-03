@@ -8,28 +8,34 @@ import { getTopics } from '../../fetch/TopicFetch';
 import { getProblems } from '../../fetch/ProblemFetch';
 import difficulties from '../../data/difficulties.json';
 import Menu from '../../components/Menu';
+import { iota } from '../../utils/services';
+import Pagination from '../../components/Pagination';
 // import { useNavigate } from 'react-router-dom';s
 
 const addFormatSubmissions = (values: Problem[]) => {
-    for(let i = 0; i < values.length; i++) {
+    for (let i = 0; i < values.length; i++) {
         values[i].acceptedSubmissions = 500;
         values[i].totalSubmissions = 800;
         values[i].submissions = values[i].acceptedSubmissions + "/" + values[i].totalSubmissions;
     }
 }
 
+const pagination = 6;
+
 const Home: FC = () => {
     // const navigate = useNavigate();
     const [problems, setProblems] = useState<Problem[]>([]);
+    const [topics, setTopics] = useState<Topic[]>([]);
     const [topicSelected, setTopicSelected] = useState("Introductory problems");
     const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
+    const [indexes, setIndexes] = useState<number[]>(iota(0, pagination));
+    const [page, setPage] = useState(0);
     const columns = [
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
         { label: "Submissions", key: "submissions" },
         // { label: "Topic", key: "topic.name" }
     ];
-    const [topics, setTopics] = useState<Topic[]>([]);
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -79,8 +85,14 @@ const Home: FC = () => {
         setDifficultySelected(value);
     }
 
-    const handleChangeProblem = (index : number) => {
+    const handleChangeProblem = (index: number) => {
         console.log(problems[index]);
+    }
+
+    const handlePagination = (newPage: number) => {
+        const start = newPage * pagination, end = Math.min(topics.length, newPage * pagination + pagination);
+        setPage(newPage);
+        setIndexes(iota(start, end));
     }
 
     return (
@@ -108,15 +120,27 @@ const Home: FC = () => {
                 </div>
                 <div className='mx-5 flex'>
                     <div className="h-full w-1 bg-gray-500 "></div>
-                    <div className='pl-5 ml-5 w-full'>
+                    <div className='pl-5 ml-5 w-full h-full'>
                         <h1 className='font-Jomhuria text-7xl text-center'>
                             Topics
                         </h1>
-                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                            {topics.map((topic, index) => (
-                                <Card key={index} name={topic.name} onClick={handleChangeTopic} isSelected={topic.name == topicSelected} />
-                            ))}
+                        <div className=''>
+                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-7'>
+                                {indexes.map((index) => {
+                                    if (!topics[index]) return null;
+                                    return (
+                                        <Card key={index} name={topics[index].name} onClick={handleChangeTopic} isSelected={topics[index].name == topicSelected} />
+                                    )
+                                })}
+                            </div>
                         </div>
+                        <Pagination
+                            enableNumber={false}
+                            page={page}
+                            onPagination={handlePagination}
+                            pagination={pagination}
+                            size={topics.length}
+                        />
                     </div>
                 </div>
             </div>

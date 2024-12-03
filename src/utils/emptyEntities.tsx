@@ -1,4 +1,4 @@
-import { Problem } from "./interfaces";
+import { Problem, Topic } from "./interfaces";
 
 export const problem: Problem = {
     id: -1,
@@ -12,10 +12,10 @@ export const problem: Problem = {
     url_output: "",
     url_solution: "",
     difficulty: "easy",
-    topic: { 
-        id: 0, 
-        name: "Introductory problems", 
-        description: "" 
+    topic: {
+        id: 0,
+        name: "Introductory problems",
+        description: ""
     },
     topic_id: 0,
     acceptedSubmissions: 0,
@@ -23,3 +23,9 @@ export const problem: Problem = {
     submissions: "",
     typeSubmission: "",
 };
+
+export const topic: Topic = {
+    id: 0,
+    name: "Introductory problems",
+    description: ""
+}
