@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { User_register } from '../utils/interfaces';
+import { User } from '../utils/interfaces';
 import { fields_register } from '../utils/field';
 import Form from '../components/Form';
 import { backgroundURL } from '../assets/Images';
@@ -10,7 +10,7 @@ const Register: FC = () => {
   const navigate = useNavigate();
   const { createUser } = Create();
 
-  const handleRegister = (user: User_register) => {
+  const handleRegister = (user: User) => {
     createUser(user);
     navigate('/');
   }
@@ -18,7 +18,7 @@ const Register: FC = () => {
 
   return (
     <div className='flex items-center justify-center fullscreen-background'  style={{ backgroundImage: `url(${backgroundURL})` }}>
-      <Form<User_register>
+      <Form<User>
         title='Register'
         fields={fields_register}
         onSubmit={handleRegister}

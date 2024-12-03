@@ -36,12 +36,7 @@ export interface Submission {
     veredict: string;
 }
 
-export interface User_login {
-    email: string;
-    password: string;
-}
-
-export interface User_register {
+export interface User {
     email: string;
     nickname: string;
     name: string;

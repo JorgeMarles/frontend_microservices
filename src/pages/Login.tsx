@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { User_login } from '../utils/interfaces';
+import { User } from '../utils/interfaces';
 import { fields_login } from '../utils/field';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ const Login: FC = () => {
   const navigate = useNavigate();
   const { loginUser, success } = LoginSession();
 
-  const handleLogin = (user: User_login) => {
+  const handleLogin = (user: User) => {
     console.log(user);
     loginUser(user);
     if (success) {
@@ -20,7 +20,7 @@ const Login: FC = () => {
 
   return (
     <div className='flex items-center justify-center fullscreen-background' style={{ backgroundImage: `url(${backgroundURL})` }}>
-      <Form<User_login>
+      <Form<User>
         title='Login'
         fields={fields_login}
         onSubmit={handleLogin}
