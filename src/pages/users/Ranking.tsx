@@ -2,8 +2,7 @@ import { FC } from 'react';
 import Menu from '../../components/Menu';
 
 
-const Submission: FC = () => {
-    
+const Ranking: FC = () => {
     return (
         <div className=''>
             <Menu></Menu>
@@ -11,4 +10,4 @@ const Submission: FC = () => {
     );
 };
 
-export default Submission;
+export default Ranking;
