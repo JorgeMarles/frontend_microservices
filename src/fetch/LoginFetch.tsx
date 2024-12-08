@@ -9,7 +9,6 @@ export const LoginSession = () => {
         try {
             const response: AxiosResponse = await axios.post(`${URL_BACKEND_USERS}/session/login`, userData);
             setSuccess(true);
-            console.log(response.data)
             return response.data;
         } catch (error) {
             setSuccess(false);

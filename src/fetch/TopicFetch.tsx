@@ -1,9 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
-import { URL_BACKEND_PROBLEMS } from '../configs/config';
-
+import { AxiosResponse } from 'axios';
+import { apiProblems as api } from '../session/interceptor';
 export const getTopics = async () => {
     try {
-        const response: AxiosResponse = await axios.get(`${URL_BACKEND_PROBLEMS}/topic`);
+        const response: AxiosResponse = await api.get('/topic');
         return response.data;
     } catch (error) {
         if (error instanceof Error) {

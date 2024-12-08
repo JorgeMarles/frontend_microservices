@@ -8,11 +8,9 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const token = sessionStorage.getItem('token'); 
-
   if (token === null || !isTokenValid(token)) {
     return <Navigate to="/" replace />; 
   }
-
   return children; 
 };
 
