@@ -1,12 +1,24 @@
 import { jwtDecode } from "jwt-decode";
 
+interface TokenPayload {
+  nickname: string;
+  type: string;
+  exp: number;
+}
+
 export const isTokenValid = (token: string): boolean => {
-    try {
-      const decoded: { exp: number } = jwtDecode(token);
-      const currentTime = Math.floor(Date.now() / 1000);
-      return decoded.exp > currentTime;
-    } catch (e) {
-      console.error("Invalid token:", e);
-      return false;
-    }
-  };
+  try {
+    const decoded: { exp: number } = jwtDecode(token);
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decoded.exp > currentTime;
+  } catch (e) {
+    console.error("Invalid token:", e);
+    return false;
+  }
+};
+
+export const getTypeUser = (): string => {
+  const token = sessionStorage.getItem('token');
+  const decodedToken = token ? jwtDecode<TokenPayload>(token) : { type: "user" } as TokenPayload;
+  return decodedToken.type;
+}

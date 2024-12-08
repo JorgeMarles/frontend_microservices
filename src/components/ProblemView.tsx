@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { Problem } from '../utils/interfaces';
 import { Fields } from '../utils/field';
 import { PencilIcon } from '@heroicons/react/24/outline';
+import { getTypeUser } from '../session/Token';
 
 interface ProblemProps {
     data: Problem;
@@ -16,7 +17,7 @@ interface Window extends globalThis.Window {
 };
 
 const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
-
+    const type = getTypeUser();
     useEffect(() => {
         const _window: Window = window;
         if (typeof _window?.MathJax !== "undefined") {
@@ -33,9 +34,11 @@ const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
                 <div key={"name"} className='outline-none w-full text-stroke font-Jomhuria md:text-8xl'>
                     <p>{data.name}</p>
                 </div>
-                <button type="button" onClick={() => handleView()}>
-                    <PencilIcon className="h-8 w-8 text-blue-900" />
-                </button>
+                {type === "admin" && (
+                    <button type="button" onClick={() => handleView()}>
+                        <PencilIcon className="h-8 w-8 text-blue-900" />
+                    </button>
+                )}
             </div>
             <div className='flex gap-5'>
                 <p>
