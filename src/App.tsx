@@ -9,6 +9,7 @@ import Home from './pages/problems/Home';
 import CreateProblem from './pages/problems/CreateProblem';
 import Submission from './pages/problems/Submission';
 import Ranking from './pages/problems/Ranking';
+import Problem from './pages/problems/Problem';
 
 const App: React.FC = () => {
 
@@ -25,6 +26,8 @@ const App: React.FC = () => {
           <Route path="/createProblem" element={<CreateProblem />} />
           <Route path="/submissions" element={<Submission />} />
           <Route path="/ranking" element={<Ranking />} />
+          <Route path="/problem/:id" element={<Problem />} />
+          <Route path="/createProblem/:id" element={<CreateProblem />} />
         </Routes>
       </div>
       <Footer></Footer>

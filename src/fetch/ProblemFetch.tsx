@@ -29,3 +29,31 @@ export const create = async (problemData : Problem) => {
     }
     return create;
 }
+
+
+export const update = async (problemData : Problem) => {
+    try {
+        await axios.put(`${URL_BACKEND}/problem`, problemData);
+    } catch (error) {
+        console.error('Error creating problem:', error);
+    }
+    return create;
+}
+
+export const getByID = async (idProblem : number) => {
+    try {
+        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`, {
+            params: {
+                id: idProblem
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
+        else {
+            console.log("Something went wrong");
+        }
+    }
+}

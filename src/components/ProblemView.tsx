@@ -22,8 +22,7 @@ const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
         if (typeof _window?.MathJax !== "undefined") {
             _window.MathJax.typeset();
         }
-    }, [])
-
+    }, [data])
     const handleView = () => {
         onView(data);
     }

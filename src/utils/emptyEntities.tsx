@@ -1,7 +1,6 @@
 import { Problem, Topic } from "./interfaces";
 
 export const problem: Problem = {
-    id: -1,
     name: "",
     statement: "",
     input: "",

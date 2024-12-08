@@ -10,7 +10,7 @@ import difficulties from '../../data/difficulties.json';
 import Menu from '../../components/Menu';
 import { iota } from '../../utils/services';
 import Pagination from '../../components/Pagination';
-// import { useNavigate } from 'react-router-dom';s
+import { useNavigate } from 'react-router-dom';
 
 const addFormatSubmissions = (values: Problem[]) => {
     for (let i = 0; i < values.length; i++) {
@@ -23,7 +23,7 @@ const addFormatSubmissions = (values: Problem[]) => {
 const pagination = 6;
 
 const Home: FC = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [problems, setProblems] = useState<Problem[]>([]);
     const [topics, setTopics] = useState<Topic[]>([]);
     const [topicSelected, setTopicSelected] = useState("Introductory problems");
@@ -86,9 +86,8 @@ const Home: FC = () => {
     }
 
     const handleChangeProblem = (index: number) => {
-        alert("imagina que redireccione a la pagina del problema")
-        console.log(problems[index]);
-    }
+        navigate(`/problem/${problems[index].id}`);
+    };    
 
     const handlePagination = (newPage: number) => {
         const start = newPage * pagination, end = Math.min(topics.length, newPage * pagination + pagination);
