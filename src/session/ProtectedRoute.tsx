@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 }
 
 interface TokenPayload {
+  nickname: string;
   type: string;
   exp: number;
 }

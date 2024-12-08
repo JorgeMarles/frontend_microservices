@@ -5,6 +5,14 @@ import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { backgroundURL } from '../assets/Images';
 import { LoginSession } from '../fetch/LoginFetch';
+import { jwtDecode } from 'jwt-decode';
+
+interface TokenPayload {
+  nickname: string;
+  type: string;
+  exp: number;
+}
+
 const Login: FC = () => {
   const navigate = useNavigate();
   const { loginUser, success } = LoginSession();
@@ -13,6 +21,10 @@ const Login: FC = () => {
     const response = await loginUser(user);
     if (success) {
       sessionStorage.setItem("token", response.token);
+      
+      const decodedToken = jwtDecode<TokenPayload>(response.token);
+      sessionStorage.setItem("nickname", decodedToken.nickname);
+      
       navigate('/home');
     }
     else {
