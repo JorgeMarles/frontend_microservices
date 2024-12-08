@@ -10,29 +10,74 @@ import CreateProblem from './pages/problems/CreateProblem';
 import Submission from './pages/problems/Submission';
 import Ranking from './pages/problems/Ranking';
 import Problem from './pages/problems/Problem';
+import ProtectedRoute from './session/ProtectedRoute';
 
 const App: React.FC = () => {
-
-
   return (
     <div className='bg-gray-300 h-screen flex flex-col'>
-      <Header></Header>
+      <Header />
       <div className='flex flex-grow'>
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgotPassword" element={<UpdatePassword />} />
-          <Route path="/home" element={<Home></Home>} />
-          <Route path="/createProblem" element={<CreateProblem />} />
-          <Route path="/submissions" element={<Submission />} />
-          <Route path="/ranking" element={<Ranking />} />
-          <Route path="/problem/:id" element={<Problem />} />
-          <Route path="/createProblem/:id" element={<CreateProblem />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/submissions"
+            element={
+              <ProtectedRoute>
+                <Submission />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ranking"
+            element={
+              <ProtectedRoute>
+                <Ranking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/problem/:id"
+            element={
+              <ProtectedRoute>
+                <Problem />
+              </ProtectedRoute>
+            }
+          />
+          {/* Only admin routes */}
+          <Route
+            path="/createProblem"
+            element={
+              <ProtectedRoute>
+                <CreateProblem />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/createProblem/:id"
+            element={
+              <ProtectedRoute>
+                <CreateProblem />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
-}
+};
 
-export default App
+export default App;

@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { User_register } from '../utils/interfaces';
-import { URL_BACKEND } from '../configs/config';
+import { User } from '../utils/interfaces';
+import { URL_BACKEND_USERS } from '../configs/config';
 
 export const Create = () => {
-    const createUser = async (userData : User_register) => {
+    const createUser = async (userData : User) => {
         try {
-            await axios.post(`${URL_BACKEND}/user`, userData);
+            await axios.post(`${URL_BACKEND_USERS}/user`, userData);
         } catch (error) {
             console.error('Error creating user:', error);
         }

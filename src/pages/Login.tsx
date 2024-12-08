@@ -5,16 +5,23 @@ import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { backgroundURL } from '../assets/Images';
 import { LoginSession } from '../fetch/LoginFetch';
+import { isTokenValid } from '../session/Token';
 
 const Login: FC = () => {
   const navigate = useNavigate();
   const { loginUser, success } = LoginSession();
 
-  const handleLogin = (user: User) => {
-    console.log(user);
-    loginUser(user);
+  const handleLogin = async (user: User) => {
+    const response = await loginUser(user);
+    console.log(response);
+    console.log(isTokenValid(response.token));
     if (success) {
-      navigate('/home');
+      console.log("entro")
+      // sessionStorage.setItem("token", response.token);
+      // navigate('/home');
+    }
+    else {
+      alert("User data incorrect")
     }
   }
 

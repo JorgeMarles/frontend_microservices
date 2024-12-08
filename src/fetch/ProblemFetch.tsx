@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
-import { URL_BACKEND } from '../configs/config';
+import { URL_BACKEND_PROBLEMS } from '../configs/config';
 import { Problem } from '../utils/interfaces'
 
 export const getProblems = async (topicName?: string, difficulty?: string) => {
     try {
-        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`, {
+        const response: AxiosResponse = await axios.get(`${URL_BACKEND_PROBLEMS}/problem`, {
             params: {
                 difficulty: difficulty,
                 topic_name: topicName
@@ -23,7 +23,7 @@ export const getProblems = async (topicName?: string, difficulty?: string) => {
 
 export const create = async (problemData : Problem) => {
     try {
-        await axios.post(`${URL_BACKEND}/problem`, problemData);
+        await axios.post(`${URL_BACKEND_PROBLEMS}/problem`, problemData);
     } catch (error) {
         console.error('Error creating problem:', error);
     }
@@ -33,7 +33,7 @@ export const create = async (problemData : Problem) => {
 
 export const update = async (problemData : Problem) => {
     try {
-        await axios.put(`${URL_BACKEND}/problem`, problemData);
+        await axios.put(`${URL_BACKEND_PROBLEMS}/problem`, problemData);
     } catch (error) {
         console.error('Error creating problem:', error);
     }
@@ -42,7 +42,7 @@ export const update = async (problemData : Problem) => {
 
 export const getByID = async (idProblem : number) => {
     try {
-        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/problem`, {
+        const response: AxiosResponse = await axios.get(`${URL_BACKEND_PROBLEMS}/problem`, {
             params: {
                 id: idProblem
             }

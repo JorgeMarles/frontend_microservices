@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import { URL_BACKEND } from '../configs/config';
+import { URL_BACKEND_PROBLEMS } from '../configs/config';
 
 export const getTopics = async () => {
     try {
-        const response: AxiosResponse = await axios.get(`${URL_BACKEND}/topic`);
+        const response: AxiosResponse = await axios.get(`${URL_BACKEND_PROBLEMS}/topic`);
         return response.data;
     } catch (error) {
         if (error instanceof Error) {
