@@ -40,7 +40,6 @@ const Form = <T extends object>({
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSubmit(formData as T);
-        setFormData({});
     };
 
 
