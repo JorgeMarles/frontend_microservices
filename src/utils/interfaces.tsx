@@ -44,9 +44,9 @@ export interface User {
     repeat_password: string;
 }
 
-export interface User_update_password {
+export interface UserUpdatePassword {
     email: string;
-    verification_code: string;
+    code: string;
     password: string;
     repeat_password: string;
 }

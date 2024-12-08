@@ -10,7 +10,7 @@ interface FormProps<T> {
     redirect: boolean;
     redirectCreateAccount?: string;
     redirectPassword?: string;
-    onSend?: () => void;
+    onSend?: (data: T) => void;
     sendCode: boolean;
 }
 
@@ -42,6 +42,11 @@ const Form = <T extends object>({
         onSubmit(formData as T);
     };
 
+    const handleSend = () => {
+        if(!onSend) return;
+        onSend(formData as T);
+    }
+
 
     return (
         <div className='bg-red-500 pb-5 px-8 m-5 rounded-2xl bg-opacity-70 backdrop-blur-md border-2 border-black'>
@@ -67,7 +72,7 @@ const Form = <T extends object>({
                         {textSubmit}
                     </button>
                     {sendCode && (
-                        <button type="button" onClick={onSend} className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
+                        <button type="button" onClick={handleSend} className='rounded-full bg-white m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-300 border border-black '>
                             Send code
                         </button>
                     )}

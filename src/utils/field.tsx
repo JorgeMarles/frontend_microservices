@@ -7,7 +7,7 @@ const icons = {
     password: <LockClosedIcon className="h-5 w-5 text-black " />,
     nickname: <UserCircleIcon className="h-5 w-5 text-black " />,
     name: <LightBulbIcon className="h-5 w-5 text-black " />,
-    verification_code: <CommandLineIcon className="h-5 w-5 text-black " />
+    code: <CommandLineIcon className="h-5 w-5 text-black " />
   };
 
 interface FieldConfig {
@@ -68,10 +68,10 @@ export const fields_update_password: Fields = {
         type: "email",
         icon: icons.email
     },
-    verification_code: {
+    code: {
         name: "Verification code",
         type: "text",
-        icon: icons.verification_code
+        icon: icons.code
     },
     password: {
         name: "Password",

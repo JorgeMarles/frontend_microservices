@@ -1,13 +1,24 @@
 import axios from 'axios';
-import { User } from '../utils/interfaces';
+import { User, UserUpdatePassword } from '../utils/interfaces';
 import { URL_BACKEND_USERS } from '../configs/config';
 
 export const createUser = async (userData: User) => {
     try {
         const response = await axios.post(`${URL_BACKEND_USERS}/user`, userData);
-        return response; // Devuelve la respuesta si la solicitud tiene éxito
+        return response; 
     } catch (error) {
         console.error('Error creating user:', error);
-        throw error; // Lanza el error para manejarlo desde el lugar donde se llama
+        throw error; 
     }
 };
+
+export const updatePassword = async (userData: UserUpdatePassword) => {
+    try {
+        const response = await axios.put(`${URL_BACKEND_USERS}/user/recoveryPassword`, userData);
+        return response; 
+    } catch (error) {
+        console.error('Error updating password:', error);
+        throw error; 
+    }
+};
+
