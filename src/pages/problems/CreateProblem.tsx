@@ -7,12 +7,19 @@ import Menu from '../../components/Menu';
 import ProblemView from '../../components/ProblemView';
 import { problem as defaultProblem } from '../../utils/emptyEntities';
 import { useParams } from 'react-router-dom';
+import FileCard from '../../components/FileCard';
 
 const CreateProblem: FC = () => {
   const { id } = useParams();
   const [data, setData] = useState<Problem>(defaultProblem);
   const [preview, setPreview] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const fileOptions = [
+    { name: "Solution file", handleSubmit: () => { alert("solution") } },
+    { name: "Input file", handleSubmit: () => { alert("input") } },
+    { name: "Output file", handleSubmit: () => { alert("output") } },
+    { name: "Checker file", handleSubmit: () => { alert("checker") } }
+  ];
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -37,7 +44,7 @@ const CreateProblem: FC = () => {
     problem.url_input = "";
     problem.url_output = "";
     problem.url_solution = "";
-    if( "id" in problem ) {
+    if ("id" in problem) {
       update(problem);
     }
     else {
@@ -81,21 +88,18 @@ const CreateProblem: FC = () => {
           )}
         </div>
 
-        <div className='mx-5 flex'>
+        <div className='flex w-full'>
           <div className="h-full w-1 bg-gray-500 mt-5"></div>
-          <div className='pl-5 ml-5 w-full'>
-            <h1 className='font-Jomhuria text-7xl text-center'>
-              Problem's files
-            </h1>
-            <div className='bg-white pb-5 px-8 m-5 rounded-2xl border-2 border-black flex flex-col justify-center h-48'>
-              <h1 className='text-center'>Solution.cpp</h1>
-              <button className='rounded-full bg-gray-300 m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black '>
-                Select file
-              </button>
-              <button className='rounded-full bg-gray-300 m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black '>
-                Submit
-              </button>
-            </div>
+          <div className='w-full p-5'>
+            {fileOptions.map((item, index) => {
+              return (
+                <FileCard
+                  name={item.name}
+                  onSubmit={item.handleSubmit}
+                  key={index}
+                />
+              )
+            })}
           </div>
         </div>
       </div>
