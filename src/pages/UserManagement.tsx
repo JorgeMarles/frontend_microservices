@@ -45,7 +45,13 @@ const UserManagement: FC = () => {
         alert("update")
     }
 
-    const handleChange = (index: number) => {
+    const handleView = (index: number) => {
+        alert(users[index].name)
+    }
+    const handleEye = (index: number) => {
+        alert(users[index].name)
+    }
+    const handleDelete = (index: number) => {
         alert(users[index].name)
     }
 
@@ -66,8 +72,10 @@ const UserManagement: FC = () => {
                         columns={columns}
                         enableNumberPagination={true}
                         header={true}
-                        onChange={handleChange}
                         pagination={6}
+                        onDelete={handleView}
+                        onEdit={handleEye}
+                        onView={handleDelete}
                     />
                 </div>
             </div>
