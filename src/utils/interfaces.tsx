@@ -43,6 +43,7 @@ export interface User {
     type: boolean;
     password: string;
     repeat_password: string;
+    new_password?: string;
 }
 
 export interface UserUpdatePassword {

@@ -4,14 +4,14 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 interface UserCardProps {
     name: string;
-    onSubmit: (data: string) => void;
+    onSubmit: () => void;
     user: User
 }
 
 const UserCard: FC<UserCardProps> = ({ name, onSubmit, user }) => {
 
     const handleSubmit = () => {
-        onSubmit(name);
+        onSubmit();
     };
 
     return (

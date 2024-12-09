@@ -5,10 +5,14 @@ import { getEmailUser } from '../session/Token';
 import { getUser, getUsers } from '../fetch/UserFetch';
 import { User } from '../utils/interfaces';
 import Table from '../components/Table';
+import FormUser from '../components/forms/FormUser';
+import { user as emptyUser } from '../utils/emptyEntities';
 
 const UserManagement: FC = () => {
-    const [user, setUser] = useState<User>({} as User);
+    const [user, setUser] = useState<User>(emptyUser);
+    const [admin, setAdmin] = useState<User>(emptyUser);
     const [users, setUsers] = useState<User[]>([]);
+    const [edit, setEdit] = useState(false);
     
     const columns = [
         { label: "User", key: "nickname" },
@@ -20,7 +24,7 @@ const UserManagement: FC = () => {
             try {
                 const email = getEmailUser();
                 const response = await getUser(email);
-                setUser(response.data.user);
+                setAdmin(response.data.user);
             }
             catch (error) {
                 console.error('Error fetching data: ', error);
@@ -41,18 +45,29 @@ const UserManagement: FC = () => {
         fetchUsers();
     }, []);
 
-    const handleUpdate = () => {
-        alert("update")
+    const handleUpdateMyInfo = () => {
+        setEdit(true);
+        setUser(admin);
     }
 
-    const handleView = (index: number) => {
+    const handleUpdate = (user: User) => { // INCOMPLETE
+        setUser(user);
+    }
+    
+    const handleView = (index: number) => { // INCOMPLETE
         alert(users[index].name)
     }
     const handleEdit = (index: number) => {
+        setEdit(true);
+        setUser(users[index])
+    }
+    
+    const handleDelete = (index: number) => { // INCOMPLETE
         alert(users[index].name)
     }
-    const handleDelete = (index: number) => {
-        alert(users[index].name)
+
+    const handleClose = () => {
+        setEdit(false);
     }
 
     return (
@@ -62,8 +77,8 @@ const UserManagement: FC = () => {
                 <div className='col-span-3 mb-20 mr-14'>
                     <UserCard
                         name='Users'
-                        user={user}
-                        onSubmit={handleUpdate}
+                        user={admin}
+                        onSubmit={handleUpdateMyInfo}
                     />
                 </div>
                 <div className='col-span-4'>
@@ -79,6 +94,14 @@ const UserManagement: FC = () => {
                     />
                 </div>
             </div>
+            {edit && (
+                <FormUser 
+                    data={user}
+                    onSubmit={handleUpdate}
+                    onClose={handleClose}
+                    password={user.email === admin.email}
+                />
+            )}
         </div>
     );
 };

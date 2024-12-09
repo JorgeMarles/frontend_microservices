@@ -1,4 +1,4 @@
-import { Problem, Topic } from "./interfaces";
+import { Problem, Topic, User } from "./interfaces";
 
 export const problem: Problem = {
     name: "",
@@ -22,6 +22,15 @@ export const problem: Problem = {
     submissions: "",
     typeSubmission: "",
 };
+export const user: User = {
+    email: "",
+    nickname: "",
+    name: "",
+    type: false,
+    password: "",
+    repeat_password: "",
+    new_password: "",
+}
 
 export const topic: Topic = {
     id: 0,
