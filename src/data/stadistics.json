@@ -1,0 +1,29 @@
+{
+    "topics": [
+        {
+            "name":"String",
+            "wrong": 30,
+            "accepted": 14
+        },
+        {
+            "name":"Flow",
+            "wrong": 22,
+            "accepted": 3
+        },
+        {
+            "name":"Graphs",
+            "wrong": 10,
+            "accepted": 5
+        },
+        {
+            "name":"Introductory problems",
+            "wrong": 50,
+            "accepted": 20
+        },
+        {
+            "name":"Graph",
+            "wrong": 10,
+            "accepted": 8
+        }
+    ]
+}

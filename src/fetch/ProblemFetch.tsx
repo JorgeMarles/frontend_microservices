@@ -43,3 +43,16 @@ export const getByID = async (idProblem: number) => {
     console.error('Error fetching problem by ID:', error);
   }
 };
+
+export const getProblemsInfo = async (id: number) => {
+  try {
+    const response = await api.get('/problem/user', {
+      params: {
+        id: id,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching problem by ID:', error);
+  }
+};

@@ -23,13 +23,12 @@ export const updatePassword = async (userData: UserUpdatePassword) => {
     }
 };
 
-export const getUser = async (email: string) => {
+export const getUser = async (email?: string, id?: number) => {
     try {
-        const response = await api.get('/user/findOne', {
-            params: {
-                email
-            },
-        });
+        const params: Record<string, string | number> = {};
+        if (email) params.email = email;
+        if (id) params.id = id;
+        const response = await api.get('/user/findOne', { params: params });
         return response;
     } catch (error) {
         console.error('Error get an user:', error);
@@ -47,7 +46,7 @@ export const getUsers = async () => {
     }
 };
 
-export const updateUser = async (userData : User) => {
+export const updateUser = async (userData: User) => {
     try {
         const response = await api.put('/user', userData);
         return response;
@@ -57,7 +56,7 @@ export const updateUser = async (userData : User) => {
     }
 };
 
-export const disableUser = async (email : string) => {
+export const disableUser = async (email: string) => {
     try {
         const response = await api.delete('/user', {
             data: { email }

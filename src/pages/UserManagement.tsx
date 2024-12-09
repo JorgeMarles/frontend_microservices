@@ -7,6 +7,7 @@ import { User } from '../utils/interfaces';
 import Table from '../components/Table';
 import FormUser from '../components/forms/FormUser';
 import { user as emptyUser } from '../utils/emptyEntities';
+import { useNavigate } from 'react-router-dom';
 
 const UserManagement: FC = () => {
     const [user, setUser] = useState<User>(emptyUser);
@@ -14,6 +15,7 @@ const UserManagement: FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [edit, setEdit] = useState(false);
     const [action, setAction] = useState(0);
+    const navigate = useNavigate();
 
     const columns = [
         { label: "User", key: "nickname" },
@@ -83,10 +85,9 @@ const UserManagement: FC = () => {
         setUser(users[index])
     }
 
-    const handleView = (index: number) => { // INCOMPLETE
-        alert(users[index].name)
+    const handleView = (index: number) => {
+        navigate(`/profile/${users[index].id}`);
     }
-
 
     const handleDelete = async (index: number) => { 
         try {

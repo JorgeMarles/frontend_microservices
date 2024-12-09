@@ -20,7 +20,7 @@ const Menu: FC = () => {
                 {menuItems.map((item, key) => {
                     if (type !== "admin" && item.requiresAdmin) return null;
                     return (
-                        <li className='px-8 border-r-4 border-gray-500 font-Jomhuria text-5xl' key={key}>
+                        <li className='px-8 border-r-4 border-gray-500 font-Jomhuria text-5xl text-gray-900' key={key}>
                             <NavLink
                                 to={item.path}
                                 className={({ isActive }) =>
