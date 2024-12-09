@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Problem } from '../../utils/interfaces';
 import Table from '../../components/Table';
-import Card from '../../components/Card';
+import Card from '../../components/cards/Card';
 import Combobox from '../../components/Combobox';
 import { Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';

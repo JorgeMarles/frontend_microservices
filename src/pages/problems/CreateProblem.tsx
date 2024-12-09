@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { Problem } from '../../utils/interfaces';
-import ProblemForm from '../../components/ProblemForm';
+import ProblemForm from '../../components/forms/ProblemForm';
 import { field_problem } from '../../utils/field';
 import { create, getByID, update } from '../../fetch/ProblemFetch'
 import Menu from '../../components/Menu';
 import ProblemView from '../../components/ProblemView';
 import { problem as defaultProblem } from '../../utils/emptyEntities';
 import { useParams } from 'react-router-dom';
-import FileCard from '../../components/FileCard';
+import FileCard from '../../components/cards/FileCard';
 
 const CreateProblem: FC = () => {
   const { id } = useParams();

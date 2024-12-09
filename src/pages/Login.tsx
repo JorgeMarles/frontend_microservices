@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { User } from '../utils/interfaces';
 import { fields_login } from '../utils/field';
-import Form from '../components/Form';
+import Form from '../components/forms/Form';
 import { useNavigate } from 'react-router-dom';
 import { backgroundURL } from '../assets/Images';
 import { LoginSession } from '../fetch/LoginFetch';

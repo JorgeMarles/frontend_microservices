@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { User } from '../utils/interfaces';
 import { fields_register } from '../utils/field';
-import Form from '../components/Form';
+import Form from '../components/forms/Form';
 import { backgroundURL } from '../assets/Images';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../fetch/UserFetch';

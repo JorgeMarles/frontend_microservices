@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
-import { Fields } from '../utils/field';
-import Combobox from './Combobox';
-import { Problem, Topic } from '../utils/interfaces';
-import { getTopics } from '../fetch/TopicFetch';
-import difficulties from '../data/difficulties.json';
+import { Fields } from '../../utils/field';
+import Combobox from '../Combobox';
+import { Problem, Topic } from '../../utils/interfaces';
+import { getTopics } from '../../fetch/TopicFetch';
+import difficulties from '../../data/difficulties.json';
 import { useNavigate } from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/24/outline';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Fields } from '../utils/field';
+import { Fields } from '../../utils/field';
 import { NavLink } from 'react-router-dom';
 
 interface FormProps<T> {
