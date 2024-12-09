@@ -11,6 +11,7 @@ import Menu from '../../components/Menu';
 import { iota } from '../../utils/services';
 import Pagination from '../../components/Pagination';
 import { useNavigate } from 'react-router-dom';
+import { getTypeUser } from '../../session/Token';
 
 const addFormatSubmissions = (values: Problem[]) => {
     for (let i = 0; i < values.length; i++) {
@@ -30,6 +31,7 @@ const Home: FC = () => {
     const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
     const [indexes, setIndexes] = useState<number[]>(iota(0, pagination));
     const [page, setPage] = useState(0);
+    const type = getTypeUser();
     const columns = [
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
@@ -87,12 +89,19 @@ const Home: FC = () => {
 
     const handleChangeProblem = (index: number) => {
         navigate(`/problem/${problems[index].id}`);
-    };    
+    };
 
     const handlePagination = (newPage: number) => {
         const start = newPage * pagination, end = Math.min(topics.length, newPage * pagination + pagination);
         setPage(newPage);
         setIndexes(iota(start, end));
+    }
+
+    const handleEdit = (index: number) => {
+        navigate(`/createProblem/${problems[index].id}`);
+    }
+    const handleDelete = (index: number) => {
+        alert(index)
     }
 
     return (
@@ -110,14 +119,28 @@ const Home: FC = () => {
                             />
                         </div>
                     </div>
-                    <Table<Problem>
-                        data={problems}
-                        columns={columns}
-                        header={false}
-                        onChange={handleChangeProblem}
-                        pagination={5}
-                        enableNumberPagination={true}
-                    />
+                    {type === "admin" && (
+                        <Table<Problem>
+                            data={problems}
+                            columns={columns}
+                            header={false}
+                            onChange={handleChangeProblem}
+                            pagination={5}
+                            enableNumberPagination={true}
+                            onDelete={handleDelete}
+                            onEdit={handleEdit}
+                        />
+                    )}
+                    {type !== "admin" && (
+                        <Table<Problem>
+                            data={problems}
+                            columns={columns}
+                            header={false}
+                            onChange={handleChangeProblem}
+                            pagination={5}
+                            enableNumberPagination={true}
+                        />
+                    )}
                 </div>
                 <div className='mx-5 flex'>
                     <div className="h-full w-1 bg-gray-500 "></div>

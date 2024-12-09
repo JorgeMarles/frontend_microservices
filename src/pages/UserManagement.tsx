@@ -48,7 +48,7 @@ const UserManagement: FC = () => {
     const handleView = (index: number) => {
         alert(users[index].name)
     }
-    const handleEye = (index: number) => {
+    const handleEdit = (index: number) => {
         alert(users[index].name)
     }
     const handleDelete = (index: number) => {
@@ -74,7 +74,7 @@ const UserManagement: FC = () => {
                         header={true}
                         pagination={6}
                         onDelete={handleView}
-                        onEdit={handleEye}
+                        onEdit={handleEdit}
                         onView={handleDelete}
                     />
                 </div>

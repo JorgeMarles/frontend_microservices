@@ -101,10 +101,10 @@ const Table = <T extends object>({
                     key={rowIndex}
                     className="grid gap-4 border-t-2 border-black p-4 text-center hover:bg-gray-400"
                     style={{ gridTemplateColumns: `repeat(${columns.length + Number(actions)}, 1fr)` }}
-                    onClick={() => handleClick(rowIndex)}
+                    
                 >
                     {columns.map((column, colIndex) => (
-                        <div key={colIndex}>
+                        <div key={colIndex} onClick={() => handleClick(rowIndex)}>
                             {String(getValueByKey(data[rowIndex], column.key))}
                         </div>
                     ))}
