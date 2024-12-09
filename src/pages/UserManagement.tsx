@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import UserCard from '../components/cards/UserCard';
 import Menu from '../components/Menu';
 import { getEmailUser } from '../session/Token';
-import { getUser, getUsers, updateUser } from '../fetch/UserFetch';
+import { disableUser, getUser, getUsers, updateUser } from '../fetch/UserFetch';
 import { User } from '../utils/interfaces';
 import Table from '../components/Table';
 import FormUser from '../components/forms/FormUser';
@@ -51,7 +51,7 @@ const UserManagement: FC = () => {
         setUser(admin);
     }
 
-    const handleUpdate = async (user: User) => { 
+    const handleUpdate = async (user: User) => {
         if ("newPassword" in user) {
             if ("repeatNewPassword" in user) {
                 if (user.newPassword !== user.repeatNewPassword) {
@@ -66,7 +66,7 @@ const UserManagement: FC = () => {
         }
         try {
             const response = await updateUser(user);
-            if(response.status == 200) {
+            if (response.status == 200) {
                 setEdit(false);
                 setAction(1 - action);
                 alert("User's data updated successfully.")
@@ -86,10 +86,21 @@ const UserManagement: FC = () => {
     const handleView = (index: number) => { // INCOMPLETE
         alert(users[index].name)
     }
-    
 
-    const handleDelete = (index: number) => { // INCOMPLETE
-        alert(users[index].name)
+
+    const handleDelete = async (index: number) => { 
+        try {
+            const response = await disableUser(users[index].email);
+            if (response.status == 200) {
+                setAction(1 - action);
+                alert("User disabled successfully.")
+            }
+        }
+        catch (error) {
+            console.error('Error fetching data: ', error);
+            alert("Data invalid: please check the password");
+        }
+
     }
 
     const handleClose = () => {
@@ -114,9 +125,9 @@ const UserManagement: FC = () => {
                         enableNumberPagination={true}
                         header={true}
                         pagination={6}
-                        onDelete={handleView}
+                        onDelete={handleDelete}
                         onEdit={handleEdit}
-                        onView={handleDelete}
+                        onView={handleView}
                     />
                 </div>
             </div>

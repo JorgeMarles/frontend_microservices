@@ -57,3 +57,15 @@ export const updateUser = async (userData : User) => {
     }
 };
 
+export const disableUser = async (email : string) => {
+    try {
+        const response = await api.delete('/user', {
+            data: { email }
+        });
+        return response;
+    } catch (error) {
+        console.error('Error get an user:', error);
+        throw error;
+    }
+};
+
