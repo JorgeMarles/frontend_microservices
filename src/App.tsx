@@ -11,6 +11,8 @@ import Submission from './pages/problems/Submission';
 import Ranking from './pages/problems/Ranking';
 import Problem from './pages/problems/Problem';
 import ProtectedRoute from './session/ProtectedRoute';
+import UserManagement from './pages/UserManagement';
+import Profile from './pages/Profile';
 
 const App: React.FC = () => {
   return (
@@ -56,6 +58,14 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute allowedRoles={['user']}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           {/* Only admin routes */}
           <Route
             path="/createProblem"
@@ -70,6 +80,14 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <CreateProblem />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <UserManagement />
               </ProtectedRoute>
             }
           />

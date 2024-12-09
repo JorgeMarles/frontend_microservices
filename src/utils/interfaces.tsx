@@ -40,6 +40,7 @@ export interface User {
     email: string;
     nickname: string;
     name: string;
+    type: boolean;
     password: string;
     repeat_password: string;
 }

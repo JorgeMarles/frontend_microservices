@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
 interface TokenPayload {
+  email: string;
   nickname: string;
   type: string;
   exp: number;
@@ -19,6 +20,16 @@ export const isTokenValid = (token: string): boolean => {
 
 export const getTypeUser = (): string => {
   const token = sessionStorage.getItem('token');
-  const decodedToken = token ? jwtDecode<TokenPayload>(token) : { type: "user" } as TokenPayload;
+  if(!token)
+    return "user";
+  const decodedToken = jwtDecode<TokenPayload>(token);
   return decodedToken.type;
+}
+
+export const getEmailUser = (): string => {
+  const token = sessionStorage.getItem('token');
+  if(!token)
+    return "";
+  const decodedToken = jwtDecode<TokenPayload>(token);
+  return decodedToken.email;
 }
