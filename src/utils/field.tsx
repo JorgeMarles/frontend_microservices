@@ -41,7 +41,7 @@ export const fields_register: Fields = {
         type: "password",
         icon: icons.password
     },
-    repeat_password: {
+    repeatPassword: {
         name: "Repeat password",
         type: "password",
         icon: icons.password

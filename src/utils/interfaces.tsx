@@ -37,13 +37,14 @@ export interface Submission {
 }
 
 export interface User {
+    id?: number;
     email: string;
     nickname: string;
     name: string;
     type: boolean;
     password: string;
-    repeat_password: string;
-    new_password?: string;
+    repeatPassword?: string;
+    newPassword?: string;
 }
 
 export interface UserUpdatePassword {

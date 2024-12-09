@@ -10,7 +10,7 @@ const Register: FC = () => {
   const navigate = useNavigate();
 
   const handleRegister = async (user: User) => {
-    if (user.password !== user.repeat_password) {
+    if (user.password !== user.repeatPassword) {
       alert("Passwords do not match. Please verify and try again.");
       return;
     }

@@ -47,3 +47,13 @@ export const getUsers = async () => {
     }
 };
 
+export const updateUser = async (userData : User) => {
+    try {
+        const response = await api.put('/user', userData);
+        return response;
+    } catch (error) {
+        console.error('Error get an user:', error);
+        throw error;
+    }
+};
+
