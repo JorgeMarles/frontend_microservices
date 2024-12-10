@@ -4,6 +4,7 @@ import { Submission as SubmissionInterface } from '../../utils/interfaces';
 import submissionsJSON from '../../data/submissions.json';
 import Table from '../../components/Table';
 import { useNavigate } from 'react-router-dom';
+import { getTypeUser } from '../../session/Token';
 
 const Submission: FC = () => {
     const [submissions, setSubmissions] = useState<SubmissionInterface[]>(submissionsJSON);
@@ -39,7 +40,7 @@ const Submission: FC = () => {
     }, [isChecked]);
 
     const handleViewDetails = (index: number) => {
-        if (submissions[index].public) {
+        if (submissions[index].public || getTypeUser() === "admin") {
             navigate(`/submission/${submissions[index].id}`);
         }
     }

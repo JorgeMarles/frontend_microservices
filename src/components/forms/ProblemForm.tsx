@@ -4,7 +4,6 @@ import Combobox from '../Combobox';
 import { Problem, Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
 import difficulties from '../../data/difficulties.json';
-import { useNavigate } from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/24/outline';
 
 interface ProblemProps {
@@ -21,7 +20,6 @@ const ProblemForm: FC<ProblemProps> = ({ data, fields, onSubmit, onView }) => {
         data?.topic?.name ?? "Introductory problems"
     );
     const [difficultySelected, setDifficultySelected] = useState<string>(data.difficulty || "easy");
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -74,7 +72,6 @@ const ProblemForm: FC<ProblemProps> = ({ data, fields, onSubmit, onView }) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSubmit(formData);
-        navigate('/home');
     };
 
     const handleView = () => {

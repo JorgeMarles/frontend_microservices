@@ -6,7 +6,7 @@ import { create, getByID, update } from '../../fetch/ProblemFetch'
 import Menu from '../../components/Menu';
 import ProblemView from '../../components/ProblemView';
 import { problem as defaultProblem } from '../../utils/emptyEntities';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FileCard from '../../components/cards/FileCard';
 
 const CreateProblem: FC = () => {
@@ -14,11 +14,25 @@ const CreateProblem: FC = () => {
   const [data, setData] = useState<Problem>(defaultProblem);
   const [preview, setPreview] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [input, setInput] = useState<File>();
+  const [output, setOutput] = useState<File>();
+  const navigate = useNavigate();
+
   const fileOptions = [
-    { name: "Solution file", handleSubmit: () => { alert("solution") } },
-    { name: "Input file", handleSubmit: () => { alert("input") } },
-    { name: "Output file", handleSubmit: () => { alert("output") } },
-    { name: "Checker file", handleSubmit: () => { alert("checker") } }
+    {
+      name: "Input file", type: ".zip",
+      handleSubmit: (file: File) => {
+        alert(`subiendo ${file.name}`);
+        setInput(file);
+      }
+    },
+    {
+      name: "Output file", type: ".zip",
+      handleSubmit: (file: File) => {
+        alert(`subiendo ${file.name}`);
+        setOutput(file);
+      }
+    },
   ];
 
   useEffect(() => {
@@ -41,6 +55,16 @@ const CreateProblem: FC = () => {
   }, [id]);
 
   const handleCreateProblem = async (problem: Problem) => {
+    if (!("id" in problem)) {
+      if (!input) {
+        alert("Please, select a input file before submit create a problem");
+        return;
+      }
+      if (!output) {
+        alert("Please, select a input file before submit create a problem");
+        return;
+      }
+    }
     problem.url_input = "";
     problem.url_output = "";
     problem.url_solution = "";
@@ -50,12 +74,14 @@ const CreateProblem: FC = () => {
     else {
       create(problem);
     }
+    navigate("/home");
   };
 
   const handleView = (problem: Problem) => {
     setData(problem);
     setPreview(!preview);
   };
+
 
   if (isLoading) {
     return (
@@ -96,6 +122,7 @@ const CreateProblem: FC = () => {
                 <FileCard
                   name={item.name}
                   onSubmit={item.handleSubmit}
+                  type={item.type}
                   key={index}
                 />
               )
