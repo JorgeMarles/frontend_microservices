@@ -54,7 +54,7 @@ const UserCard: FC<UserCardProps> = ({ name, onSubmit, user }) => {
                     )}
                 </div>
 
-                <div className="mt-16 flex justify-end">
+                <div className="mt-10 flex justify-end">
                     <button
                         className="bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full flex items-center shadow-md transition-all duration-100"
                         onClick={handleSubmit}

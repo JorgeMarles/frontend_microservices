@@ -19,10 +19,10 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
             {
                 label: '#Problems Solved',
                 data: totals,
-                backgroundColor: '#ffe44a',
+                backgroundColor: '#ffc434',
                 borderColor: 'rgba(0, 0, 0, 0)',
                 borderWidth: 2,
-                hoverBackgroundColor: '#d6bf3c'
+                hoverBackgroundColor: '#e5ac20'
             },
         ]
     };
@@ -48,7 +48,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
         scales: {
             x: {
                 grid: {
-                    display: false, 
+                    display: false,
                 },
                 ticks: {
                     font: {
@@ -70,13 +70,11 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
             },
         },
     };
-    
+
 
     return (
-        <div className="">
-            <div className='text-lg'>
-                <Bar data={chartData} options={options} />
-            </div>
+        <div className="flex justify-center w-full">
+            <Bar data={chartData} options={options} />
         </div>
     );
 };

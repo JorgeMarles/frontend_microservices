@@ -20,14 +20,14 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({ data }) => {
                 backgroundColor: [
                     '#7bd63c', // Color para el primer segmento
                     '#d63c3c', // Color para el segundo segmento
-                    '#FFCE56', // Color para el tercero
+                    '#ffc434', // Color para el tercero
                     '#4BC0C0', // Color adicional
                     '#9966FF',
                 ],
                 hoverBackgroundColor: [
                     '#149d03',
                     '#9d0303',
-                    '#FFCE56CC',
+                    '#e5ac20',
                     '#4BC0C0CC',
                     '#9966FFCC',
                 ],
@@ -44,6 +44,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({ data }) => {
             legend: {
                 position: 'right',
                 labels: {
+                    padding: 10,
                     font: {
                         size: 20,
                     },
@@ -58,11 +59,11 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({ data }) => {
                     },
                 },
             },
-        },
+        }
     };
 
     return (
-        <div className="w-full max-w-sm md:max-w-md lg:max-w-lg" style={{ margin: '0 auto' }}>
+        <div className="w-full h-full" style={{ margin: '0 auto' }}>
             <Doughnut data={chartData} options={options} />
         </div>
     );

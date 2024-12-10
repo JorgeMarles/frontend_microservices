@@ -33,7 +33,7 @@ const Header: FC = () => {
                 </div>
             </button>
             {isAuthenticated && (
-                <div className='flex px-5 md:text-6xl text-5xl text-stroke font-Jomhuria gap-4'>
+                <div className='flex px-5 md:text-6xl text-5xl text-stroke font-Jomhuria gap-8'>
                     {type === 'admin' && (
                         <div>
                             <button onClick={handleUsers}>

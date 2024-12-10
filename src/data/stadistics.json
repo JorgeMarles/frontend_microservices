@@ -2,28 +2,108 @@
     "topics": [
         {
             "name":"String",
-            "wrong": 30,
-            "accepted": 14
+            "wa": 30,
+            "ac": 14,
+            "rte": 14,
+            "tle": 2,
+            "ce": 1
         },
         {
             "name":"Flow",
-            "wrong": 22,
-            "accepted": 3
+            "wa": 8,
+            "ac": 2,
+            "rte": 1,
+            "tle": 5,
+            "ce": 0
         },
         {
             "name":"Graphs",
-            "wrong": 10,
-            "accepted": 5
+            "wa": 12,
+            "ac": 18,
+            "rte": 15,
+            "tle": 8,
+            "ce": 0
         },
         {
             "name":"Introductory problems",
-            "wrong": 50,
-            "accepted": 20
+            "wa": 15,
+            "ac": 30,
+            "rte": 7,
+            "tle": 2,
+            "ce": 10
         },
         {
-            "name":"Graph",
-            "wrong": 10,
-            "accepted": 8
+            "name":"Math",
+            "wa": 10,
+            "ac": 12,
+            "rte": 2,
+            "tle": 5,
+            "ce": 0
+        },
+        {
+            "name":"Greedy",
+            "wa": 8,
+            "ac": 12,
+            "rte": 10,
+            "tle": 0,
+            "ce": 0
+        },
+        {
+            "name":"Geometry",
+            "wa": 8,
+            "ac": 0,
+            "rte": 10,
+            "tle": 0,
+            "ce": 0
+        },
+        {
+            "name":"Flow",
+            "wa": 8,
+            "ac": 2,
+            "rte": 1,
+            "tle": 5,
+            "ce": 0
+        },
+        {
+            "name":"Graphs",
+            "wa": 12,
+            "ac": 18,
+            "rte": 15,
+            "tle": 8,
+            "ce": 0
+        },
+        {
+            "name":"Introductory problems",
+            "wa": 15,
+            "ac": 30,
+            "rte": 7,
+            "tle": 2,
+            "ce": 10
+        },
+        {
+            "name":"Math",
+            "wa": 10,
+            "ac": 12,
+            "rte": 2,
+            "tle": 5,
+            "ce": 0
+        },
+        {
+            "name":"Greedy",
+            "wa": 8,
+            "ac": 12,
+            "rte": 10,
+            "tle": 0,
+            "ce": 0
+        },
+        {
+            "name":"Geometry",
+            "wa": 8,
+            "ac": 0,
+            "rte": 10,
+            "tle": 0,
+            "ce": 0
         }
+        
     ]
 }
