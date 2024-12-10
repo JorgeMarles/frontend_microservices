@@ -6,11 +6,10 @@ interface CardProps {
     type: string;
     textSubmit: string;
     share?: boolean;
-    onClick: () => void;
     data?: File;
 }
 
-const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit, onClick, data }) => {
+const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit, data }) => {
     const [file, setFile] = useState<File | undefined>(data);
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [confirm, setConfirm] = useState<boolean>(false);
@@ -43,7 +42,16 @@ const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit, onCl
     };
 
     const handleClick = () => {
-        onClick();
+        if (file) {
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }
     }
 
     return (
@@ -53,7 +61,7 @@ const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit, onCl
             )}
             <div className="bg-white py-5 px-8  border-2 border-gray-800 flex flex-col justify-center" >
                 {file ? (
-                    <h1 className="text-center pb-4">
+                    <h1 className="text-center pb-4 text-blue-800">
                         <button onClick={handleClick}>
                             {file.name}
                         </button>

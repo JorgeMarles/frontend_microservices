@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { Problem } from '../../utils/interfaces';
 import ProblemForm from '../../components/forms/ProblemForm';
 import { field_problem } from '../../utils/field';
-import { create, getByID, update } from '../../fetch/ProblemFetch'
+import { create, getByID, update, uploadFiles } from '../../fetch/ProblemFetch'
 import Menu from '../../components/Menu';
 import ProblemView from '../../components/ProblemView';
 import { problem as defaultProblem } from '../../utils/emptyEntities';
 import { useNavigate, useParams } from 'react-router-dom';
 import FileCard from '../../components/cards/FileCard';
-import { downloadFiles, uploadFiles } from '../../fetch/RunnerFetch';
+import { downloadFiles } from '../../fetch/RunnerFetch';
 
 const CreateProblem: FC = () => {
   const { id } = useParams();
@@ -23,40 +23,13 @@ const CreateProblem: FC = () => {
     {
       name: "Input file", type: ".zip",
       handleSubmit: (file: File) => {
-        alert(`subiendo ${file.name}`);
         setInput(file);
-      },
-      handleClick: () => {
-        if (input) {
-          const url = URL.createObjectURL(input);
-
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = input.name;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
       }
     },
     {
       name: "Output file", type: ".zip",
       handleSubmit: (file: File) => {
         setOutput(file);
-      },
-      handleClick: () => {
-        if (output) {
-          const url = URL.createObjectURL(output);
-
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = output.name;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
       }
     },
   ];
@@ -182,7 +155,6 @@ const CreateProblem: FC = () => {
                   type={item.type}
                   key={index}
                   textSubmit="Confirm"
-                  onClick={item.handleClick}
                   data={index == 0 ? input : output}
                 />
               )
