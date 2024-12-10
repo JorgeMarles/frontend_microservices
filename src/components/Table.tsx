@@ -14,6 +14,7 @@ interface TableProps<T> {
     header: boolean;
     onChange?: (index: number) => void;
     enableNumberPagination: boolean;
+    activePagination: boolean;
     pagination: number;
     onDelete?: (index: number) => void;
     onView?: (index: number) => void;
@@ -26,6 +27,7 @@ const Table = <T extends object>({
     columns,
     header,
     onChange,
+    activePagination,
     enableNumberPagination,
     pagination,
     onEdit,
@@ -101,7 +103,7 @@ const Table = <T extends object>({
                     key={rowIndex}
                     className="grid gap-4 border-t-2 border-black p-4 text-center hover:bg-gray-400"
                     style={{ gridTemplateColumns: `repeat(${columns.length + Number(actions)}, 1fr)` }}
-                    
+
                 >
                     {columns.map((column, colIndex) => (
                         <div key={colIndex} onClick={() => handleClick(rowIndex)}>
@@ -136,13 +138,15 @@ const Table = <T extends object>({
                 </div>
             ))}
             <div className="border-t-2 border-black p-4 mb-1"></div>
-            <Pagination
-                onPagination={handlePagination}
-                page={page}
-                size={data.length}
-                pagination={pagination}
-                enableNumber={enableNumberPagination}
-            />
+            {activePagination && (
+                <Pagination
+                    onPagination={handlePagination}
+                    page={page}
+                    size={data.length}
+                    pagination={pagination}
+                    enableNumber={enableNumberPagination}
+                />
+            )}
         </div>
     );
 };

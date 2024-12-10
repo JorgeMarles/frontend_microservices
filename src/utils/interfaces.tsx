@@ -34,6 +34,7 @@ export interface Submission {
         name: string;
     };
     veredict: string;
+    public: boolean;
 }
 
 export interface User {

@@ -129,6 +129,7 @@ const Home: FC = () => {
                             enableNumberPagination={true}
                             onDelete={handleDelete}
                             onEdit={handleEdit}
+                            activePagination={true}
                         />
                     )}
                     {type !== "admin" && (
@@ -139,6 +140,7 @@ const Home: FC = () => {
                             onChange={handleChangeProblem}
                             pagination={5}
                             enableNumberPagination={true}
+                            activePagination={true}
                         />
                     )}
                 </div>

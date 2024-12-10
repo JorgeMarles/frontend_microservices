@@ -1,6 +1,6 @@
 [
     {
-        "id":132165,
+        "id":0,
         "time_judge": "Sep/29/2024 21:53",
         "time_running": "Sep/29/2024 22:00",
         "nickname": "AlexaV",
@@ -8,7 +8,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "presentation error"
+        "veredict": "presentation error",
+        "public": true
     },
     {
         "id":342,
@@ -19,7 +20,8 @@
             "id":2,
             "name": "Watermelon"
         },
-        "veredict": "runtime error"
+        "veredict": "runtime error",
+        "public": true
     },
     {
         "id":12213,
@@ -30,7 +32,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "accepted"
+        "veredict": "accepted",
+        "public": true
     },
     {
         "id":453,
@@ -41,7 +44,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "accepted"
+        "veredict": "accepted",
+        "public": true
     },
     {
         "id":1,
@@ -52,7 +56,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "wrong answer"
+        "veredict": "wrong answer",
+        "public": false
     },
     {
         "id":12,
@@ -63,7 +68,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "time limited exceeded"
+        "veredict": "time limited exceeded",
+        "public": true
     },
     {
         "id":342,
@@ -74,7 +80,8 @@
             "id":2,
             "name": "Watermelon"
         },
-        "veredict": "runtime error"
+        "veredict": "runtime error",
+        "public": true
     },
     {
         "id":12213,
@@ -85,7 +92,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "accepted"
+        "veredict": "accepted",
+        "public": true
     },
     {
         "id":453,
@@ -96,7 +104,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "accepted"
+        "veredict": "accepted",
+        "public": true
     },
     {
         "id":1,
@@ -107,7 +116,8 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "wrong answer"
+        "veredict": "wrong answer",
+        "public": false
     },
     {
         "id":12,
@@ -118,6 +128,7 @@
             "id":1,
             "name": "Watermelon"
         },
-        "veredict": "time limited exceeded"
+        "veredict": "time limited exceeded",
+        "public": true
     }
 ]

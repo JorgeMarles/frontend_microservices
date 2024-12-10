@@ -13,6 +13,7 @@ import Problem from './pages/problems/Problem';
 import ProtectedRoute from './session/ProtectedRoute';
 import UserManagement from './pages/users/UserManagement';
 import Profile from './pages/Profile';
+import SubmissionView from './pages/problems/SubmissionView';
 
 const App: React.FC = () => {
   return (
@@ -39,6 +40,14 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute allowedRoles={['admin', 'user']}>
                 <Submission />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/submission/:id"
+            element={
+              <ProtectedRoute allowedRoles={['admin', 'user']}>
+                <SubmissionView />
               </ProtectedRoute>
             }
           />

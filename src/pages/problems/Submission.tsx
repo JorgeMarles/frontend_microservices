@@ -3,10 +3,12 @@ import Menu from '../../components/Menu';
 import { Submission as SubmissionInterface } from '../../utils/interfaces';
 import submissionsJSON from '../../data/submissions.json';
 import Table from '../../components/Table';
+import { useNavigate } from 'react-router-dom';
 
 const Submission: FC = () => {
     const [submissions, setSubmissions] = useState<SubmissionInterface[]>(submissionsJSON);
     const [isChecked, setIsChecked] = useState(false);
+    const navigate = useNavigate();
 
     const columns = [
         { label: "Id", key: "id" },
@@ -17,7 +19,7 @@ const Submission: FC = () => {
     ];
 
     useEffect(() => {
-        const fetchTopics = async () => {
+        const fetchSubmissions = async () => {
             try {
                 if (isChecked) {
                     setSubmissions([]);
@@ -33,12 +35,13 @@ const Submission: FC = () => {
             }
         }
 
-        fetchTopics();
+        fetchSubmissions();
     }, [isChecked]);
 
     const handleViewDetails = (index: number) => {
-        alert("imagina redireccion");
-        console.log(submissions[index]);
+        if (submissions[index].public) {
+            navigate(`/submission/${submissions[index].id}`);
+        }
     }
 
     const handleChange = () => {
@@ -73,6 +76,7 @@ const Submission: FC = () => {
                     onChange={handleViewDetails}
                     pagination={7}
                     enableNumberPagination={true}
+                    activePagination={true}
                 />
             </div>
         </div>

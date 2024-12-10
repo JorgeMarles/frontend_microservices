@@ -136,6 +136,7 @@ const UserManagement: FC = () => {
                         onDelete={handleDelete}
                         onEdit={handleEdit}
                         onView={handleView}
+                        activePagination={true}
                     />
                 </div>
             </div>
