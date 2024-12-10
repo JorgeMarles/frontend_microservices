@@ -4,11 +4,13 @@ import { Submission as SubmissionInterface } from '../../utils/interfaces';
 import Table from '../../components/Table';
 import submissionsJSON from '../../data/submissions.json';
 import { useNavigate, useParams } from 'react-router-dom';
+import CodeView from '../../components/CodeView';
 
 const SubmissionView: FC = () => {
     const { id } = useParams();
     const [submission, setSubmission] = useState<SubmissionInterface>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [fileData, setFileData] = useState<{ language: string; code: string } | null>(null);
     const navigate = useNavigate();
 
 
@@ -41,6 +43,19 @@ const SubmissionView: FC = () => {
         }
     }, [id, navigate]);
 
+    useEffect(() => {
+        // Esto es una simulación aca deberia ir el fetch del backend
+        fetch("/example.cpp")
+            .then((response) => response.text())
+            .then((data) => {
+                setFileData({
+                    language: "cpp",
+                    code: data,
+                });
+            });
+
+    }, []);
+
 
     if (isLoading) {
         return (
@@ -50,6 +65,7 @@ const SubmissionView: FC = () => {
             </div>
         );
     }
+    console.log(fileData);
     return (
         <div className='w-full bg-gray-300'>
             <Menu></Menu>
@@ -70,6 +86,14 @@ const SubmissionView: FC = () => {
             </div>
             <div className='px-6'>
                 <h1 className='text-lg'>Source Code</h1>
+            </div>
+            <div className='m-5 px-20'>
+                {fileData && (
+                    <CodeView
+                        code={fileData.code}
+                        language={`language-${fileData.language}`}
+                    />
+                )}
             </div>
         </div>
     );
