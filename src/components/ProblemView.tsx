@@ -29,7 +29,7 @@ const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
     }
 
     return (
-        <div className='flex flex-col items-center m-5 p-3'>
+        <div className='flex flex-col  m-5 p-3'>
             <div className='flex w-full justify-between'>
                 <div key={"name"} className='outline-none w-full text-stroke font-Jomhuria md:text-8xl'>
                     <p>{data.name}</p>
@@ -41,12 +41,22 @@ const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
                 )}
             </div>
             <div className='flex gap-5'>
-                <p>
-                    <strong>topic:</strong> {data.topic.name}
-                </p>
-                <p>
-                    <strong>difficulty:</strong> {data.difficulty}
-                </p>
+                <div className='flex gap-2 items-center'>
+                    <p className='font-Jomhuria  text-4xl'>
+                        Topic:
+                    </p>
+                    <p className='font-Jomhuria text-stroke text-4xl'>
+                        {data.topic.name}
+                    </p>
+                </div>
+                <div className='flex gap-2 items-center'>
+                    <p className='font-Jomhuria text-4xl'>
+                        Difficulty:
+                    </p>
+                    <p className='font-Jomhuria text-stroke text-4xl'>
+                        {data.difficulty}
+                    </p>
+                </div>
             </div>
 
             {Object.keys(fields).map(key => (
