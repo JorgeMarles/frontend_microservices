@@ -11,7 +11,7 @@ import Submission from './pages/problems/Submission';
 import Ranking from './pages/problems/Ranking';
 import Problem from './pages/problems/Problem';
 import ProtectedRoute from './session/ProtectedRoute';
-import UserManagement from './pages/UserManagement';
+import UserManagement from './pages/users/UserManagement';
 import Profile from './pages/Profile';
 
 const App: React.FC = () => {

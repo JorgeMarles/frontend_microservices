@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import UserCard from '../components/cards/UserCard';
-import Menu from '../components/Menu';
-import { getEmailUser } from '../session/Token';
-import { disableUser, getUser, getUsers, updateUser } from '../fetch/UserFetch';
-import { User } from '../utils/interfaces';
-import Table from '../components/Table';
-import FormUser from '../components/forms/FormUser';
-import { user as emptyUser } from '../utils/emptyEntities';
+import UserCard from '../../components/cards/UserCard';
+import Menu from '../../components/Menu';
+import { getEmailUser } from '../../session/Token';
+import { disableUser, getUser, getUsers, updateUser } from '../../fetch/UserFetch';
+import { User } from '../../utils/interfaces';
+import Table from '../../components/Table';
+import FormUser from '../../components/forms/FormUser';
+import { user as emptyUser } from '../../utils/emptyEntities';
 import { useNavigate } from 'react-router-dom';
 
 const UserManagement: FC = () => {
@@ -49,14 +49,15 @@ const UserManagement: FC = () => {
     }, [action]);
 
     const handleUpdateMyInfo = () => {
+        alert("If you update your information, you will be logged out.");
         setEdit(true);
         setUser(admin);
     }
 
-    const handleUpdate = async (user: User) => {
-        if ("newPassword" in user) {
-            if ("repeatNewPassword" in user) {
-                if (user.newPassword !== user.repeatNewPassword) {
+    const handleUpdate = async (userUpdate: User) => {
+        if ("newPassword" in userUpdate) {
+            if ("repeatNewPassword" in userUpdate) {
+                if (userUpdate.newPassword !== userUpdate.repeatNewPassword) {
                     alert("Passwords do not match. Please verify and try again.");
                     return;
                 }
@@ -67,11 +68,17 @@ const UserManagement: FC = () => {
             }
         }
         try {
-            const response = await updateUser(user);
+            const response = await updateUser(userUpdate);
             if (response.status == 200) {
                 setEdit(false);
                 setAction(1 - action);
                 alert("User's data updated successfully.")
+                if (user === admin) {
+                    console.log("algo");
+                    sessionStorage.removeItem('token');
+                    sessionStorage.removeItem('nickname');
+                    navigate('/');
+                }
             }
         }
         catch (error) {
@@ -89,7 +96,7 @@ const UserManagement: FC = () => {
         navigate(`/profile/${users[index].id}`);
     }
 
-    const handleDelete = async (index: number) => { 
+    const handleDelete = async (index: number) => {
         try {
             const response = await disableUser(users[index].email);
             if (response.status == 200) {
