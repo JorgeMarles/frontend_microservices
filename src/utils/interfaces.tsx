@@ -12,9 +12,6 @@ export interface Problem {
     output : string;
     example_input : string;
     example_output : string;    
-    url_input: string,
-    url_output: string,
-    url_solution: string;
     difficulty: string;
     topic: Topic;
     topic_id: number;

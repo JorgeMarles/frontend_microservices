@@ -8,6 +8,7 @@ import ProblemView from '../../components/ProblemView';
 import { problem as defaultProblem } from '../../utils/emptyEntities';
 import { useNavigate, useParams } from 'react-router-dom';
 import FileCard from '../../components/cards/FileCard';
+import { downloadFiles, uploadFiles } from '../../fetch/RunnerFetch';
 
 const CreateProblem: FC = () => {
   const { id } = useParams();
@@ -29,7 +30,6 @@ const CreateProblem: FC = () => {
     {
       name: "Output file", type: ".zip",
       handleSubmit: (file: File) => {
-        alert(`subiendo ${file.name}`);
         setOutput(file);
       }
     },
@@ -41,6 +41,7 @@ const CreateProblem: FC = () => {
         setIsLoading(true);
         const idProblem = id !== undefined ? parseInt(id) : 0;
         const response = await getByID(idProblem);
+        const files = await downloadFiles(idProblem);
         setData(response.problem);
       } catch (error) {
         console.error('Error fetching data: ', error);
@@ -65,16 +66,35 @@ const CreateProblem: FC = () => {
         return;
       }
     }
-    problem.url_input = "";
-    problem.url_output = "";
-    problem.url_solution = "";
-    if ("id" in problem) {
-      update(problem);
+    try {
+      let response;
+      let id;
+      let success:boolean;
+      if ("id" in problem) {
+        response = await update(problem);
+        id = problem.id;
+        success = response?.status == 200;
+      }
+      else {
+        response = await create(problem);
+        id = response?.data.problem_id;
+        success = response?.status == 201;
+      }
+      console.log(input);
+      console.log(output);
+      if (success && input && output) {
+        const runner = await uploadFiles(input, output, id);
+        success = runner?.status == 200;
+      }
+      if(success) {
+        alert("Problem completed.") 
+        navigate("/home");
+      }
     }
-    else {
-      create(problem);
+    catch (error) {
+      console.error(error);
     }
-    navigate("/home");
+
   };
 
   const handleView = (problem: Problem) => {
@@ -124,6 +144,7 @@ const CreateProblem: FC = () => {
                   onSubmit={item.handleSubmit}
                   type={item.type}
                   key={index}
+                  textSubmit="Confirm"
                 />
               )
             })}

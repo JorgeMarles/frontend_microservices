@@ -58,6 +58,7 @@ const Problem: FC = () => {
                             onSubmit={handleSendSubmission}
                             type=".cpp"
                             share={true}
+                            textSubmit='Submit'
                         />
                         <div className='py-5'>
                             <div className='bg-red-700 w-full border border-black'>

@@ -4,18 +4,21 @@ interface CardProps {
     name?: string;
     onSubmit: (data: File, state?: boolean) => void;
     type: string;
+    textSubmit:string;
     share?: boolean;
 }
 
-const FileCard: FC<CardProps> = ({ name, type, onSubmit, share }) => {
+const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit }) => {
     const [file, setFile] = useState<File | null>(null);
     const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [confirm, setConfirm] = useState<boolean>(false);
 
     const handleSubmit = () => {
         if (!file) {
             alert("Please, select a file before submit");
             return;
         }
+        setConfirm(true);
         if (share) onSubmit(file, isChecked);
         else onSubmit(file);
 
@@ -28,6 +31,7 @@ const FileCard: FC<CardProps> = ({ name, type, onSubmit, share }) => {
                 alert(`The type of the file has to be ${type}`);
                 return;
             }
+            setConfirm(false);
             setFile(selectedFile);
         }
     };
@@ -77,10 +81,10 @@ const FileCard: FC<CardProps> = ({ name, type, onSubmit, share }) => {
                     </div>
                 )}
                 <button
-                    className="rounded-full m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black"
+                    className={`${confirm ? "bg-green-300" : ""} rounded-full m-1 px-5 py-2 text-black hover:text-black hover:bg-gray-500 border border-black`}
                     onClick={handleSubmit}
                 >
-                    Submit
+                    {textSubmit}
                 </button>
             </div>
         </div>

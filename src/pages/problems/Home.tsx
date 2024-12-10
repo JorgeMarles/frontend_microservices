@@ -5,7 +5,7 @@ import Card from '../../components/cards/Card';
 import Combobox from '../../components/Combobox';
 import { Topic } from '../../utils/interfaces';
 import { getTopics } from '../../fetch/TopicFetch';
-import { getProblems } from '../../fetch/ProblemFetch';
+import { disableProblem, getProblems } from '../../fetch/ProblemFetch';
 import difficulties from '../../data/difficulties.json';
 import Menu from '../../components/Menu';
 import { iota } from '../../utils/services';
@@ -31,6 +31,7 @@ const Home: FC = () => {
     const [difficultySelected, setDifficultySelected] = useState<string | undefined>(undefined);
     const [indexes, setIndexes] = useState<number[]>(iota(0, pagination));
     const [page, setPage] = useState(0);
+    const [action, setAction] = useState(0);
     const type = getTypeUser();
     const columns = [
         { label: "Problem's name", key: "name" },
@@ -74,7 +75,7 @@ const Home: FC = () => {
         }
 
         fetchProblems();
-    }, [topicSelected, difficultySelected]);
+    }, [topicSelected, difficultySelected, action]);
 
 
     const handleChangeTopic = (value: string) => {
@@ -100,8 +101,18 @@ const Home: FC = () => {
     const handleEdit = (index: number) => {
         navigate(`/createProblem/${problems[index].id}`);
     }
-    const handleDelete = (index: number) => {
-        alert(index)
+    const handleDelete = async (index: number) => {
+        if(!problems[index].id) return;
+        try {
+            const response = await disableProblem(problems[index].id);
+            if(response?.status == 200) {
+                setAction(1 - action);
+                alert("The problem was disabled.")
+            }
+        }
+        catch (error) {
+            console.error('Error fetching data: ', error);
+        }
     }
 
     return (

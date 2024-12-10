@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { URL_BACKEND_PROBLEMS, URL_BACKEND_USERS } from '../configs/config';
+import { URL_BACKEND_PROBLEMS, URL_BACKEND_USERS, URL_RUNNER } from '../configs/config';
 import { isTokenValid } from './Token';
 
 const addAuthInterceptor = (instance: AxiosInstance) => {
@@ -29,5 +29,12 @@ export const apiUsers = axios.create({
     baseURL: URL_BACKEND_USERS,
 });
 
+
+export const apiRunner = axios.create({
+    baseURL: URL_RUNNER,
+});
+
 addAuthInterceptor(apiProblems);
 addAuthInterceptor(apiUsers);
+addAuthInterceptor(apiRunner);
+ 

@@ -17,7 +17,8 @@ export const getProblems = async (topicName?: string, difficulty?: string) => {
 
 export const create = async (problemData: Problem) => {
   try {
-    await api.post('/problem', problemData);
+    const response = await api.post('/problem', problemData);
+    return response;
   } catch (error) {
     console.error('Error creating problem:', error);
   }
@@ -25,7 +26,8 @@ export const create = async (problemData: Problem) => {
 
 export const update = async (problemData: Problem) => {
   try {
-    await api.put('/problem', problemData);
+    const response = await api.put('/problem', problemData);
+    return response;
   } catch (error) {
     console.error('Error updating problem:', error);
   }
@@ -52,6 +54,19 @@ export const getProblemsInfo = async (id: number) => {
       },
     });
     return response.data;
+  } catch (error) {
+    console.error('Error fetching problem by ID:', error);
+  }
+};
+
+export const disableProblem = async (id: number) => {
+  try {
+    const response = await api.delete('/problem/', {
+      data: {
+        id: id,
+      },
+    });
+    return response;
   } catch (error) {
     console.error('Error fetching problem by ID:', error);
   }
