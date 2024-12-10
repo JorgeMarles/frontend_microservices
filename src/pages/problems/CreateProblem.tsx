@@ -25,12 +25,38 @@ const CreateProblem: FC = () => {
       handleSubmit: (file: File) => {
         alert(`subiendo ${file.name}`);
         setInput(file);
+      },
+      handleClick: () => {
+        if (input) {
+          const url = URL.createObjectURL(input);
+
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = input.name;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
       }
     },
     {
       name: "Output file", type: ".zip",
       handleSubmit: (file: File) => {
         setOutput(file);
+      },
+      handleClick: () => {
+        if (output) {
+          const url = URL.createObjectURL(output);
+
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = output.name;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
       }
     },
   ];
@@ -41,7 +67,17 @@ const CreateProblem: FC = () => {
         setIsLoading(true);
         const idProblem = id !== undefined ? parseInt(id) : 0;
         const response = await getByID(idProblem);
-        const files = await downloadFiles(idProblem);
+
+        const files: { inputs: string; outputs: string } = await downloadFiles(idProblem);
+
+        const input = new Blob([Uint8Array.from(atob(files.inputs), c => c.charCodeAt(0))]);
+        const zipInput = new File([input], "inputs.zip", { type: "application/zip" });
+        setInput(zipInput);
+
+        const output = new Blob([Uint8Array.from(atob(files.outputs), c => c.charCodeAt(0))]);
+        const zipOutput = new File([output], "outputs.zip", { type: "application/zip" });
+        setOutput(zipOutput);
+
         setData(response.problem);
       } catch (error) {
         console.error('Error fetching data: ', error);
@@ -69,7 +105,7 @@ const CreateProblem: FC = () => {
     try {
       let response;
       let id;
-      let success:boolean;
+      let success: boolean;
       if ("id" in problem) {
         response = await update(problem);
         id = problem.id;
@@ -86,8 +122,8 @@ const CreateProblem: FC = () => {
         const runner = await uploadFiles(input, output, id);
         success = runner?.status == 200;
       }
-      if(success) {
-        alert("Problem completed.") 
+      if (success) {
+        alert("Problem completed.")
         navigate("/home");
       }
     }
@@ -111,7 +147,8 @@ const CreateProblem: FC = () => {
       </div>
     );
   }
-
+  console.log(input);
+  console.log(output);
   return (
     <div className='bg-gray-300 w-screen'>
       <Menu />
@@ -145,6 +182,8 @@ const CreateProblem: FC = () => {
                   type={item.type}
                   key={index}
                   textSubmit="Confirm"
+                  onClick={item.handleClick}
+                  data={index == 0 ? input : output}
                 />
               )
             })}

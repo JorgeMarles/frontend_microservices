@@ -4,12 +4,14 @@ interface CardProps {
     name?: string;
     onSubmit: (data: File, state?: boolean) => void;
     type: string;
-    textSubmit:string;
+    textSubmit: string;
     share?: boolean;
+    onClick: () => void;
+    data?: File;
 }
 
-const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit }) => {
-    const [file, setFile] = useState<File | null>(null);
+const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit, onClick, data }) => {
+    const [file, setFile] = useState<File | undefined>(data);
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [confirm, setConfirm] = useState<boolean>(false);
 
@@ -40,19 +42,25 @@ const FileCard: FC<CardProps> = ({ name, type, onSubmit, share, textSubmit }) =>
         setIsChecked(!isChecked);
     };
 
+    const handleClick = () => {
+        onClick();
+    }
+
     return (
         <div className="w-full px-7 py-3">
             {name && (
                 <h1 className="font-Jomhuria text-7xl">{name}</h1>
             )}
-            <div className="bg-white py-5 px-8  border-2 border-gray-800 flex flex-col justify-center">
+            <div className="bg-white py-5 px-8  border-2 border-gray-800 flex flex-col justify-center" >
                 {file ? (
                     <h1 className="text-center pb-4">
-                        {file.name}
+                        <button onClick={handleClick}>
+                            {file.name}
+                        </button>
                     </h1>
                 ) : (
                     <h1 className="text-center text-lg pb-4">
-                        You have to select a file
+                        You have to select a file.
                     </h1>
                 )}
                 <label
