@@ -5,6 +5,7 @@ interface TokenPayload {
   nickname: string;
   type: string;
   exp: number;
+  id: number;
 }
 
 export const isTokenValid = (token: string): boolean => {
@@ -32,4 +33,12 @@ export const getEmailUser = (): string => {
     return "";
   const decodedToken = jwtDecode<TokenPayload>(token);
   return decodedToken.email;
+}
+
+export const getIdUser = (): number => {
+  const token = sessionStorage.getItem('token');
+  if(!token)
+    return 0;
+  const decodedToken = jwtDecode<TokenPayload>(token);
+  return decodedToken.id;
 }

@@ -5,14 +5,16 @@ import ProblemView from '../../components/ProblemView';
 import { field_problem } from '../../utils/field';
 import { Problem as ProblemInterface, Submission } from '../../utils/interfaces';
 import { getByID } from '../../fetch/ProblemFetch';
-import { problem } from '../../utils/emptyEntities';
+import { problem as emptyProblem } from '../../utils/emptyEntities';
 import FileCard from '../../components/cards/FileCard';
 
 import submission from '../../data/submissionsOneProblem.json';
+import { runSubmission } from '../../fetch/SubmissionFetch';
+import { getIdUser } from '../../session/Token';
 
 const Problem: FC = () => {
     const { id } = useParams();
-    const [data, setData] = useState<ProblemInterface>(problem);
+    const [data, setData] = useState<ProblemInterface>(emptyProblem);
     const [submissions, setSubmissions] = useState<Submission[]>();
     const navigate = useNavigate();
 
@@ -31,13 +33,20 @@ const Problem: FC = () => {
         fetchProblem();
     }, [id]);
 
-    console.log(data)
     const handleEdit = (problem: ProblemInterface) => {
         navigate(`/createProblem/${problem.id}`);
     }
 
-    const handleSendSubmission = (file: File, share?: boolean) => {
-        alert(`subiendo ${file.name} : ${share}`);
+    const handleSendSubmission = async(file: File, state?: boolean) => {
+        try {
+            const id = data.id ? data.id : 0;
+            const isPublic = state ? state : true;
+            const response = await runSubmission(file, id, getIdUser(), isPublic);
+            console.log(response);
+        }
+        catch (error) {
+            console.error('Error fetching data: ', error);
+        }
     }
 
     return (

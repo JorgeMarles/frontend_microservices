@@ -29,7 +29,7 @@ export const uploadFiles = async (input: File, output: File, problemId: number) 
   formData.append(`inputs`, input);
   formData.append(`outputs`, output);
   formData.append(`problem_id`, problemId.toString());
-
+  console.log(formData);
   try {
       const response = await api.post('/problem/uploadTests', formData);
       return response;
