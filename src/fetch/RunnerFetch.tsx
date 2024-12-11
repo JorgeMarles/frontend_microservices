@@ -9,7 +9,7 @@ export const downloadFiles = async (problemId: number) => {
                 problem_id: problemId,
             },
         });
-        return response.data;
+        return response;
     } catch (error) {
         console.error('Error fetching upload files:', error);
     }

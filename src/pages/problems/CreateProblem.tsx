@@ -41,16 +41,18 @@ const CreateProblem: FC = () => {
         const idProblem = id !== undefined ? parseInt(id) : 0;
         const response = await getByID(idProblem);
 
-        const files: { inputs: string; outputs: string } = await downloadFiles(idProblem);
+        const responseFiles = await downloadFiles(idProblem);
+        if (responseFiles?.status == 200) {
+          const files: { inputs: string; outputs: string } = responseFiles.data;
 
-        const input = new Blob([Uint8Array.from(atob(files.inputs), c => c.charCodeAt(0))]);
-        const zipInput = new File([input], "inputs.zip", { type: "application/zip" });
-        setInput(zipInput);
+          const input = new Blob([Uint8Array.from(atob(files.inputs), c => c.charCodeAt(0))]);
+          const zipInput = new File([input], "inputs.zip", { type: "application/zip" });
+          setInput(zipInput);
 
-        const output = new Blob([Uint8Array.from(atob(files.outputs), c => c.charCodeAt(0))]);
-        const zipOutput = new File([output], "outputs.zip", { type: "application/zip" });
-        setOutput(zipOutput);
-
+          const output = new Blob([Uint8Array.from(atob(files.outputs), c => c.charCodeAt(0))]);
+          const zipOutput = new File([output], "outputs.zip", { type: "application/zip" });
+          setOutput(zipOutput);
+        }
         setData(response.problem);
       } catch (error) {
         console.error('Error fetching data: ', error);

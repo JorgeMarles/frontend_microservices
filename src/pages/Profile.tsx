@@ -101,14 +101,16 @@ const processSubmissions = (data: Submission[]) => {
       value: 0,
     }
   ];
+  let total = 0;
   for (const item of data) {
     for (const veredict of veredicts) {
       if (item.veredict === veredict.type) {
         veredict.value++;
+        total++;
       }
     }
   }
-  return veredicts;
+  return { veredicts, total };
 }
 
 const Profile: FC = () => {
@@ -119,6 +121,7 @@ const Profile: FC = () => {
   const [action, setAction] = useState(0);
   const [veredicts, setVeredicts] = useState<Veredict[]>();
   const [topics, setTopics] = useState<TopicStadistic[]>();
+  const [auxiliar, setAuxiliar] = useState(0);
   const type = getTypeUser();
   useEffect(() => {
     const fetchUser = async (email?: string, idUser?: number) => {
@@ -129,7 +132,9 @@ const Profile: FC = () => {
         const responseSubmissions = await getAllByUser(response.data.user.id);
         const submissions: Submission[] = responseSubmissions?.data;
         const data = await process(stadisticsJSON.topics);
-        setVeredicts(processSubmissions(submissions));
+        const results = processSubmissions(submissions);
+        setVeredicts(results.veredicts);
+        setAuxiliar(results.total);
         setTopics(data.topics);
         const userInfo = {
           ...response.data.user,
@@ -211,7 +216,7 @@ const Profile: FC = () => {
           </div>
         </div>
         <div className='col-span-4 flex justify-center w-full h-full'>
-          {!topics || !veredicts || (data?.totalProblems === 0) ? (
+          {!topics || !veredicts || (auxiliar === 0) ? (
             <div className='m-8 p-8'>
               <div className="flex items-center justify-center p-8">
                 <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-red-800 border-solid"></div>
