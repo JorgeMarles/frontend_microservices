@@ -13,3 +13,18 @@ export const runSubmission = async (code: File, problemId: number, userId: numbe
     console.error('Error fetching problems:', error);
   }
 };
+
+
+export const getById = async (id: string) => {
+  try {
+    const response = await api.get('/submission/findOne', {
+      params: {
+        submission_id: id,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error fetching problems:', error);
+  }
+};
+

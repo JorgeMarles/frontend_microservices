@@ -22,17 +22,15 @@ export interface Problem {
 };
 
 export interface Submission {
-    id: number;
-    time_judge: string;
-    time_running: string;
-    nickname: string;
-    problem: {
-        id: number;
-        name: string;
-    };
+    id: string;
     veredict: string;
+    executionDate: Date;
+    problemId: number;
+    problemName: string;
+    code_string: string | undefined;
     public: boolean;
-}
+    nicknameUser: string;
+};
 
 export interface User {
     id?: number;

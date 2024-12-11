@@ -2,9 +2,10 @@ import { FC, useEffect, useState } from 'react';
 import Menu from '../../components/Menu';
 import { Submission as SubmissionInterface } from '../../utils/interfaces';
 import Table from '../../components/Table';
-import submissionsJSON from '../../data/submissions.json';
 import { useNavigate, useParams } from 'react-router-dom';
 import CodeView from '../../components/CodeView';
+import { getById } from '../../fetch/SubmissionFetch';
+import { getUser } from '../../fetch/UserFetch';
 
 const SubmissionView: FC = () => {
     const { id } = useParams();
@@ -16,21 +17,26 @@ const SubmissionView: FC = () => {
 
     const columns = [
         { label: "Id", key: "id" },
-        { label: "When", key: "time_judge" },
-        { label: "Nickname", key: "nickname" },
-        { label: "Problem", key: "problem.name" },
+        { label: "When", key: "executionDate" },
+        { label: "Nickname", key: "nicknameUser" },
+        { label: "Problem", key: "problemName" },
         { label: "Veredict", key: "veredict" }
     ];
 
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const idSubmission = id !== undefined ? parseInt(id) : 0;
-                console.log(idSubmission);
-                setSubmission(submissionsJSON[0]);
+                const idSubmission = id !== undefined ? id : "";
+                const response = await getById(idSubmission);
+                const user = (await getUser(undefined, response?.data.id)).data.user;
+                const submission_answer:SubmissionInterface = response?.data;
+                submission_answer.nicknameUser = user.nickname;
+                setFileData({
+                    language: "cpp",
+                    code: response?.data.code_string
+                });
+                setSubmission(response?.data);
                 setIsLoading(false);
-                // const response = await getTopics();
-
             }
             catch (error) {
                 console.error('Error fetching data: ', error);
@@ -44,20 +50,6 @@ const SubmissionView: FC = () => {
         }
     }, [id, navigate]);
 
-    useEffect(() => {
-        // Esto es una simulación aca deberia ir el fetch del backend
-        fetch("/example.cpp")
-            .then((response) => response.text())
-            .then((data) => {
-                setFileData({
-                    language: "cpp",
-                    code: data,
-                });
-            });
-
-    }, []);
-
-
     if (isLoading) {
         return (
             <div className='bg-gray-300 w-screen'>
@@ -66,7 +58,6 @@ const SubmissionView: FC = () => {
             </div>
         );
     }
-    console.log(fileData);
     return (
         <div className='w-full bg-gray-300'>
             <Menu></Menu>

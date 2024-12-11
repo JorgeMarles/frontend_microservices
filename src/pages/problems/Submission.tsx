@@ -13,9 +13,9 @@ const Submission: FC = () => {
 
     const columns = [
         { label: "Id", key: "id" },
-        { label: "When", key: "time_judge" },
-        { label: "Nickname", key: "nickname" },
-        { label: "Problem", key: "problem.name" },
+        { label: "When", key: "executionDate" },
+        // { label: "Nickname", key: "nickname" },
+        { label: "Problem", key: "problemName" },
         { label: "Veredict", key: "veredict" }
     ];
 
