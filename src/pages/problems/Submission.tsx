@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import Menu from '../../components/Menu';
 import { Submission as SubmissionInterface } from '../../utils/interfaces';
-import submissionsJSON from '../../data/submissions.json';
 import Table from '../../components/Table';
 import { useNavigate } from 'react-router-dom';
-import { getTypeUser } from '../../session/Token';
+import { getIdUser } from '../../session/Token';
+import { getAll, getAllByUser } from '../../fetch/SubmissionFetch';
 
 const Submission: FC = () => {
-    const [submissions, setSubmissions] = useState<SubmissionInterface[]>(submissionsJSON);
+    const [submissions, setSubmissions] = useState<SubmissionInterface[]>([]);
     const [isChecked, setIsChecked] = useState(false);
     const navigate = useNavigate();
 
@@ -23,12 +23,15 @@ const Submission: FC = () => {
         const fetchSubmissions = async () => {
             try {
                 if (isChecked) {
-                    setSubmissions([]);
+                    const response = await getAllByUser(getIdUser());
+                    console.log(response?.data);
+                    setSubmissions(response?.data);
                 }
                 else {
-                    setSubmissions(submissionsJSON);
+                    const response = await getAll();
+                    console.log(response?.data);
+                    setSubmissions(response?.data);
                 }
-                // const response = await getTopics();
 
             }
             catch (error) {
@@ -40,9 +43,7 @@ const Submission: FC = () => {
     }, [isChecked]);
 
     const handleViewDetails = (index: number) => {
-        if (submissions[index].public || getTypeUser() === "admin") {
-            navigate(`/submission/${submissions[index].id}`);
-        }
+        navigate(`/submission/${submissions[index].id}`);
     }
 
     const handleChange = () => {

@@ -28,3 +28,28 @@ export const getById = async (id: string) => {
   }
 };
 
+
+
+export const getAll = async () => {
+  try {
+    const response = await api.get('/submission/');
+    return response;
+  } catch (error) {
+    console.error('Error fetching problems:', error);
+  }
+};
+
+
+export const getAllByUser = async (userId: number) => {
+  try {
+    const response = await api.get('/submission/', {
+      params: {
+        user_id: userId,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error fetching problems:', error);
+  }
+};
+

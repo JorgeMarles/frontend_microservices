@@ -28,7 +28,8 @@ const SubmissionView: FC = () => {
             try {
                 const idSubmission = id !== undefined ? id : "";
                 const response = await getById(idSubmission);
-                const user = (await getUser(undefined, response?.data.id)).data.user;
+                const responseUser = await getUser(undefined, response?.data.userId);
+                const user = responseUser.data.user;
                 const submission_answer:SubmissionInterface = response?.data;
                 submission_answer.nicknameUser = user.nickname;
                 setFileData({
