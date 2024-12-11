@@ -7,9 +7,6 @@ export const problem: Problem = {
     output: "",
     example_input: "",
     example_output: "",
-    url_input: "",
-    url_output: "",
-    url_solution: "",
     difficulty: "easy",
     topic: {
         id: 0,
@@ -28,8 +25,6 @@ export const user: User = {
     name: "",
     type: false,
     password: "",
-    repeat_password: "",
-    new_password: "",
 }
 
 export const topic: Topic = {

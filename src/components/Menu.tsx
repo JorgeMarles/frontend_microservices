@@ -10,7 +10,7 @@ const Menu: FC = () => {
     const menuItems = [
         { label: "ProblemSet", path: "/home" },
         { label: "Submissions", path: "/submissions" },
-        { label: "Ranking", path: "/ranking" },
+        // { label: "Ranking", path: "/ranking" },
         { label: "Create Problem", path: "/createProblem", requiresAdmin: true },
     ];
 
