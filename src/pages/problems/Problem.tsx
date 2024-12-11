@@ -16,6 +16,7 @@ const Problem: FC = () => {
     const { id } = useParams();
     const [data, setData] = useState<ProblemInterface>(emptyProblem);
     const [submissions, setSubmissions] = useState<Submission[]>();
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,15 +38,21 @@ const Problem: FC = () => {
         navigate(`/createProblem/${problem.id}`);
     }
 
-    const handleSendSubmission = async(file: File, state?: boolean) => {
+    const handleSendSubmission = async (file: File, state?: boolean) => {
         try {
+            setLoading(true);
             const id = data.id ? data.id : 0;
             const isPublic = state ? state : true;
             const response = await runSubmission(file, id, getIdUser(), isPublic);
-            console.log(response);
+            if (response?.status == 200) {
+                navigate(`/submission/${response.data.submission_id}`)
+            }
         }
         catch (error) {
             console.error('Error fetching data: ', error);
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -91,6 +98,11 @@ const Problem: FC = () => {
                     </div>
                 </div>
             </div>
+            {loading && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-red-800 border-solid"></div>
+                </div>
+            )}
         </div>
     );
 };

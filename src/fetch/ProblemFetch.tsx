@@ -60,6 +60,19 @@ export const getByID = async (idProblem: number) => {
   }
 };
 
+export const getByName = async (name: string) => {
+  try {
+    const response = await api.get('/problem', {
+      params: {
+        name: name,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error fetching problem by ID:', error);
+  }
+};
+
 export const getProblemsInfo = async (id: number) => {
   try {
     const response = await api.get('/problem/user', {

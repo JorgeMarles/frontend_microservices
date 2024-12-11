@@ -89,8 +89,6 @@ const CreateProblem: FC = () => {
         id = response?.data.problem_id;
         success = response?.status == 201;
       }
-      console.log(input);
-      console.log(output);
       if (success && input && output) {
         const runner = await uploadFiles(input, output, id);
         success = runner?.status == 200;
@@ -120,8 +118,6 @@ const CreateProblem: FC = () => {
       </div>
     );
   }
-  console.log(input);
-  console.log(output);
   return (
     <div className='bg-gray-300 w-screen'>
       <Menu />
@@ -129,7 +125,7 @@ const CreateProblem: FC = () => {
         <div className='col-span-2'>
           {!preview && (
             <ProblemForm
-              data={data} // Pasa los datos actualizados al formulario
+              data={data}
               fields={field_problem}
               onSubmit={handleCreateProblem}
               onView={handleView}
@@ -137,7 +133,7 @@ const CreateProblem: FC = () => {
           )}
           {preview && (
             <ProblemView
-              data={data} // Pasa los datos actualizados al visor
+              data={data}
               fields={field_problem}
               onView={handleView}
             />

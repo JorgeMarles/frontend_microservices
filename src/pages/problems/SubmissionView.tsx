@@ -26,7 +26,8 @@ const SubmissionView: FC = () => {
         const fetchTopics = async () => {
             try {
                 const idSubmission = id !== undefined ? parseInt(id) : 0;
-                setSubmission(submissionsJSON[idSubmission]);
+                console.log(idSubmission);
+                setSubmission(submissionsJSON[0]);
                 setIsLoading(false);
                 // const response = await getTopics();
 
