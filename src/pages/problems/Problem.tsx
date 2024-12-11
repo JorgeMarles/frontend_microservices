@@ -8,8 +8,7 @@ import { getByID } from '../../fetch/ProblemFetch';
 import { problem as emptyProblem } from '../../utils/emptyEntities';
 import FileCard from '../../components/cards/FileCard';
 
-import submission from '../../data/submissionsOneProblem.json';
-import { runSubmission } from '../../fetch/SubmissionFetch';
+import { getAllByProblemUser, runSubmission } from '../../fetch/SubmissionFetch';
 import { getIdUser } from '../../session/Token';
 
 const Problem: FC = () => {
@@ -24,8 +23,10 @@ const Problem: FC = () => {
             try {
                 const idProblem = id !== undefined ? parseInt(id) : 0;
                 const response = await getByID(idProblem);
+                const responseSubmission = await getAllByProblemUser(getIdUser(), idProblem);
                 setData(response.problem);
-                setSubmissions(submission);
+                console.log(responseSubmission?.data);
+                setSubmissions(responseSubmission?.data);
             }
             catch (error) {
                 console.error('Error fetching data: ', error);
@@ -80,7 +81,7 @@ const Problem: FC = () => {
                             <div className='bg-red-700 w-full border border-black'>
                                 <h1 className='text-stroke font-Jomhuria text-6xl px-5 pt-2'>Status</h1>
                             </div>
-                            {submissions && submission.map((item, key) =>
+                            {submissions && submissions.map((item, key) =>
                                 <div className='grid grid-cols-2 border-l border-r border-b border-black' key={key}>
                                     <NavLink
                                         to={`/submission/${item.id}`}

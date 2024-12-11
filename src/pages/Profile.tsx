@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { User } from '../utils/interfaces';
+import { Submission, User } from '../utils/interfaces';
 import { user as emptyUser } from '../utils/emptyEntities';
 import { getUser, updateUser } from '../fetch/UserFetch';
 import Menu from '../components/Menu';
@@ -11,6 +11,7 @@ import UserCard from '../components/cards/UserCard';
 import stadisticsJSON from '../data/stadistics.json';
 import BarChart from '../components/stadistics/BarChart';
 import DoughnutChart from '../components/stadistics/DoughnutChart';
+import { getAllByUser } from '../fetch/SubmissionFetch';
 
 interface TopicStadistic {
   name: string,
@@ -36,27 +37,27 @@ const process = async (data: TopicStadistic[]): Promise<{ topics: TopicStadistic
   const veredicts: Veredict[] = [
     {
       label: "Accepted",
-      type: "accepted",
+      type: "Accepted",
       value: 0,
     },
     {
       label: "Wrong answer",
-      type: "wrong answer",
+      type: "Wrong answer",
       value: 0,
     },
     {
       label: "Time limited exceded",
-      type: "tle",
+      type: "Time Limit Exceeded",
       value: 0,
     },
     {
       label: "Runtime error",
-      type: "rte",
+      type: "Runtime error",
       value: 0,
     },
     {
       label: "Compilation error",
-      type: "compilation",
+      type: "Compilation error",
       value: 0,
     }
   ];
@@ -71,6 +72,44 @@ const process = async (data: TopicStadistic[]): Promise<{ topics: TopicStadistic
   });
   return { topics: updatedTopics, veredicts: veredicts, total: veredicts[0].value };
 };
+
+const processSubmissions = (data: Submission[]) => {
+  const veredicts: Veredict[] = [
+    {
+      label: "Accepted",
+      type: "Accepted",
+      value: 0,
+    },
+    {
+      label: "Wrong answer",
+      type: "Wrong answer",
+      value: 0,
+    },
+    {
+      label: "Time limited exceded",
+      type: "Time Limit Exceeded",
+      value: 0,
+    },
+    {
+      label: "Runtime error",
+      type: "Runtime error",
+      value: 0,
+    },
+    {
+      label: "Compilation error",
+      type: "Compilation error",
+      value: 0,
+    }
+  ];
+  for (const item of data) {
+    for (const veredict of veredicts) {
+      if (item.veredict === veredict.type) {
+        veredict.value++;
+      }
+    }
+  }
+  return veredicts;
+}
 
 const Profile: FC = () => {
   const { id } = useParams();
@@ -87,8 +126,10 @@ const Profile: FC = () => {
         setIsLoading(true);
         const response = await getUser(email, idUser);
         // const responseProblem = await getProblemsInfo(response.data.user.id);
+        const responseSubmissions = await getAllByUser(response.data.user.id);
+        const submissions: Submission[] = responseSubmissions?.data;
         const data = await process(stadisticsJSON.topics);
-        setVeredicts(data.veredicts);
+        setVeredicts(processSubmissions(submissions));
         setTopics(data.topics);
         const userInfo = {
           ...response.data.user,
@@ -223,10 +264,10 @@ const Profile: FC = () => {
               <div className="w-full row-span-3">
                 <BarChart
                   data={topics
-                    .filter(({ ac }) => ac !== 0) 
+                    .filter(({ ac }) => ac !== 0)
                     .map(({ name, ac }) => ({
                       name,
-                      total: ac, 
+                      total: ac,
                     }))}
                 />
               </div>

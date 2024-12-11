@@ -36,7 +36,7 @@ const Home: FC = () => {
     const columns = [
         { label: "Problem's name", key: "name" },
         { label: "Difficulty", key: "difficulty" },
-        { label: "Submissions", key: "submissions" },
+        // { label: "Submissions", key: "submissions" },
         // { label: "Topic", key: "topic.name" }
     ];
 

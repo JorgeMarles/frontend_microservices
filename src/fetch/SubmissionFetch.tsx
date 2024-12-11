@@ -53,3 +53,16 @@ export const getAllByUser = async (userId: number) => {
   }
 };
 
+export const getAllByProblemUser = async (userId: number, problemId: number) => {
+  try {
+    const response = await api.get('/submission/', {
+      params: {
+        problem_id: problemId,
+        user_id: userId,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error fetching problems:', error);
+  }
+};
