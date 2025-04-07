@@ -1,14 +1,17 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router-dom";
-import App from './App.tsx';
-import "./configs/mathjax-config.js"
-import './assets/index.css';
+import { MathJaxContext } from "better-react-mathjax";
+import { mathJaxConfig } from "./configs/mathJaxConfig.tsx";
+import App from "./App.tsx";
+import "./assets/index.css";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <HashRouter> 
-      <App />
+    <HashRouter>
+      <MathJaxContext config={mathJaxConfig}>
+        <App />
+      </MathJaxContext>
     </HashRouter>
-  </StrictMode>,
-)
+  </StrictMode>
+);
