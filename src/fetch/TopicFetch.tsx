@@ -1,7 +1,7 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { apiProblems as api } from "../session/interceptor";
 import { Topic } from "../utils/interfaces";
-import { URL_BACKEND_PROBLEMS } from "../configs/config";
+
 export const getTopics = async () => {
   try {
     const response: AxiosResponse = await api.get("/topic");

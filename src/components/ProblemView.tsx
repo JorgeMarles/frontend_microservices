@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Problem } from "../utils/interfaces";
 import { Fields } from "../utils/field";
 import { PencilIcon } from "@heroicons/react/24/outline";
