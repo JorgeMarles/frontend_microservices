@@ -37,7 +37,7 @@ jobs:
 
       - name: Build
         run: |
-          npm run build \
+          npm run build -- \
           --base "${{ steps.pages.outputs.base_path }}"
 
       - name: Upload artifact
