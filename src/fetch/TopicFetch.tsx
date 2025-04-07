@@ -29,3 +29,20 @@ export const createTopic = async (topic: Topic) => {
     }
   }
 };
+
+export const deleteTopic = async (topic: Topic) => {
+  try {
+    const response = await api.delete("/topic", {
+      data: topic,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message);
+    } else {
+      throw error;
+    }
+  }
+};

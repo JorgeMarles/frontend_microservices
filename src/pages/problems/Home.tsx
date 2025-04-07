@@ -4,7 +4,7 @@ import Table from "../../components/Table";
 import Card from "../../components/cards/Card";
 import Combobox from "../../components/Combobox";
 import { Topic } from "../../utils/interfaces";
-import { getTopics } from "../../fetch/TopicFetch";
+import { deleteTopic, getTopics } from "../../fetch/TopicFetch";
 import { disableProblem, getProblems } from "../../fetch/ProblemFetch";
 import difficulties from "../../data/difficulties.json";
 import Menu from "../../components/Menu";
@@ -119,22 +119,53 @@ const Home: FC = () => {
     }
   };
 
+  const handleTopicDelete = async (topic: Topic) => {
+    try {
+      await deleteTopic(topic);
+      alert("Topic deleted sucesfully");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Something went wrong");
+      }
+    }
+
+    navigate(0);
+  };
+
   return (
     <div className="bg-gray-300">
+      {currentModal === "CREATE_TOPIC" && (
+        <FormTopic
+          onSubmit={() => {
+            setCurrentModal(null);
+            navigate(0);
+          }}
+          onClose={() => setCurrentModal(null)}
+        ></FormTopic>
+      )}
+
       <Menu></Menu>
       <div className="w-full grid grid-cols-2 gap-4 my-5">
         <div className="p-8">
-          <div className="lg:flex lg:items-center lg:justify-between pb-3">
+          <div className="grid grid-cols-2 grid-rows-[1fr_auto_1fr] lg:grid-rows-1 lg:grid-cols-[1fr_auto_auto_auto] gap-4 pb-3 items-center">
             <h1 className="text-8xl text-stroke font-Jomhuria">
               {topicSelected}
             </h1>
-            <div className="flex justify-center">
-              <Combobox
-                data={difficulties}
-                onChange={handleChangeDifficulty}
-                defaultName={difficulties[0].name}
-              />
-            </div>
+            <Combobox
+              data={difficulties}
+              onChange={handleChangeDifficulty}
+              defaultName={difficulties[0].name}
+            />
+            <Button
+              onClick={() => {
+                const topic = topics.find((t) => t.name === topicSelected);
+                if (topic) handleTopicDelete(topic);
+              }}
+            >
+              Delete
+            </Button>
           </div>
           {type === "admin" && (
             <Table<Problem>
@@ -169,15 +200,6 @@ const Home: FC = () => {
               <Button onClick={() => setCurrentModal("CREATE_TOPIC")}>
                 Create
               </Button>
-              {currentModal === "CREATE_TOPIC" && (
-                <FormTopic
-                  onSubmit={() => {
-                    setCurrentModal(null);
-                    navigate(0);
-                  }}
-                  onClose={() => setCurrentModal(null)}
-                ></FormTopic>
-              )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-7">
