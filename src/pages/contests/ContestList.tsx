@@ -32,7 +32,7 @@ const ContestList = () => {
       await deleteContest(contest.id);
 
       alert("Contest eliminado correctamente");
-      navigate(0);
+      fetchContests();
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -90,6 +90,7 @@ const ContestList = () => {
     {
       label: "Start",
       key: "start",
+      output: (value) => `${value?.toLocaleString()}`,
     },
     {
       label: "Duration",

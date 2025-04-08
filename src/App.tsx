@@ -15,6 +15,7 @@ import UserManagement from "./pages/users/UserManagement";
 import Profile from "./pages/Profile";
 import SubmissionView from "./pages/problems/SubmissionView";
 import ContestList from "./pages/contests/ContestList";
+import ContestEditor from "./pages/contests/ContestEditor";
 
 const App: React.FC = () => {
   return (
@@ -70,6 +71,30 @@ const App: React.FC = () => {
           />
           <Route
             path="/contests"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
+                <ContestList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contests/create"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <ContestEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contests/edit/:id"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <ContestEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contests/view/:id"
             element={
               <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <ContestList />
