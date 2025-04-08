@@ -1,18 +1,23 @@
+import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Menu from "../../components/Menu";
 import Search from "../../components/Search";
-import Table from "../../components/Table";
+import Table, { Column } from "../../components/Table";
 import { Contest } from "../../utils/interfaces";
 import {
   deleteContest,
+  enrollContest,
   getContests,
   searchContests,
+  unenrollContest,
 } from "../../fetch/ContestFetch";
 import { useNavigate } from "react-router-dom";
+import { getTypeUser } from "../../session/Token";
 
 const ContestList = () => {
   const navigate = useNavigate();
+  const type = getTypeUser();
   const [contests, setContests] = useState<Contest[]>([]);
 
   async function fetchContests() {
@@ -51,9 +56,66 @@ const ContestList = () => {
     }
   }
 
+  async function handleToggleEnroll(contest: Contest) {
+    if (!contest.id) return;
+
+    try {
+      if (contest.enroll) {
+        await unenrollContest(contest.id);
+        alert("Unenroll sucessful");
+      } else {
+        await enrollContest(contest.id);
+        alert("Enroll sucessful");
+      }
+
+      fetchContests();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Ha ocurrido un error");
+      }
+    }
+  }
+
   useEffect(() => {
     fetchContests();
   }, []);
+
+  const columns: Column<Contest>[] = [
+    {
+      label: "Name",
+      key: "name",
+    },
+    {
+      label: "Start",
+      key: "start",
+    },
+    {
+      label: "Duration",
+      key: "duration",
+    },
+  ];
+
+  if (type === "user") {
+    columns.push({
+      label: "Enroll",
+      key: "enroll",
+      output: (value, row) => (
+        <>
+          {value ? (
+            <button onClick={() => handleToggleEnroll(row)}>
+              <CheckCircleIcon className="size-12 text-green-700" />
+            </button>
+          ) : (
+            <button onClick={() => handleToggleEnroll(row)}>
+              <XCircleIcon className="size-12 text-red-700" />
+            </button>
+          )}
+        </>
+      ),
+    });
+  }
 
   return (
     <div>
@@ -65,25 +127,20 @@ const ContestList = () => {
       </div>
       <div className="flex items-center justify-center pb-6 px-10">
         <Table
-          columns={[
-            {
-              label: "Name",
-              key: "name",
-            },
-            {
-              label: "Start",
-              key: "start",
-            },
-            {
-              label: "Duration",
-              key: "duration",
-            },
-          ]}
+          columns={columns}
           data={contests}
           header={true}
           onView={(index) => navigate(`view/${contests[index].id}`)}
-          onEdit={(index) => navigate(`edit/${contests[index].id}`)}
-          onDelete={(index) => handleDelete(contests[index])}
+          onEdit={
+            type === "admin"
+              ? (index) => navigate(`edit/${contests[index].id}`)
+              : undefined
+          }
+          onDelete={
+            type === "admin"
+              ? (index) => handleDelete(contests[index])
+              : undefined
+          }
           pagination={7}
           enableNumberPagination={true}
           activePagination={true}

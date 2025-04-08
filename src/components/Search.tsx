@@ -29,7 +29,6 @@ export default function Search({ placeholder = "Search", onSubmit }: Props) {
           placeholder={placeholder}
           value={input}
           onChange={handleChange}
-          required
         />
       </div>
     </form>

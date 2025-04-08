@@ -4,6 +4,7 @@ export interface Contest {
   description: string;
   start: Date;
   duration: number;
+  enroll: boolean;
 }
 
 export interface ContestDetails extends Contest {
