@@ -1,25 +1,26 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import UpdatePassword from './pages/UpdatePassword';
-import Home from './pages/problems/Home';
-import CreateProblem from './pages/problems/CreateProblem';
-import Submission from './pages/problems/Submission';
-import Ranking from './pages/problems/Ranking';
-import Problem from './pages/problems/Problem';
-import ProtectedRoute from './session/ProtectedRoute';
-import UserManagement from './pages/users/UserManagement';
-import Profile from './pages/Profile';
-import SubmissionView from './pages/problems/SubmissionView';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import UpdatePassword from "./pages/UpdatePassword";
+import Home from "./pages/problems/Home";
+import CreateProblem from "./pages/problems/CreateProblem";
+import Submission from "./pages/problems/Submission";
+import Ranking from "./pages/problems/Ranking";
+import Problem from "./pages/problems/Problem";
+import ProtectedRoute from "./session/ProtectedRoute";
+import UserManagement from "./pages/users/UserManagement";
+import Profile from "./pages/Profile";
+import SubmissionView from "./pages/problems/SubmissionView";
+import ContestList from "./pages/contests/ContestList";
 
 const App: React.FC = () => {
   return (
-    <div className='bg-gray-300 h-screen flex flex-col'>
+    <div className="bg-gray-300 h-screen flex flex-col">
       <Header />
-      <div className='flex flex-grow'>
+      <div className="flex flex-grow">
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Login />} />
@@ -30,7 +31,7 @@ const App: React.FC = () => {
           <Route
             path="/home"
             element={
-              <ProtectedRoute allowedRoles={['admin', 'user']}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Home />
               </ProtectedRoute>
             }
@@ -38,7 +39,7 @@ const App: React.FC = () => {
           <Route
             path="/submissions"
             element={
-              <ProtectedRoute allowedRoles={['admin', 'user']}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Submission />
               </ProtectedRoute>
             }
@@ -46,7 +47,7 @@ const App: React.FC = () => {
           <Route
             path="/submission/:id"
             element={
-              <ProtectedRoute allowedRoles={['admin', 'user']}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <SubmissionView />
               </ProtectedRoute>
             }
@@ -54,7 +55,7 @@ const App: React.FC = () => {
           <Route
             path="/ranking"
             element={
-              <ProtectedRoute allowedRoles={['admin', 'user']}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Ranking />
               </ProtectedRoute>
             }
@@ -62,15 +63,23 @@ const App: React.FC = () => {
           <Route
             path="/problem/:id"
             element={
-              <ProtectedRoute allowedRoles={['admin', 'user']}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Problem />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contests"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
+                <ContestList />
               </ProtectedRoute>
             }
           />
           <Route
             path="/profile"
             element={
-              <ProtectedRoute allowedRoles={['user']}>
+              <ProtectedRoute allowedRoles={["user"]}>
                 <Profile />
               </ProtectedRoute>
             }
@@ -79,7 +88,7 @@ const App: React.FC = () => {
           <Route
             path="/createProblem"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <CreateProblem />
               </ProtectedRoute>
             }
@@ -87,7 +96,7 @@ const App: React.FC = () => {
           <Route
             path="/createProblem/:id"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <CreateProblem />
               </ProtectedRoute>
             }
@@ -95,7 +104,7 @@ const App: React.FC = () => {
           <Route
             path="/profile/:id"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <Profile />
               </ProtectedRoute>
             }
@@ -103,7 +112,7 @@ const App: React.FC = () => {
           <Route
             path="/users"
             element={
-              <ProtectedRoute allowedRoles={['admin']}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <UserManagement />
               </ProtectedRoute>
             }
