@@ -13,12 +13,7 @@ interface ProblemProps {
 
 const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
   const type = getTypeUser();
-  //useEffect(() => {
-  //  const _window: Window = window;
-  //  if (typeof _window?.MathJax !== "undefined") {
-  //    _window.MathJax.typeset();
-  //  }
-  //}, [data]);
+
   const handleView = () => {
     onView(data);
   };
@@ -65,7 +60,7 @@ const ProblemView: FC<ProblemProps> = ({ data, fields, onView }) => {
                 : ""
             }`}
           >
-            <MathJax>
+            <MathJax dynamic={true}>
               <div
                 className={`flex items-center justify-between ${
                   key === "example_input" || key === "example_output"

@@ -5,6 +5,7 @@ export const contest: ContestDetails = {
   description: "",
   duration: 60,
   start: new Date(),
+  enroll: false,
   problems: [],
 };
 
