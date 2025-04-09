@@ -131,7 +131,7 @@ const ContestList = () => {
           columns={columns}
           data={contests}
           header={true}
-          onView={(index) => navigate(`view/${contests[index].id}`)}
+          onView={(index) => navigate(`view/${contests[index].id}/details`)}
           onEdit={
             type === "admin"
               ? (index) => navigate(`edit/${contests[index].id}`)
