@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { getTypeUser } from "../../session/Token";
 import Button from "../../components/Button";
 import FormTopic from "../../components/forms/FormTopic";
+import Search from "../../components/Search";
 
 const addFormatSubmissions = (values: Problem[]) => {
   for (let i = 0; i < values.length; i++) {
@@ -164,8 +165,18 @@ const Home: FC = () => {
                 if (topic) handleTopicDelete(topic);
               }}
             >
-              Delete
+              Delete Topic
             </Button>
+          </div>
+          <div className="flex justify-between my-4">
+            <Button
+              onClick={() => {
+                navigate("/createProblem");
+              }}
+            >
+              Create Problem
+            </Button>
+            <Search onSubmit={() => {}} placeholder="Search Problem" />
           </div>
           {type === "admin" && (
             <Table<Problem>
