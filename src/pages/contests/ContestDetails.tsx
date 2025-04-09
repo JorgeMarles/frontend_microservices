@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 
 interface Problem {
   id: number;
-  title: string;
+  name: string;
   difficulty: string;
 }
 
