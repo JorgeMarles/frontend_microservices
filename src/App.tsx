@@ -14,12 +14,13 @@ import ProtectedRoute from "./session/ProtectedRoute";
 import UserManagement from "./pages/users/UserManagement";
 import Profile from "./pages/Profile";
 import SubmissionView from "./pages/problems/SubmissionView";
+import ContestDetails from "./pages/contests/ContestDetails";
 import ContestList from "./pages/contests/ContestList";
 import ContestEditor from "./pages/contests/ContestEditor";
 
 const App: React.FC = () => {
   return (
-    <div className="bg-gray-300 h-screen flex flex-col">
+    <div className="bg-gray-300 min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-grow">
         <Routes>
@@ -98,6 +99,14 @@ const App: React.FC = () => {
             element={
               <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <ContestList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contests/view/:id/details"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
+                <ContestDetails />
               </ProtectedRoute>
             }
           />

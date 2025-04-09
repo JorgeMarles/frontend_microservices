@@ -119,10 +119,12 @@ const ContestList = () => {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Menu></Menu>
-      <div className="grid grid-cols-[1fr_auto_auto] items-center gap-4">
-        <h1 className="text-8xl text-stroke font-Jomhuria">Contests</h1>
+      <div className="m-10 grid grid-rows-2 grid-cols-[1fr_auto] md:grid-rows-1 md:grid-cols-[1fr_auto_auto] items-center gap-4">
+        <h1 className="text-8xl text-stroke font-Jomhuria md:col-span-1 col-span-2">
+          Contests
+        </h1>
         <Search onSubmit={handleSearch} placeholder="Search contests" />
         <Button onClick={() => navigate("create")}>Create</Button>
       </div>
@@ -131,7 +133,7 @@ const ContestList = () => {
           columns={columns}
           data={contests}
           header={true}
-          onView={(index) => navigate(`view/${contests[index].id}`)}
+          onView={(index) => navigate(`view/${contests[index].id}/details`)}
           onEdit={
             type === "admin"
               ? (index) => navigate(`edit/${contests[index].id}`)

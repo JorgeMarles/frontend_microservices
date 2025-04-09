@@ -26,12 +26,14 @@ export default function ContestEditor() {
   return (
     <div className="bg-gray-300 w-screen">
       <Menu />
-      <h1 className="text-8xl text-stroke font-Jomhuria">Contests</h1>
-      <ContestForm
-        data={contest}
-        onSubmit={() => navigate("/contests")}
-        action={id ? "EDIT" : "CREATE"}
-      />
+      <div className="mx-auto my-10 w-11/12 max-w-screen-lg">
+        <h1 className="text-8xl text-stroke font-Jomhuria">Contests</h1>
+        <ContestForm
+          data={contest}
+          onSubmit={() => navigate("/contests")}
+          action={id ? "EDIT" : "CREATE"}
+        />
+      </div>
     </div>
   );
 }
