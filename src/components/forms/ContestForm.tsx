@@ -49,31 +49,13 @@ export default function ContestForm({
   };
 
   async function handleCreate(contest: ContestDetails) {
-    try {
-      await createContest(contest);
-
-      alert("Contest creado correctamente");
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert("Ha ocurrido un error");
-      }
-    }
+    await createContest(contest);
+    alert("Contest creado correctamente");
   }
 
   async function handleEdit(contest: ContestDetails) {
-    try {
-      await updateContest(contest);
-
-      alert("Contest editado correctamente");
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert("Ha ocurrido un error");
-      }
-    }
+    await updateContest(contest);
+    alert("Contest editado correctamente");
   }
 
   async function handleProblemSearch(query: string) {
@@ -106,15 +88,23 @@ export default function ContestForm({
       problems,
     };
 
-    if (action === "CREATE") {
-      await handleCreate(transformedData);
-    }
+    try {
+      if (action === "CREATE") {
+        await handleCreate(transformedData);
+      }
 
-    if (action === "EDIT") {
-      await handleEdit(transformedData);
-    }
+      if (action === "EDIT") {
+        await handleEdit(transformedData);
+      }
 
-    onSubmit(transformedData);
+      onSubmit(transformedData);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Ha ocurrido un error");
+      }
+    }
   };
 
   useEffect(() => {
@@ -123,7 +113,7 @@ export default function ContestForm({
   }, [data]);
 
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid lg:grid-cols-2 gap-6">
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2">

@@ -20,7 +20,7 @@ import ContestEditor from "./pages/contests/ContestEditor";
 
 const App: React.FC = () => {
   return (
-    <div className="bg-gray-300 h-screen flex flex-col">
+    <div className="bg-gray-300 min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-grow">
         <Routes>
