@@ -40,6 +40,7 @@ jobs:
           VITE_API_USERS_URL: ${{ vars.VITE_API_USERS_URL }}
           VITE_API_PROBLEMS_URL: ${{ vars.VITE_API_PROBLEMS_URL }}
           VITE_API_RUNNER_URL: ${{ vars.VITE_API_RUNNER_URL }}
+          VITE_API_CONTESTS_URL: ${{ vars.VITE_API_CONTESTS_URL }}
         run: |
           npm run build -- \
           --base "${{ steps.pages.outputs.base_path }}"
