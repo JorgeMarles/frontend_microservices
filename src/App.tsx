@@ -14,7 +14,7 @@ import ProtectedRoute from "./session/ProtectedRoute";
 import UserManagement from "./pages/users/UserManagement";
 import Profile from "./pages/Profile";
 import SubmissionView from "./pages/problems/SubmissionView";
-import ContestDetails from "./pages/contests/ContestDetails";
+import ContestView from "./pages/contests/ContestView";
 import ContestList from "./pages/contests/ContestList";
 import ContestEditor from "./pages/contests/ContestEditor";
 
@@ -106,7 +106,7 @@ const App: React.FC = () => {
             path="/contests/view/:id/details"
             element={
               <ProtectedRoute allowedRoles={["admin", "user"]}>
-                <ContestDetails />
+                <ContestView />
               </ProtectedRoute>
             }
           />

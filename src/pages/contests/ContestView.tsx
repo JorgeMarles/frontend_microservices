@@ -1,15 +1,11 @@
 // src/pages/contests/ContestDetails.tsx
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import Table, { Column } from "../../components/Table";
 import Button from "../../components/Button";
-
-interface Problem {
-  id: number;
-  name: string;
-  difficulty: string;
-}
+import { ContestDetails } from "../../utils/interfaces";
+import { getContestById } from "../../fetch/ContestFetch";
 
 interface Rank {
   user: string;
@@ -17,21 +13,28 @@ interface Rank {
   time: string;
 }
 
-const ContestDetails = () => {
-  const { id } = useParams<{ id: string }>();
-  const [problems, setProblems] = useState<Problem[]>([]);
+export default function ContestView() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [contest, setContest] = useState<ContestDetails>();
   const [ranking, setRanking] = useState<Rank[]>([]);
   const [tab, setTab] = useState<"problems" | "ranking">("problems");
 
   useEffect(() => {
+    /*
     const fetchProblems = async () => {
-      const fakeProblems = [
-        { id: 1, name: "Adivina el número", difficulty: "Fácil" },
-        { id: 2, name: "Grafo de ciudades", difficulty: "Difícil" },
+      const fakeProblems: ContestProblem[] = [
+        { id: 1, letter: "A", name: "Adivina el número" },
+        {
+          id: 2,
+          letter: "B",
+          name: "Grafo de ciudades",
+        },
       ];
       setProblems(fakeProblems);
     };
 
+    */
     const fetchRanking = async () => {
       const fakeRanking = [
         { user: "alice", score: 100, time: "00:32:10" },
@@ -41,13 +44,34 @@ const ContestDetails = () => {
       setRanking(fakeRanking);
     };
 
-    fetchProblems();
+    fetchContest();
     fetchRanking();
   }, [id]);
 
-  const problemColumns: Column<Problem>[] = [
-    { label: "Name", key: "name" },
-    { label: "Difficulty", key: "difficulty" },
+  async function fetchContest() {
+    if (!id || Number.isNaN(parseInt(id))) return;
+
+    const res = await getContestById(parseInt(id));
+
+    setContest(res);
+  }
+
+  const problemColumns: Column<ContestDetails["problems"][number]>[] = [
+    {
+      label: "#",
+      key: "order",
+      output: (order) => {
+        if (!order) return;
+
+        const orderNum = typeof order === "number" ? order : parseInt(order);
+        const ascii = orderNum + "A".charCodeAt(0) - 1;
+        return <>{String.fromCharCode(ascii)}</>;
+      },
+    },
+    {
+      label: "Name",
+      key: "name",
+    },
   ];
 
   const rankingColumns: Column<Rank>[] = [
@@ -56,8 +80,10 @@ const ContestDetails = () => {
     { label: "Time", key: "time" },
   ];
 
+  if (!contest?.problems) return;
+
   return (
-    <div>
+    <div className="w-full">
       <Menu />
       <div className="px-10 py-6">
         <h1 className="text-6xl font-Jomhuria text-stroke mb-4">
@@ -66,17 +92,13 @@ const ContestDetails = () => {
         <div className="flex gap-4 mb-6">
           <Button
             onClick={() => setTab("problems")}
-            className={`${
-              tab === "problems" ? "bg-blue-700 text-white" : "bg-gray-200"
-            }`}
+            variant={`${tab === "problems" ? "DARK" : "DEFAULT"}`}
           >
             Problems
           </Button>
           <Button
             onClick={() => setTab("ranking")}
-            className={`${
-              tab === "ranking" ? "bg-blue-700 text-white" : "bg-gray-200"
-            }`}
+            variant={`${tab === "ranking" ? "DARK" : "DEFAULT"}`}
           >
             Ranking
           </Button>
@@ -86,11 +108,14 @@ const ContestDetails = () => {
           {tab === "problems" && (
             <Table
               columns={problemColumns}
-              data={problems}
+              data={contest.problems}
               header={true}
-              pagination={5}
-              enableNumberPagination={true}
-              activePagination={true}
+              pagination={contest.problems.length}
+              enableNumberPagination={false}
+              activePagination={false}
+              onChange={(index) =>
+                navigate(`/problem/${contest.problems[index].id}`)
+              }
             />
           )}
 
@@ -108,6 +133,4 @@ const ContestDetails = () => {
       </div>
     </div>
   );
-};
-
-export default ContestDetails;
+}

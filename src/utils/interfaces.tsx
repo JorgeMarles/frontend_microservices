@@ -11,6 +11,7 @@ export interface ContestDetails extends Contest {
   problems: {
     id: number;
     name: string;
+    letter?: string;
   }[];
 }
 
