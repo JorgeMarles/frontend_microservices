@@ -10,7 +10,7 @@ import {
 export interface Column<T> {
   label: string;
   key: string;
-  output?: (value: T[keyof T], row: T) => React.ReactNode;
+  output?: (value: T[keyof T], row: T, index: number) => React.ReactNode;
 }
 
 interface TableProps<T> {
@@ -90,7 +90,7 @@ const Table = <T extends object>({
     <div className="w-full">
       {header && (
         <div
-          className="grid gap-4 border-t-2 border-black p-4 bg-gray-400 text-center"
+          className="grid items-center gap-4 border-t-2 border-black p-4 bg-gray-400 text-center"
           style={{
             gridTemplateColumns: `repeat(${
               columns.length + Number(actions)
@@ -108,7 +108,7 @@ const Table = <T extends object>({
       {indexes.map((rowIndex) => (
         <div
           key={rowIndex}
-          className="grid gap-4 border-t-2 border-black p-4 text-center hover:bg-gray-400"
+          className="grid items-center gap-4 border-t-2 border-black p-4 text-center hover:bg-gray-400"
           style={{
             gridTemplateColumns: `repeat(${
               columns.length + Number(actions)
@@ -121,7 +121,7 @@ const Table = <T extends object>({
             return (
               <div key={colIndex} onClick={() => handleClick(rowIndex)}>
                 {column.output
-                  ? column.output(value as T[keyof T], data[rowIndex])
+                  ? column.output(value as T[keyof T], data[rowIndex], rowIndex)
                   : String(getValueByKey(data[rowIndex], column.key))}
               </div>
             );

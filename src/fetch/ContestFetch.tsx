@@ -102,7 +102,7 @@ export const deleteContest = async (id: number) => {
 export const getContestRanking = async (id: number) => {
   try {
     const response: AxiosResponse = await api.get(`/contest/${id}/ranking`);
-    return response.data as ContestRanking;
+    return response.data as ContestRanking[];
   } catch (error) {
     console.error(error);
 

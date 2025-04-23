@@ -4,49 +4,60 @@ import { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import Table, { Column } from "../../components/Table";
 import Button from "../../components/Button";
-import { ContestDetails } from "../../utils/interfaces";
+import { ContestDetails, ContestRanking } from "../../utils/interfaces";
 import { getContestById } from "../../fetch/ContestFetch";
-
-interface Rank {
-  user: string;
-  score: number;
-  time: string;
-}
 
 export default function ContestView() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contest, setContest] = useState<ContestDetails>();
-  const [ranking, setRanking] = useState<Rank[]>([]);
+  const [ranking, setRanking] = useState<ContestRanking[]>();
   const [tab, setTab] = useState<"problems" | "ranking">("problems");
 
   useEffect(() => {
-    /*
-    const fetchProblems = async () => {
-      const fakeProblems: ContestProblem[] = [
-        { id: 1, letter: "A", name: "Adivina el número" },
-        {
-          id: 2,
-          letter: "B",
-          name: "Grafo de ciudades",
-        },
-      ];
-      setProblems(fakeProblems);
-    };
-
-    */
-    const fetchRanking = async () => {
-      const fakeRanking = [
-        { user: "alice", score: 100, time: "00:32:10" },
-        { user: "bob", score: 80, time: "00:45:22" },
-        { user: "charlie", score: 60, time: "01:15:08" },
-      ];
-      setRanking(fakeRanking);
-    };
-
     fetchContest();
-    fetchRanking();
   }, [id]);
+
+  async function fetchRanking() {
+    if (!id || Number.isNaN(parseInt(id))) return;
+
+    //const res = await getContestRanking(parseInt(id));
+
+    const res: ContestRanking[] = [
+      {
+        user: {
+          id: 1,
+          nickname: "nisxal",
+        },
+        problems_solved: 1,
+        penalty: 157,
+        submissions: [
+          {
+            id: 101,
+            attempts: 1,
+            solved: false,
+            time: 3,
+            assignation: {
+              id: 201,
+              order: 1,
+            },
+          },
+          {
+            id: 102,
+            attempts: 3,
+            solved: true,
+            time: 654,
+            assignation: {
+              id: 202,
+              order: 2,
+            },
+          },
+        ],
+      },
+    ];
+
+    setRanking(res);
+  }
 
   async function fetchContest() {
     if (!id || Number.isNaN(parseInt(id))) return;
@@ -56,16 +67,34 @@ export default function ContestView() {
     setContest(res);
   }
 
+  function orderToLetter(order: string | number | undefined) {
+    if (!order) return;
+
+    const orderNum = typeof order === "number" ? order : parseInt(order);
+    const ascii = orderNum + "A".charCodeAt(0) - 1;
+    return String.fromCharCode(ascii);
+  }
+
+  function secsFormat(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    function zeroFill(n: number) {
+      return n > 9 ? n : `0${n}`;
+    }
+
+    return `${hours > 0 ? `${zeroFill(hours)}:` : ""}${zeroFill(
+      mins
+    )}:${zeroFill(secs)}`;
+  }
+
   const problemColumns: Column<ContestDetails["problems"][number]>[] = [
     {
       label: "#",
       key: "order",
       output: (order) => {
-        if (!order) return;
-
-        const orderNum = typeof order === "number" ? order : parseInt(order);
-        const ascii = orderNum + "A".charCodeAt(0) - 1;
-        return <>{String.fromCharCode(ascii)}</>;
+        return orderToLetter(order);
       },
     },
     {
@@ -74,10 +103,51 @@ export default function ContestView() {
     },
   ];
 
-  const rankingColumns: Column<Rank>[] = [
-    { label: "User", key: "user" },
-    { label: "Score", key: "score" },
-    { label: "Time", key: "time" },
+  const rankingColumns: Column<ContestRanking>[] = [
+    {
+      label: "#",
+      key: "",
+      output: (_value, _row, index) => index + 1,
+    },
+    {
+      label: "User",
+      key: "user",
+      output: (u) => {
+        const user = u as ContestRanking["user"];
+
+        if (!user) return;
+
+        return user.nickname;
+      },
+    },
+    { label: "=", key: "problems_solved" },
+    { label: "Penalty", key: "penalty" },
+    ...(contest?.problems.map((problem) => ({
+      label: orderToLetter(problem.order) || "",
+      key: "submissions",
+      output: (s: unknown) => {
+        if (!s) return;
+
+        const submissions = s as ContestRanking["submissions"];
+        const problemSubmission = submissions.find(
+          (submission) => submission.assignation.order === problem.order
+        );
+
+        if (!problemSubmission || !problemSubmission.solved) return "";
+
+        return (
+          <div>
+            <p className="text-green-700 font-bold">
+              +
+              {problemSubmission.attempts - 1 > 0
+                ? problemSubmission.attempts - 1
+                : ""}
+            </p>
+            <p>{secsFormat(problemSubmission.time)}</p>
+          </div>
+        );
+      },
+    })) || []),
   ];
 
   if (!contest?.problems) return;
@@ -87,7 +157,7 @@ export default function ContestView() {
       <Menu />
       <div className="px-10 py-6">
         <h1 className="text-6xl font-Jomhuria text-stroke mb-4">
-          Contest #{id}
+          {contest.name}
         </h1>
         <div className="flex gap-4 mb-6">
           <Button
@@ -97,7 +167,10 @@ export default function ContestView() {
             Problems
           </Button>
           <Button
-            onClick={() => setTab("ranking")}
+            onClick={async () => {
+              fetchRanking();
+              setTab("ranking");
+            }}
             variant={`${tab === "ranking" ? "DARK" : "DEFAULT"}`}
           >
             Ranking
@@ -122,7 +195,7 @@ export default function ContestView() {
           {tab === "ranking" && (
             <Table
               columns={rankingColumns}
-              data={ranking}
+              data={ranking || []}
               header={true}
               pagination={5}
               enableNumberPagination={true}

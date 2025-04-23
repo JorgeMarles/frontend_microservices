@@ -11,21 +11,27 @@ export interface ContestDetails extends Contest {
   problems: {
     id: number;
     name: string;
-    letter?: string;
+    order?: number;
   }[];
 }
 
 export interface ContestRanking {
-  user: number;
-  problemsSolved: number;
+  user: {
+    id: number;
+    nickname: string;
+  };
+  problems_solved: number;
   penalty: number;
-  submissions: [
-    {
-      attempts: number;
-      solved: boolean;
-      time: number;
-    }
-  ];
+  submissions: {
+    id: number;
+    attempts: number;
+    solved: boolean;
+    time: number;
+    assignation: {
+      id: number;
+      order: number;
+    };
+  }[];
 }
 
 export interface Topic {
