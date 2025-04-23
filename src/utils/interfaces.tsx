@@ -24,10 +24,10 @@ export interface ContestRanking {
   penalty: number;
   submissions: {
     id: number;
-    attempts: number;
+    attemps: number;
     solved: boolean;
     time: number;
-    assignation: {
+    asignation: {
       id: number;
       order: number;
     };

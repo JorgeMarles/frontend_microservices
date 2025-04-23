@@ -5,7 +5,7 @@ import Menu from "../../components/Menu";
 import Table, { Column } from "../../components/Table";
 import Button from "../../components/Button";
 import { ContestDetails, ContestRanking } from "../../utils/interfaces";
-import { getContestById } from "../../fetch/ContestFetch";
+import { getContestById, getContestRanking } from "../../fetch/ContestFetch";
 
 export default function ContestView() {
   const navigate = useNavigate();
@@ -21,40 +21,7 @@ export default function ContestView() {
   async function fetchRanking() {
     if (!id || Number.isNaN(parseInt(id))) return;
 
-    //const res = await getContestRanking(parseInt(id));
-
-    const res: ContestRanking[] = [
-      {
-        user: {
-          id: 1,
-          nickname: "nisxal",
-        },
-        problems_solved: 1,
-        penalty: 157,
-        submissions: [
-          {
-            id: 101,
-            attempts: 1,
-            solved: false,
-            time: 3,
-            assignation: {
-              id: 201,
-              order: 1,
-            },
-          },
-          {
-            id: 102,
-            attempts: 3,
-            solved: true,
-            time: 654,
-            assignation: {
-              id: 202,
-              order: 2,
-            },
-          },
-        ],
-      },
-    ];
+    const res = await getContestRanking(parseInt(id));
 
     setRanking(res);
   }
@@ -130,7 +97,7 @@ export default function ContestView() {
 
         const submissions = s as ContestRanking["submissions"];
         const problemSubmission = submissions.find(
-          (submission) => submission.assignation.order === problem.order
+          (submission) => submission.asignation.order === problem.order
         );
 
         if (!problemSubmission || !problemSubmission.solved) return "";
@@ -139,8 +106,8 @@ export default function ContestView() {
           <div>
             <p className="text-green-700 font-bold">
               +
-              {problemSubmission.attempts - 1 > 0
-                ? problemSubmission.attempts - 1
+              {problemSubmission.attemps - 1 > 0
+                ? problemSubmission.attemps - 1
                 : ""}
             </p>
             <p>{secsFormat(problemSubmission.time)}</p>
