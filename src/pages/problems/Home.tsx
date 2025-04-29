@@ -5,7 +5,11 @@ import Card from "../../components/cards/Card";
 import Combobox from "../../components/Combobox";
 import { Topic } from "../../utils/interfaces";
 import { deleteTopic, getTopics } from "../../fetch/TopicFetch";
-import { disableProblem, getProblems } from "../../fetch/ProblemFetch";
+import {
+  disableProblem,
+  getProblems,
+  searchProblems,
+} from "../../fetch/ProblemFetch";
 import difficulties from "../../data/difficulties.json";
 import Menu from "../../components/Menu";
 import { iota } from "../../utils/services";
@@ -33,7 +37,7 @@ const Home: FC = () => {
   const navigate = useNavigate();
   const [problems, setProblems] = useState<Problem[]>([]);
   const [topics, setTopics] = useState<Topic[]>([]);
-  const [topicSelected, setTopicSelected] = useState("Introductory problems");
+  const [topicSelected, setTopicSelected] = useState("");
   const [difficultySelected, setDifficultySelected] = useState<
     string | undefined
   >(undefined);
@@ -83,6 +87,11 @@ const Home: FC = () => {
 
     fetchProblems();
   }, [topicSelected, difficultySelected, action]);
+
+  const handleProblemSearch = async (query: string) => {
+    const results = await searchProblems(query);
+    setProblems(results);
+  };
 
   const handleChangeTopic = (value: string) => {
     setTopicSelected(value);
@@ -150,26 +159,28 @@ const Home: FC = () => {
       <Menu></Menu>
       <div className="w-full grid grid-cols-2 gap-4 my-5">
         <div className="p-8">
-          <div className="grid grid-cols-2 grid-rows-[1fr_auto_1fr] lg:grid-rows-1 lg:grid-cols-[1fr_auto_auto_auto] gap-4 pb-3 items-center">
-            <h1 className="text-8xl text-stroke font-Jomhuria">
-              {topicSelected}
-            </h1>
-            <Combobox
-              data={difficulties}
-              onChange={handleChangeDifficulty}
-              defaultName={difficulties[0].name}
-            />
-            {type === "admin" && (
-              <Button
-                onClick={() => {
-                  const topic = topics.find((t) => t.name === topicSelected);
-                  if (topic) handleTopicDelete(topic);
-                }}
-              >
-                Delete Topic
-              </Button>
-            )}
-          </div>
+          {topicSelected.length > 0 && (
+            <div className="grid grid-cols-2 grid-rows-[1fr_auto_1fr] lg:grid-rows-1 lg:grid-cols-[1fr_auto_auto_auto] gap-4 pb-3 items-center">
+              <h1 className="text-8xl text-stroke font-Jomhuria">
+                {topicSelected}
+              </h1>
+              <Combobox
+                data={difficulties}
+                onChange={handleChangeDifficulty}
+                defaultName={difficulties[0].name}
+              />
+              {type === "admin" && (
+                <Button
+                  onClick={() => {
+                    const topic = topics.find((t) => t.name === topicSelected);
+                    if (topic) handleTopicDelete(topic);
+                  }}
+                >
+                  Delete Topic
+                </Button>
+              )}
+            </div>
+          )}
           <div className="flex justify-between my-4">
             {type === "admin" && (
               <Button
@@ -181,7 +192,10 @@ const Home: FC = () => {
               </Button>
             )}
 
-            <Search onSubmit={() => {}} placeholder="Search Problem" />
+            <Search
+              onSubmit={handleProblemSearch}
+              placeholder="Search Problem"
+            />
           </div>
           {type === "admin" && (
             <Table<Problem>

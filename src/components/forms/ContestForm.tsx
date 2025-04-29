@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import { ContestDetails, Problem } from "../../utils/interfaces";
 import { createContest, updateContest } from "../../fetch/ContestFetch";
 import Search from "../Search";
-import { getByName } from "../../fetch/ProblemFetch";
+import { searchProblems } from "../../fetch/ProblemFetch";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 type action = "CREATE" | "EDIT";
@@ -24,7 +24,7 @@ export default function ContestForm({
     data.problems
   );
 
-  const [searchProblem, setSearchProblem] = useState<Problem | null>(null);
+  const [foundProblems, setFoundProblems] = useState<Problem[]>([]);
 
   const handleChange = (
     e:
@@ -60,9 +60,8 @@ export default function ContestForm({
 
   async function handleProblemSearch(query: string) {
     try {
-      const results = await getByName(query);
-
-      setSearchProblem(results?.data.problem);
+      const results = await searchProblems(query);
+      setFoundProblems(results);
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
@@ -195,23 +194,35 @@ export default function ContestForm({
         <label className="font-Jomhuria text-5xl block">Problems</label>
         <div>
           <Search onSubmit={handleProblemSearch} />
-          {searchProblem &&
-            !problems.find((e) => e.id === searchProblem.id) && (
-              <button
-                onClick={() => {
-                  if (!searchProblem.id) return;
+          <div className="grid grid-cols-1 gap-1 lg:w-64 w-44 my-2">
+            {foundProblems.map((foundProblem, index) => {
+              if (index >= 5) return; // Limit to first 5 results
 
-                  handleAddProblem({
-                    id: searchProblem.id,
-                    name: searchProblem.name,
-                  });
-                  setSearchProblem(null);
-                }}
-                className="lg:w-64 w-44 p-2 bg-white rounded-2xl my-2"
-              >
-                {searchProblem.name}
-              </button>
-            )}
+              const alreadySelected = problems.find(
+                (p) => p.id === foundProblem.id
+              );
+
+              if (alreadySelected) return;
+
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!foundProblem.id) return;
+
+                    handleAddProblem({
+                      id: foundProblem.id,
+                      name: foundProblem.name,
+                    });
+                    setFoundProblems([]);
+                  }}
+                  className="p-2 bg-white rounded-2xl"
+                >
+                  {foundProblem.name}
+                </button>
+              );
+            })}
+          </div>
         </div>
         <div className="mt-4">
           {problems.map((problem) => {

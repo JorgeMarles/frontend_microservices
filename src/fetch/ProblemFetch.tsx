@@ -1,9 +1,10 @@
-import { apiProblems as api } from '../session/interceptor';
-import { Problem } from '../utils/interfaces';
+import { AxiosError } from "axios";
+import { apiProblems as api } from "../session/interceptor";
+import { Problem } from "../utils/interfaces";
 
 export const getProblems = async (topicName?: string, difficulty?: string) => {
   try {
-    const response = await api.get('/problem', {
+    const response = await api.get("/problem", {
       params: {
         difficulty,
         topic_name: topicName,
@@ -11,90 +12,100 @@ export const getProblems = async (topicName?: string, difficulty?: string) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching problems:', error);
+    console.error("Error fetching problems:", error);
   }
 };
 
 export const create = async (problemData: Problem) => {
   try {
-    const response = await api.post('/problem', problemData);
+    const response = await api.post("/problem", problemData);
     return response;
   } catch (error) {
-    console.error('Error creating problem:', error);
+    console.error("Error creating problem:", error);
   }
 };
 
-export const uploadFiles = async (input: File, output: File, problemId: number) => {
+export const uploadFiles = async (
+  input: File,
+  output: File,
+  problemId: number
+) => {
   const formData = new FormData();
   formData.append(`inputs`, input);
   formData.append(`outputs`, output);
   formData.append(`problem_id`, problemId.toString());
   console.log(formData);
   try {
-      const response = await api.post('/problem/uploadTests', formData);
-      return response;
+    const response = await api.post("/problem/uploadTests", formData);
+    return response;
   } catch (error) {
-      console.error('Error fetching upload files:', error);
+    console.error("Error fetching upload files:", error);
   }
 };
 
 export const update = async (problemData: Problem) => {
   try {
-    const response = await api.put('/problem', problemData);
+    const response = await api.put("/problem", problemData);
     return response;
   } catch (error) {
-    console.error('Error updating problem:', error);
+    console.error("Error updating problem:", error);
   }
 };
 
 export const getByID = async (idProblem: number) => {
   try {
-    const response = await api.get('/problem', {
+    const response = await api.get("/problem", {
       params: {
         id: idProblem,
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching problem by ID:', error);
-  }
-};
-
-export const getByName = async (name: string) => {
-  try {
-    const response = await api.get('/problem', {
-      params: {
-        name: name,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.error('Error fetching problem by ID:', error);
+    console.error("Error fetching problem by ID:", error);
   }
 };
 
 export const getProblemsInfo = async (id: number) => {
   try {
-    const response = await api.get('/problem/user', {
+    const response = await api.get("/problem/user", {
       params: {
         id: id,
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching problem by ID:', error);
+    console.error("Error fetching problem by ID:", error);
   }
 };
 
 export const disableProblem = async (id: number) => {
   try {
-    const response = await api.delete('/problem/', {
+    const response = await api.delete("/problem/", {
       data: {
         id: id,
       },
     });
     return response;
   } catch (error) {
-    console.error('Error fetching problem by ID:', error);
+    console.error("Error fetching problem by ID:", error);
+  }
+};
+
+export const searchProblems = async (query: string) => {
+  try {
+    const response = await api.get("/problem", {
+      params: {
+        name: query,
+      },
+    });
+    return response.data as Problem[];
+  } catch (error) {
+    console.error(error);
+
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message);
+    } else {
+      throw error;
+    }
   }
 };
