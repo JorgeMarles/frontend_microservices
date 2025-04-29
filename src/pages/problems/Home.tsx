@@ -159,23 +159,28 @@ const Home: FC = () => {
               onChange={handleChangeDifficulty}
               defaultName={difficulties[0].name}
             />
-            <Button
-              onClick={() => {
-                const topic = topics.find((t) => t.name === topicSelected);
-                if (topic) handleTopicDelete(topic);
-              }}
-            >
-              Delete Topic
-            </Button>
+            {type === "admin" && (
+              <Button
+                onClick={() => {
+                  const topic = topics.find((t) => t.name === topicSelected);
+                  if (topic) handleTopicDelete(topic);
+                }}
+              >
+                Delete Topic
+              </Button>
+            )}
           </div>
           <div className="flex justify-between my-4">
-            <Button
-              onClick={() => {
-                navigate("/createProblem");
-              }}
-            >
-              Create Problem
-            </Button>
+            {type === "admin" && (
+              <Button
+                onClick={() => {
+                  navigate("/createProblem");
+                }}
+              >
+                Create Problem
+              </Button>
+            )}
+
             <Search onSubmit={() => {}} placeholder="Search Problem" />
           </div>
           {type === "admin" && (
@@ -208,9 +213,11 @@ const Home: FC = () => {
           <div className="pl-5 ml-5 w-full h-full">
             <div className="flex justify-between items-center">
               <h1 className="font-Jomhuria text-7xl text-stroke">Topics</h1>
-              <Button onClick={() => setCurrentModal("CREATE_TOPIC")}>
-                Create
-              </Button>
+              {type === "admin" && (
+                <Button onClick={() => setCurrentModal("CREATE_TOPIC")}>
+                  Create
+                </Button>
+              )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-7">

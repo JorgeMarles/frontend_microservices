@@ -126,7 +126,9 @@ const ContestList = () => {
           Contests
         </h1>
         <Search onSubmit={handleSearch} placeholder="Search contests" />
-        <Button onClick={() => navigate("create")}>Create</Button>
+        {type === "admin" && (
+          <Button onClick={() => navigate("create")}>Create</Button>
+        )}
       </div>
       <div className="flex items-center justify-center pb-6 px-10">
         <Table
