@@ -172,3 +172,18 @@ export const submitContestProblem = async ({
     }
   }
 };
+
+export const getContestPositions = async () => {
+  try {
+    const response = await api.get("/user/stats");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message);
+    } else {
+      throw error;
+    }
+  }
+};
