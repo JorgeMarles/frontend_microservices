@@ -3,6 +3,7 @@ export interface Contest {
   name: string;
   description: string;
   start: Date;
+  difficulty: number;
   duration: number;
   enroll: boolean;
 }

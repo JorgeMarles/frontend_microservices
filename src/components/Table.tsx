@@ -11,6 +11,7 @@ export interface Column<T> {
   label: string;
   key: string;
   output?: (value: T[keyof T], row: T, index: number) => React.ReactNode;
+  onClick?: () => void;
 }
 
 interface TableProps<T> {
@@ -98,7 +99,7 @@ const Table = <T extends object>({
           }}
         >
           {columns.map((column, index) => (
-            <div key={index} className="font-bold text-lg">
+            <div key={index} className="font-bold text-lg cursor-pointer" onClick={column.onClick}>
               {column.label}
             </div>
           ))}

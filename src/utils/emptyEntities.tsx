@@ -6,6 +6,7 @@ export const contest: ContestDetails = {
   duration: 60,
   start: new Date(),
   enroll: false,
+  difficulty: 0,
   problems: [],
 };
 

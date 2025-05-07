@@ -82,6 +82,27 @@ const ContestList = () => {
     fetchContests();
   }, []);
 
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  const handleSort = (key: keyof Contest) => {
+    const newOrder = sortKey === key && sortOrder === "desc" ? "asc" : "desc";
+    setSortKey(key);
+    setSortOrder(newOrder);
+  
+    const sorted = [...contests].sort((a, b) => {
+      if (a[key] == null) return 1;
+      if (b[key] == null) return -1;
+  
+      if (a[key]! < b[key]!) return newOrder === "asc" ? -1 : 1;
+      if (a[key]! > b[key]!) return newOrder === "asc" ? 1 : -1;
+      return 0;
+    });
+  
+    setContests(sorted);
+  };
+  
+
   const columns: Column<Contest>[] = [
     {
       label: "Name",
@@ -96,6 +117,16 @@ const ContestList = () => {
       label: "Duration",
       key: "duration",
     },
+    {
+      label: "Difficulty",
+      key: "difficulty",
+      onClick: () => handleSort("difficulty"),
+      output: (value) => {
+        console.log(value);
+        
+        return value && (value as number).toFixed(2)
+      }
+    }
   ];
 
   if (type === "user") {
