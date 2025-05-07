@@ -85,3 +85,9 @@ export interface UserUpdatePassword {
   password: string;
   repeat_password: string;
 }
+
+export interface ContestPosition {
+  id: number;
+  percentile: number;
+  position: number;
+}

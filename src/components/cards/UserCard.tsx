@@ -42,16 +42,6 @@ const UserCard: FC<UserCardProps> = ({ name, onSubmit, user }) => {
                         </h2>
                         <p className="text-xl text-gray-800 mt-2">{user.email}</p>
                     </div>
-                    {user?.totalProblems !== undefined && (
-                        <div>
-                            <h2 className="md:text-6xl text-5xl font-Jomhuria text-gray-900">
-                                Problems Solved
-                            </h2>
-                            <p className="text-xl text-gray-800 mt-2">
-                                {user?.totalProblems} problems
-                            </p>
-                        </div>
-                    )}
                 </div>
 
                 <div className="mt-10 flex justify-end">
