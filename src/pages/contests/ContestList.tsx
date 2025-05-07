@@ -14,6 +14,8 @@ import {
 } from "../../fetch/ContestFetch";
 import { useNavigate } from "react-router-dom";
 import { getTypeUser } from "../../session/Token";
+import { AxiosResponse } from "axios";
+import { apiContests as api } from "../../session/interceptor";
 
 const ContestList = () => {
   const navigate = useNavigate();
@@ -89,19 +91,39 @@ const ContestList = () => {
     const newOrder = sortKey === key && sortOrder === "desc" ? "asc" : "desc";
     setSortKey(key);
     setSortOrder(newOrder);
-  
+
     const sorted = [...contests].sort((a, b) => {
       if (a[key] == null) return 1;
       if (b[key] == null) return -1;
-  
+
       if (a[key]! < b[key]!) return newOrder === "asc" ? -1 : 1;
       if (a[key]! > b[key]!) return newOrder === "asc" ? 1 : -1;
       return 0;
     });
-  
+
     setContests(sorted);
   };
-  
+
+  const [minDifficulty, setMinDifficulty] = useState(0);
+  const [maxDifficulty, setMaxDifficulty] = useState(1);
+
+  async function handleFilter() {
+    try {
+      const response: AxiosResponse = await api.get('/contest', {
+        params: {
+          minDifficulty: minDifficulty,
+          maxDifficulty: maxDifficulty,
+        }
+      })
+      setContests(response.data);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Ha ocurrido un error");
+      }
+    }
+  }
 
   const columns: Column<Contest>[] = [
     {
@@ -123,10 +145,10 @@ const ContestList = () => {
       onClick: () => handleSort("difficulty"),
       output: (value) => {
         console.log(value);
-        
-        return value && (value as number).toFixed(2)
-      }
-    }
+
+        return value && (value as number).toFixed(2);
+      },
+    },
   ];
 
   if (type === "user") {
@@ -161,6 +183,40 @@ const ContestList = () => {
           <Button onClick={() => navigate("create")}>Create</Button>
         )}
       </div>
+      <div className="flex items-center gap-4 px-10 mb-6">
+        <label className="font-bold">Difficulty Range:</label>
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min={0}
+            max={maxDifficulty}
+            step={0.1}
+            value={minDifficulty}
+            onChange={(e) => setMinDifficulty(parseFloat(e.target.value))}
+            style={{ accentColor: "red" }}
+          />
+          <span>{minDifficulty}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min={minDifficulty}
+            max={1}
+            step={0.1}
+            value={maxDifficulty}
+            onChange={(e) => setMaxDifficulty(parseFloat(e.target.value))}
+            style={{ accentColor: "red" }}
+          />
+          <span>{maxDifficulty}</span>
+          <Button
+            onClick={handleFilter}
+            className=" px-4 py-2 rounded hover:bg-red-800 transition"
+          >
+            Filter
+          </Button>
+        </div>
+      </div>
+
       <div className="flex items-center justify-center pb-6 px-10">
         <Table
           columns={columns}
