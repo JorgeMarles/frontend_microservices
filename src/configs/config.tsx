@@ -2,3 +2,4 @@ export const URL_BACKEND_PROBLEMS = import.meta.env.VITE_API_PROBLEMS_URL || "";
 export const URL_BACKEND_USERS = import.meta.env.VITE_API_USERS_URL || "";
 export const URL_RUNNER = import.meta.env.VITE_API_RUNNER_URL || "";
 export const URL_BACKEND_CONTESTS = import.meta.env.VITE_API_CONTESTS_URL || "";
+export const URL_BACKEND_STATS = import.meta.env.VITE_API_STATS_URL || "";

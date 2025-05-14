@@ -12,7 +12,7 @@ import Ranking from "./pages/problems/Ranking";
 import Problem from "./pages/problems/Problem";
 import ProtectedRoute from "./session/ProtectedRoute";
 import UserManagement from "./pages/users/UserManagement";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import SubmissionView from "./pages/problems/SubmissionView";
 import ContestView from "./pages/contests/ContestView";
 import ContestList from "./pages/contests/ContestList";
@@ -138,7 +138,7 @@ const App: React.FC = () => {
           <Route
             path="/profile/:id"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Profile />
               </ProtectedRoute>
             }
