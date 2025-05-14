@@ -173,10 +173,8 @@ export default function Statistics() {
               labels: problems?.topics?.map((topic) => topic.name),
               datasets: [
                 {
-                  data: problems?.topics?.map((topic) => topic.solved),
-                  backgroundColor: new Array(5)
-                    .fill(null)
-                    .map(getBackgroundColor),
+                  data: problems?.topics?.map((topic) => topic.total),
+                  backgroundColor: problems?.topics?.map(getBackgroundColor),
                 },
               ],
             }}
