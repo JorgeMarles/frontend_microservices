@@ -10,9 +10,10 @@ interface UserCardProps {
   name: string;
   onSubmit: () => void;
   user: UserInfo;
+  showButton: boolean;
 }
 
-const UserCard: FC<UserCardProps> = ({ name, onSubmit, user }) => {
+const UserCard: FC<UserCardProps> = ({ name, onSubmit, user, showButton }) => {
   const handleSubmit = () => {
     onSubmit();
   };
@@ -23,13 +24,15 @@ const UserCard: FC<UserCardProps> = ({ name, onSubmit, user }) => {
         <h1 className="md:text-8xl text-6xl text-stroke font-Jomhuria">
           {name}
         </h1>
-        <button
-          className="bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full flex items-center shadow-md transition-all duration-100"
-          onClick={handleSubmit}
-        >
-          <p className="text-base font-medium">Update</p>
-          <PencilSquareIcon className="h-6 w-6 ml-3" />
-        </button>
+        {showButton && (
+          <button
+            className="bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-full flex items-center shadow-md transition-all duration-100"
+            onClick={handleSubmit}
+          >
+            <p className="text-base font-medium">Update</p>
+            <PencilSquareIcon className="h-6 w-6 ml-3" />
+          </button>
+        )}
       </div>
 
       <div className="relative my-10 sm:mx-2 p-8 bg-gray-400 rounded-lg shadow-lg">

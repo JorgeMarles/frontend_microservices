@@ -11,12 +11,12 @@ import Submission from "./pages/problems/Submission";
 import Ranking from "./pages/problems/Ranking";
 import Problem from "./pages/problems/Problem";
 import ProtectedRoute from "./session/ProtectedRoute";
-import UserManagement from "./pages/users/UserManagement";
 import Profile from "./pages/profile/Profile";
 import SubmissionView from "./pages/problems/SubmissionView";
 import ContestView from "./pages/contests/ContestView";
 import ContestList from "./pages/contests/ContestList";
 import ContestEditor from "./pages/contests/ContestEditor";
+import UserList from "./pages/users/UserList";
 
 const App: React.FC = () => {
   return (
@@ -110,14 +110,7 @@ const App: React.FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute allowedRoles={["user"]}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+
           {/* Only admin routes */}
           <Route
             path="/createProblem"
@@ -136,18 +129,20 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path="/profile/:id"
+            path="/profile"
             element={
               <ProtectedRoute allowedRoles={["admin", "user"]}>
                 <Profile />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route path=":id" />
+          </Route>
           <Route
             path="/users"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <UserManagement />
+              <ProtectedRoute allowedRoles={["admin", "user"]}>
+                <UserList />
               </ProtectedRoute>
             }
           />

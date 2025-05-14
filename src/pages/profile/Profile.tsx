@@ -4,7 +4,7 @@ import { User } from "../../utils/interfaces";
 import { user as emptyUser } from "../../utils/emptyEntities";
 import { getUser, updateUser } from "../../fetch/UserFetch";
 import Menu from "../../components/Menu";
-import { getEmailUser } from "../../session/Token";
+import { getEmailUser, getTypeUser } from "../../session/Token";
 import FormUser from "../../components/forms/FormUser";
 import UserCard from "../../components/cards/UserCard";
 import Statistics from "./components/Statistics";
@@ -15,12 +15,23 @@ interface UserInfo extends User {
 
 const Profile: FC = () => {
   const { id } = useParams();
+  const type = getTypeUser();
+  const [sesionUser, setSesionUser] = useState<UserInfo>(emptyUser);
   const [data, setData] = useState<UserInfo>(emptyUser);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState(false);
   const [action, setAction] = useState(0);
 
   useEffect(() => {
+    const fetchSesionUser = async () => {
+      try {
+        const response = await getUser(getEmailUser());
+        setSesionUser(response.data.user);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
     const fetchUser = async (email?: string, idUser?: number) => {
       try {
         setIsLoading(true);
@@ -38,6 +49,8 @@ const Profile: FC = () => {
     } else {
       fetchUser(undefined, parseInt(id));
     }
+
+    fetchSesionUser();
   }, [id]);
 
   const handleClose = () => {
@@ -89,6 +102,7 @@ const Profile: FC = () => {
         name={data.nickname}
         user={data}
         onSubmit={handleUpdateMyInfo}
+        showButton={type === "admin" || sesionUser.email === data.email}
       />
 
       {edit && (
@@ -96,7 +110,7 @@ const Profile: FC = () => {
           data={data}
           onSubmit={handleUpdate}
           onClose={handleClose}
-          password={true}
+          password={sesionUser.email === data.email}
         />
       )}
 
