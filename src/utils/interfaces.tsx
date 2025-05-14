@@ -112,12 +112,9 @@ export interface StatsContest {
 }
 
 export interface StatsProblems {
+  veredicts: { name: string; total: number }[];
   total_problems: number;
-  accepted: number;
-  compilation_error: number;
-  wrong_answer: number;
-  time_limit_exceeded: number;
-  runtime_error: number;
+  total_solved: number;
   average_attempts: number;
   topics: { id: number; name: string; solved: number }[];
 }

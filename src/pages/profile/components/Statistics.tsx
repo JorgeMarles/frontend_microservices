@@ -10,6 +10,7 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { Chart as ChartJS, ChartOptions } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import "chart.js/auto";
+import { getIdUser } from "../../../session/Token";
 ChartJS.register(ChartDataLabels);
 
 export default function Statistics() {
@@ -18,9 +19,7 @@ export default function Statistics() {
   const [problems, setProblems] = useState<StatsProblems>();
 
   useEffect(() => {
-    if (id === undefined) return;
-
-    const idInt = parseInt(id);
+    const idInt = id ? parseInt(String(id)) : getIdUser();
 
     const fetchProblems = async () => {
       const problems = await getProblemsStats(idInt);
@@ -35,8 +34,6 @@ export default function Statistics() {
     fetchProblems();
     fetchContests();
   }, [id]);
-
-  if (!id) return;
 
   function getPieOptions(title: string) {
     const chartOptions: ChartOptions<"pie"> = {
@@ -125,6 +122,8 @@ export default function Statistics() {
     ][i % 10];
   }
 
+  if (problems?.total_problems === 0) return;
+
   return (
     <div className="my-10">
       <h2 className="md:text-6xl text-4xl text-stroke font-Jomhuria">
@@ -137,7 +136,7 @@ export default function Statistics() {
         </dl>
         <dl className="bg-white p-4 rounded-lg shadow-sm">
           <dt className="font-bold font-Jomhuria text-3xl">Problems solved</dt>
-          <dd>{problems?.accepted} Problems</dd>
+          <dd>{problems?.total_solved} Problems</dd>
         </dl>
         <dl className="bg-white p-4 rounded-lg shadow-sm">
           <dt className="font-bold font-Jomhuria text-3xl">Average attempts</dt>
@@ -156,29 +155,11 @@ export default function Statistics() {
           <Pie
             className="w-full h-full"
             data={{
-              labels: [
-                "Accepted",
-                "Compilation Error",
-                "Runtime Error",
-                "Time Limit Exceeded",
-                "Wrong Answer",
-              ],
+              labels: problems?.veredicts?.map((veredict) => veredict.name),
               datasets: [
                 {
-                  data: [
-                    problems?.accepted,
-                    problems?.compilation_error,
-                    problems?.runtime_error,
-                    problems?.time_limit_exceeded,
-                    problems?.wrong_answer,
-                  ],
-                  backgroundColor: [
-                    "#10B981", // emerald-500
-                    "#EC4899", // pink-500
-                    "#F59E0B", // amber-500
-                    "#3B82F6", // blue-500
-                    "#EF4444", // red-500
-                  ],
+                  data: problems?.veredicts?.map((veredict) => veredict.total),
+                  backgroundColor: problems?.veredicts?.map(getBackgroundColor),
                 },
               ],
             }}
@@ -189,10 +170,10 @@ export default function Statistics() {
           <Pie
             className="w-full h-full"
             data={{
-              labels: problems?.topics.map((topic) => topic.name),
+              labels: problems?.topics?.map((topic) => topic.name),
               datasets: [
                 {
-                  data: problems?.topics.map((topic) => topic.solved),
+                  data: problems?.topics?.map((topic) => topic.solved),
                   backgroundColor: new Array(5)
                     .fill(null)
                     .map(getBackgroundColor),
@@ -218,15 +199,15 @@ export default function Statistics() {
               },
             })}
             data={{
-              labels: contests?.ranking.map((c) => c.id),
+              labels: contests?.ranking?.map((c) => c.id),
               datasets: [
                 {
                   label: "Top",
-                  data: contests?.ranking.map((c) => c.percentile),
+                  data: contests?.ranking?.map((c) => c.percentile),
                 },
                 {
                   label: "Posicion",
-                  data: contests?.ranking.map((c) => c.position),
+                  data: contests?.ranking?.map((c) => c.position),
                 },
               ],
             }}
