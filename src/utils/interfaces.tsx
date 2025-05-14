@@ -116,5 +116,5 @@ export interface StatsProblems {
   total_problems: number;
   total_solved: number;
   average_attempts: number;
-  topics: { id: number; name: string; solved: number }[];
+  topics: { id: number; name: string; total: number }[];
 }
