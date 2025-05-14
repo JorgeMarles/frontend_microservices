@@ -92,3 +92,29 @@ export interface ContestPosition {
   percentile: number;
   position: number;
 }
+
+export interface StatsContest {
+  total_contests: number;
+  ranking: {
+    id: number;
+    position: number;
+    percentile: number;
+  }[];
+}
+
+export interface StatsContest {
+  total_contests: number;
+  ranking: {
+    id: number;
+    position: number;
+    percentile: number;
+  }[];
+}
+
+export interface StatsProblems {
+  veredicts: { name: string; total: number }[];
+  total_problems: number;
+  total_solved: number;
+  average_attempts: number;
+  topics: { id: number; name: string; solved: number }[];
+}

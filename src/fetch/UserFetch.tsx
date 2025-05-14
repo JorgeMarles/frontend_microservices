@@ -36,9 +36,11 @@ export const getUser = async (email?: string, id?: number) => {
     }
 };
 
-export const getUsers = async () => {
+export const getUsers = async (params: unknown = {}) => {
     try {
-        const response = await api.get('/user');
+        const response = await api.get('/user',{
+            params
+        });
         return response;
     } catch (error) {
         console.error('Error get an user:', error);

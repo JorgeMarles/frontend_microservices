@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import {
   URL_BACKEND_CONTESTS,
   URL_BACKEND_PROBLEMS,
+  URL_BACKEND_STATS,
   URL_BACKEND_USERS,
   URL_RUNNER,
 } from "../configs/config";
@@ -42,7 +43,12 @@ export const apiContests = axios.create({
   baseURL: URL_BACKEND_CONTESTS,
 });
 
+export const apiStats = axios.create({
+  baseURL: URL_BACKEND_STATS,
+});
+
 addAuthInterceptor(apiProblems);
 addAuthInterceptor(apiUsers);
 addAuthInterceptor(apiRunner);
 addAuthInterceptor(apiContests);
+addAuthInterceptor(apiStats);
